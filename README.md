@@ -9,6 +9,16 @@ A pure static site — HTML + CSS + one JS file, no build step, no dependencies.
 
 ---
 
+## 🌐 線上看 · Live site
+
+| | 連結 · Link |
+| --- | --- |
+| **網站 · Website** | <https://tingwei161803.github.io/codex-use-cases/> |
+| **分享單一情境 · Deep link 範例** | <https://tingwei161803.github.io/codex-use-cases/#figma-designs-to-code> |
+| **原始碼 · Source** | <https://github.com/tingwei161803/codex-use-cases> |
+
+---
+
 ## ✨ 功能 · Features
 
 - **中英對照** — 右上角一鍵切換中文 / English，記憶你的偏好（localStorage）。
