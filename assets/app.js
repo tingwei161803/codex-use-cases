@@ -365,6 +365,20 @@
      Init
      ============================================================ */
   $$('.ripple-host').forEach(attachRipple);
+
+  /* Live GitHub star count (fails silently if offline / rate-limited). */
+  fetch('https://api.github.com/repos/tingwei161803/codex-use-cases')
+    .then((r) => (r.ok ? r.json() : null))
+    .then((j) => {
+      if (!j || typeof j.stargazers_count !== 'number') return;
+      const el = $('#gh-count');
+      el.textContent = j.stargazers_count >= 1000
+        ? (j.stargazers_count / 1000).toFixed(1) + 'k'
+        : j.stargazers_count;
+      el.hidden = false;
+    })
+    .catch(() => {});
+
   $('#stat-total').textContent = DATA.length;
   $('#stat-cats').textContent = CATS.length;
   applyStaticI18n();

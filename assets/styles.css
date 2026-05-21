@@ -189,6 +189,29 @@ a:hover { text-decoration: underline; }
 .brand-mark .material-symbols-rounded { font-size: 22px; }
 .brand-sub { color: var(--on-surface-variant); font-weight: 400; font-size: .8rem; }
 
+/* GitHub star button (M3 outlined pill) */
+.ghstar {
+  display: inline-flex; align-items: center; gap: 7px;
+  height: 40px; padding: 0 14px; border-radius: var(--r-full);
+  border: 1px solid var(--outline); background: transparent;
+  font-size: .85rem; font-weight: 500; color: var(--on-surface-variant);
+  text-decoration: none; white-space: nowrap;
+  transition: background var(--dur-short), color var(--dur-short), border-color var(--dur-short);
+}
+.ghstar:hover {
+  background: var(--secondary-container); color: var(--on-secondary-container);
+  border-color: transparent; text-decoration: none;
+}
+.ghstar__logo { width: 17px; height: 17px; flex: none; }
+.ghstar__star { color: #f5c451; transition: transform var(--dur-short) var(--ease-emph); }
+.ghstar:hover .ghstar__star { transform: scale(1.18) rotate(-10deg); }
+.ghstar__count {
+  font-variant-numeric: tabular-nums; font-weight: 600;
+  padding-left: 8px; margin-left: 1px;
+  border-left: 1px solid color-mix(in srgb, currentColor 26%, transparent);
+}
+.ghstar__count[hidden] { display: none; }
+
 /* Segmented button (lang) + icon button (theme) */
 .seg {
   display: inline-flex; align-items: stretch;
@@ -492,6 +515,7 @@ a:hover { text-decoration: underline; }
   .dialog { max-height: 100vh; border-radius: var(--r-xl) var(--r-xl) 0 0; align-self: end; }
   .scrim { padding: 0; align-items: end; }
   .seg button span.lbl { display: none; }
+  .ghstar__text { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
