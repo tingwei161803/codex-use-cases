@@ -1,0 +1,282 @@
+[
+  {
+    "slug": "learn-a-new-concept",
+    "url": "https://developers.openai.com/codex/use-cases/learn-a-new-concept",
+    "tags": ["Knowledge Work"],
+    "title_en": "Learn a new concept",
+    "title_zh": "學習新概念",
+    "summary_en": "Use Codex subagents to digest dense research papers or courses into a structured Markdown study report.",
+    "summary_zh": "運用 Codex 子代理消化艱澀的研究論文或課程，產出結構化的 Markdown 學習報告。",
+    "overview_en": "This use case teaches how to leverage Codex to study dense material like research papers or courses by distributing reading tasks across subagents, gathering supporting context, and generating a comprehensive Markdown report with visualizations.\n\nThe report structure includes an executive summary, prerequisite knowledge, key terms, a paper walkthrough, diagrams, an evidence table, limitations, and open questions, and can be iteratively refined as a study loop.",
+    "overview_zh": "本使用情境教你如何運用 Codex 研讀研究論文或課程等艱澀素材，方法是將閱讀任務分配給多個子代理 (subagent)、蒐集佐證脈絡，並產出含視覺化內容的完整 Markdown 報告。\n\n報告結構包含摘要、先備知識、關鍵詞彙、論文逐節解析、圖表、證據表、限制與待解問題，並可作為研讀迴圈反覆精修。",
+    "when_en": [
+      "Individuals learning unfamiliar concepts",
+      "Dense source material that benefits from parallel reading, context gathering, diagrams, and synthesis",
+      "Creating reusable Markdown reports with citations and glossary terms"
+    ],
+    "when_zh": [
+      "正在學習陌生概念的個人",
+      "適合以平行閱讀、脈絡蒐集、繪製圖表與綜整來消化的艱澀素材",
+      "需要產出含引用與詞彙表、可重複使用的 Markdown 報告"
+    ],
+    "steps_en": [
+      "Define your learning goal: name the concept and specify the desired output (understanding the method, verifying experimental support, or identifying follow-up reading).",
+      "Split work across subagents: paper mapping (problem, contribution, method, experiments, limitations), prerequisite context gathering, notation/figure inspection, and skeptical review of evidence.",
+      "Gather additional context by connecting approved sources (notes, bibliographies, web search, knowledge bases) while keeping scope bounded.",
+      "Generate diagrams such as concept maps, method flows, experiment maps, and limitation diagrams using Mermaid or imagegen.",
+      "Write a Markdown report with executive summary, prerequisite knowledge, key terms, paper walkthrough, diagrams, evidence table, limitations, and open questions.",
+      "Use it as a study loop, iteratively refining through follow-up questions and revisions."
+    ],
+    "steps_zh": [
+      "定義學習目標：指明要學的概念並說明期望產出（理解方法、驗證實驗支持，或找出後續延伸閱讀）。",
+      "將工作分配給子代理：論文脈絡梳理（問題、貢獻、方法、實驗、限制）、先備脈絡蒐集、符號與圖表檢視，以及對證據的審慎審查。",
+      "連接已核准的來源（筆記、參考書目、網路搜尋、知識庫）蒐集更多脈絡，同時維持範圍受控。",
+      "使用 Mermaid 或 imagegen 產出概念圖、方法流程、實驗圖與限制圖等視覺化內容。",
+      "撰寫 Markdown 報告，內含摘要、先備知識、關鍵詞彙、論文逐節解析、圖表、證據表、限制與待解問題。",
+      "將其作為研讀迴圈，透過後續提問與修訂反覆精修。"
+    ],
+    "prompt_en": "I want to learn a new concept from this research paper: [paper path or URL]. Please run this as a subagent workflow: - Spawn one subagent to map the paper's problem statement, contribution, method, experiments, and limitations. - Spawn one subagent to gather prerequisite context and explain the background terms I need. - Spawn one subagent to inspect the figures, tables, notation, and any claims that need careful verification. - Wait for all subagents, reconcile disagreements, and avoid overclaiming beyond the source material. Final output: - create `notes/[concept-name]-report.md` - include an executive summary, glossary, paper walkthrough, concept map, method diagram, evidence table, caveats, and open questions - use Markdown-native Mermaid diagrams where diagrams help - use imagegen to generate illustrative, non-exact visual assets when a Markdown-native diagram is not enough - cite paper sections, pages, figures, or tables whenever possible Constraints: - do not treat the paper as ground truth if the evidence is weak - separate what the paper claims from your interpretation - call out missing background, assumptions, and follow-up reading",
+    "prompt_zh": "我想從這篇研究論文學習一個新概念：[論文路徑或網址]。請以子代理工作流程執行： - 派出一個子代理梳理論文的問題陳述、貢獻、方法、實驗與限制。 - 派出一個子代理蒐集先備脈絡，並解釋我需要的背景術語。 - 派出一個子代理檢視圖、表、符號，以及任何需要審慎驗證的論點。 - 等待所有子代理完成，調和歧異，並避免超出原始素材的過度宣稱。最終產出： - 建立 `notes/[concept-name]-report.md` - 包含摘要、詞彙表、論文逐節解析、概念圖、方法圖、證據表、注意事項與待解問題 - 在圖表有助於理解處使用 Markdown 原生的 Mermaid 圖 - 當 Markdown 原生圖表不足時，使用 imagegen 產出示意而非精確的視覺素材 - 盡可能引用論文的章節、頁碼、圖或表 限制： - 若證據薄弱，不要將論文視為絕對事實 - 區分論文宣稱的內容與你的詮釋 - 點出缺漏的背景、假設與後續延伸閱讀"
+  },
+  {
+    "slug": "api-integration-migrations",
+    "url": "https://developers.openai.com/codex/use-cases/api-integration-migrations",
+    "tags": ["Engineering"],
+    "title_en": "Upgrade your API integration",
+    "title_zh": "升級你的 API 整合",
+    "summary_en": "Update an existing OpenAI API integration to the latest models and features with regression checks before deploy.",
+    "summary_zh": "將現有的 OpenAI API 整合升級到最新模型與功能，並在部署前進行回歸檢查。",
+    "overview_en": "This use case guides teams in updating existing OpenAI API integrations to leverage the latest recommended models and API features. The process includes checking for regressions before deployment to ensure behavior-preserving migrations with explicit validation.\n\nCodex inventories the current integration, plans the smallest migration path, refreshes prompts per the latest model guidance, flags changes needing manual review, and builds an evaluation pipeline using the Evals API.",
+    "overview_zh": "本使用情境引導團隊更新現有的 OpenAI API 整合，以善用最新推薦的模型與 API 功能。流程包含在部署前檢查回歸，確保遷移能保留原有行為並有明確驗證。\n\nCodex 會盤點目前的整合、規劃最小幅度的遷移路徑、依最新模型指引更新提示詞、標示需人工審查的變更，並使用 Evals API 建立評估管線。",
+    "when_en": [
+      "Teams upgrading from older models or API surfaces",
+      "Repositories requiring behavior-preserving migrations with explicit validation"
+    ],
+    "when_zh": [
+      "正從舊版模型或 API 介面升級的團隊",
+      "需要保留行為並有明確驗證的遷移作業的程式碼庫"
+    ],
+    "steps_en": [
+      "Inventory the current integration: catalog the models, endpoints, and tool assumptions in your repository.",
+      "Plan the migration: identify the smallest path to the latest supported API version while preserving existing behavior unless API changes require adjustment.",
+      "Update prompts using the latest model prompt guidance documentation.",
+      "Identify required reviews: document any prompt, tool, or response-shape changes that need manual review.",
+      "Build an evaluation pipeline via the Evals API to verify no regression in behavior occurs."
+    ],
+    "steps_zh": [
+      "盤點目前的整合：在程式碼庫中清點所使用的模型、端點與工具假設。",
+      "規劃遷移：找出升級到最新支援 API 版本的最小路徑，並保留既有行為，除非 API 變更必須調整。",
+      "依最新的模型提示詞指引文件更新提示詞。",
+      "找出需審查項目：記錄任何需人工審查的提示詞、工具或回應結構變更。",
+      "透過 Evals API 建立評估管線，驗證行為沒有發生回歸。"
+    ],
+    "prompt_en": "Use $openai-docs to upgrade this OpenAI integration to the latest recommended model and API features. Specifically, look for the latest model and prompt guidance for this specific model.",
+    "prompt_zh": "使用 $openai-docs 將這個 OpenAI 整合升級到最新推薦的模型與 API 功能。具體來說，請查找這個特定模型的最新模型與提示詞指引。"
+  },
+  {
+    "slug": "deploy-app-or-website",
+    "url": "https://developers.openai.com/codex/use-cases/deploy-app-or-website",
+    "tags": ["Engineering"],
+    "title_en": "Deploy an app or website",
+    "title_zh": "部署應用程式或網站",
+    "summary_en": "Turn a repo, screenshot, or rough idea into a working preview deployment with a shareable live URL via Vercel.",
+    "summary_zh": "透過 Vercel 將程式碼庫、截圖或粗略構想變成可運作的預覽部署，並取得可分享的線上網址。",
+    "overview_en": "This use case describes using Codex with the Build Web Apps skill and Vercel to transform a repository, screenshot, design, or preliminary app concept into a functional preview deployment with a shareable live URL.\n\nCodex inspects the project first, deploys via a Vercel preview by default, reports what changed and the deployment status, and flags any required environment variables, team choices, domain settings, or login steps before handing back.",
+    "overview_zh": "本使用情境說明如何搭配 Build Web Apps 技能與 Vercel 使用 Codex，將程式碼庫、截圖、設計稿或初步的應用程式構想，轉化為可運作的預覽部署，並提供可分享的線上網址。\n\nCodex 會先檢視專案，預設透過 Vercel 預覽部署，回報變更內容與部署狀態，並在交付前標示任何所需的環境變數、團隊選擇、網域設定或登入步驟。",
+    "when_en": [
+      "Converting screenshots, maps, design briefs, or rough concepts into working web previews",
+      "Deploying branches or local applications without manually running Vercel commands",
+      "Sharing live URLs after Codex builds and validates deployment readiness"
+    ],
+    "when_zh": [
+      "將截圖、地圖、設計簡報或粗略構想轉成可運作的網頁預覽",
+      "在不手動執行 Vercel 指令的情況下部署分支或本機應用程式",
+      "在 Codex 完成建置並驗證部署就緒後分享線上網址"
+    ],
+    "steps_en": [
+      "Start with the site and deploy target: provide concrete handoff materials—repos, screenshots, maps, design briefs, product notes, API documentation, or data sources. Codex inspects the project first, then deploys via a Vercel preview by default.",
+      "Check the result before sharing: Codex communicates what changed, which build command ran, and deployment status, and flags required environment variables, team choices, domain settings, or login steps rather than claiming premature completion.",
+      "Iterate from the live URL: keep the conversation thread active to request additional fixes, data updates, layout adjustments, or build log reviews using the existing repository and deployment context."
+    ],
+    "steps_zh": [
+      "從網站與部署目標著手：提供具體的交付素材——程式碼庫、截圖、地圖、設計簡報、產品筆記、API 文件或資料來源。Codex 會先檢視專案，再預設透過 Vercel 預覽部署。",
+      "分享前先檢查結果：Codex 會說明變更內容、執行了哪個建置指令與部署狀態，並標示所需的環境變數、團隊選擇、網域設定或登入步驟，而非過早宣稱完成。",
+      "從線上網址持續迭代：保持對話串開啟，運用既有的程式碼庫與部署脈絡，要求進一步修正、資料更新、版面調整或檢視建置日誌。"
+    ],
+    "prompt_en": "Use @build-web-apps to turn [repo, screenshot, design, or rough app idea] into a working website. Then use @vercel to deploy a preview and hand me the live URL. Context: - [what the site should do] - [source data, API, docs, or assets to use] - [style or product constraints] - [anything not to change] Before you hand it back, run the local build and verify the deployment is ready.",
+    "prompt_zh": "使用 @build-web-apps 把 [程式碼庫、截圖、設計稿或粗略的應用程式構想] 變成可運作的網站。接著使用 @vercel 部署一個預覽並把線上網址交給我。脈絡： - [網站應該做什麼] - [要使用的來源資料、API、文件或素材] - [風格或產品限制] - [任何不應變動的部分] 交付前，請執行本機建置並驗證部署已就緒。"
+  },
+  {
+    "slug": "figma-designs-to-code",
+    "url": "https://developers.openai.com/codex/use-cases/figma-designs-to-code",
+    "tags": ["Design", "Engineering"],
+    "title_en": "Turn Figma designs into code",
+    "title_zh": "把 Figma 設計轉成程式碼",
+    "summary_en": "Convert a Figma selection into production UI code that matches your design system, verified against the reference with Playwright.",
+    "summary_zh": "將 Figma 選取的內容轉為符合你設計系統的正式 UI 程式碼，並用 Playwright 對照參考稿驗證。",
+    "overview_en": "This use case demonstrates how to leverage Codex to convert Figma selections into production-ready UI code. The approach combines structured design context extraction, asset management, and visual verification through browser testing.\n\nThe workflow pulls design context, assets, and variants from Figma, translates them into code matching the repository's design system, then uses Playwright to compare implementations against the Figma reference, iterating until alignment is achieved.",
+    "overview_zh": "本使用情境示範如何運用 Codex 將 Figma 選取的內容轉換成可上線的 UI 程式碼。其做法結合了結構化的設計脈絡擷取、素材管理，以及透過瀏覽器測試的視覺驗證。\n\n此工作流程會從 Figma 取出設計脈絡、素材與變體，將其轉譯為符合程式碼庫設計系統的程式碼，接著用 Playwright 將實作與 Figma 參考稿比對，反覆迭代直到一致為止。",
+    "when_en": [
+      "Implementing already-designed screens or flows from Figma in an existing codebase",
+      "Teams that want Codex to work from structured design context"
+    ],
+    "when_zh": [
+      "在既有程式碼庫中實作 Figma 上已設計好的畫面或流程",
+      "希望 Codex 依結構化設計脈絡作業的團隊"
+    ],
+    "steps_en": [
+      "Start from a Figma selection: copy a link to the exact frame, component, or variant you need implemented.",
+      "Prompt Codex to use Figma: run get_design_context for the exact node first; if truncated, use get_metadata to map the file and re-fetch needed nodes; run get_screenshot for the exact variant before coding.",
+      "Download assets and implement only after both design context and variant are available, translating results into the repo's conventions and using any localhost image/SVG sources directly.",
+      "Validate against the reference: use Playwright to compare the finished UI against Figma, iterating until visual and behavioral alignment is achieved."
+    ],
+    "steps_zh": [
+      "從 Figma 選取著手：複製你需要實作的確切框架、元件或變體的連結。",
+      "提示 Codex 使用 Figma：先對該確切節點執行 get_design_context；若回應被截斷，用 get_metadata 梳理檔案並重新抓取所需節點；在開始寫程式前對該確切變體執行 get_screenshot。",
+      "在設計脈絡與變體都備齊後才下載素材並開始實作，將結果轉譯為程式碼庫的慣例，並直接使用任何 localhost 的圖片或 SVG 來源。",
+      "對照參考稿驗證：用 Playwright 將完成的 UI 與 Figma 比對，反覆迭代直到外觀與行為皆一致。"
+    ],
+    "prompt_en": "Implement this Figma design in the current project using the Figma skill. Requirements: - Start with `get_design_context` for the exact node or frame. - If the response is truncated, use `get_metadata` to map the file and then re-fetch only the needed nodes with `get_design_context`. - Run `get_screenshot` for the exact variant before you start coding. - Reuse the existing design system components and tokens. - Translate the Figma output into this repo's utilities and component patterns instead of inventing a parallel system. - Match spacing, layout, hierarchy, and responsive behavior closely. - Respect the repo's routing, state, and data-fetch patterns. - Make the page responsive on desktop and mobile. - If Figma returns localhost image or SVG sources, use them directly and do not create placeholders or add new icon packages. Validation: - Compare the finished UI against the Figma reference for both look and behavior. - Use Playwright to check that the UI matches the reference and iterate as needed until it does.",
+    "prompt_zh": "使用 Figma 技能在目前的專案中實作這份 Figma 設計。需求： - 先對該確切節點或框架執行 `get_design_context`。 - 若回應被截斷，使用 `get_metadata` 梳理檔案，再用 `get_design_context` 只重新抓取所需的節點。 - 在開始寫程式前對該確切變體執行 `get_screenshot`。 - 重複使用既有的設計系統元件與 token。 - 將 Figma 的產出轉譯為這個程式碼庫的工具函式與元件模式，而非另立一套平行系統。 - 緊密貼合間距、版面、層次與響應式行為。 - 遵循程式碼庫的路由、狀態與資料抓取模式。 - 讓頁面在桌機與行動裝置上都能響應式呈現。 - 若 Figma 回傳 localhost 的圖片或 SVG 來源，直接使用它們，不要建立佔位圖或新增圖示套件。驗證： - 將完成的 UI 與 Figma 參考稿在外觀與行為上比對。 - 使用 Playwright 檢查 UI 是否與參考稿相符，並視需要反覆迭代直到一致。"
+  },
+  {
+    "slug": "qa-your-app-with-computer-use",
+    "url": "https://developers.openai.com/codex/use-cases/qa-your-app-with-computer-use",
+    "tags": ["Engineering"],
+    "title_en": "QA your app with Computer Use",
+    "title_zh": "用 Computer Use 為你的應用程式做 QA",
+    "summary_en": "Use Computer Use to exercise key product flows, find issues, and generate structured, triage-ready bug reports.",
+    "summary_zh": "運用 Computer Use 操作關鍵產品流程、找出問題，並產出結構化、可直接分流的錯誤報告。",
+    "overview_en": "This use case guides teams through using Computer Use to exercise key product flows, identify issues, and generate structured bug reports. The approach leverages Computer Use's ability to interact with interfaces, navigate workflows, and document failures systematically.\n\nFor better results, provide setup context (account state, test data, feature flags, environment) upfront, scope which issue categories to focus on, and decide whether blocking issues should stop testing or whether Codex should keep collecting non-blocking issues before summarizing.",
+    "overview_zh": "本使用情境引導團隊使用 Computer Use 操作關鍵產品流程、找出問題，並產出結構化的錯誤報告。其做法善用 Computer Use 與介面互動、瀏覽工作流程並系統化記錄失敗的能力。\n\n為了獲得更好的結果，請先提供設定脈絡（帳號狀態、測試資料、功能旗標、環境），界定要聚焦的問題類別，並決定遇到阻斷性問題時應停止測試，還是讓 Codex 繼續蒐集非阻斷性問題後再做總結。",
+    "when_en": [
+      "Teams validating real user flows before a release",
+      "QA loops requiring severity ratings, reproduction steps, and triage summaries"
+    ],
+    "when_zh": [
+      "在發佈前驗證真實使用者流程的團隊",
+      "需要嚴重度評級、重現步驟與分流摘要的 QA 迴圈"
+    ],
+    "steps_en": [
+      "Install the Computer Use plugin.",
+      "Specify the app, build, or environment to test, including account state, test data, and feature flags upfront.",
+      "Define the critical flows or hero use cases, and scope which issue categories matter (broken functionality, layout, copy, visual regressions, or all).",
+      "Decide whether blocking issues stop testing or Codex continues collecting non-blocking issues, then request structured report output for easy triage."
+    ],
+    "steps_zh": [
+      "安裝 Computer Use 外掛程式。",
+      "指定要測試的應用程式、組建或環境，並先提供帳號狀態、測試資料與功能旗標。",
+      "定義關鍵流程或核心使用情境，並界定要重視哪些問題類別（功能損壞、版面、文案、視覺回歸，或全部）。",
+      "決定遇到阻斷性問題時是否停止測試，或讓 Codex 繼續蒐集非阻斷性問題，然後要求產出結構化報告以便分流。"
+    ],
+    "prompt_en": "@Computer Test my app in [environment]. Test these flows: - [hero use case 1] - [hero use case 2] - [hero use case 3] For every bug you find, include: - repro steps - expected result - actual result - severity Keep going past non-blocking issues and end with a short triage summary.",
+    "prompt_zh": "@Computer 在 [環境] 中測試我的應用程式。測試這些流程： - [核心使用情境 1] - [核心使用情境 2] - [核心使用情境 3] 對於你找到的每個錯誤，請包含： - 重現步驟 - 預期結果 - 實際結果 - 嚴重度 遇到非阻斷性問題請繼續進行，最後以一段簡短的分流摘要作結。"
+  },
+  {
+    "slug": "datasets-and-reports",
+    "url": "https://developers.openai.com/codex/use-cases/datasets-and-reports",
+    "tags": ["Knowledge Work"],
+    "title_en": "Analyze datasets and ship reports",
+    "title_zh": "分析資料集並交付報告",
+    "summary_en": "Take messy data through cleaning, joining, exploration, and modeling to produce reusable, reviewable analysis artifacts.",
+    "summary_zh": "把雜亂的資料經過清理、合併、探索與建模，產出可重複使用、可審查的分析成果。",
+    "overview_en": "This use case focuses on leveraging Codex to transform messy data into polished analysis and visualizations. The workflow moves from raw data through cleaning, joining sources, hypothesis exploration, and modeling, ultimately producing a reusable artifact rather than ephemeral notebook state.\n\nProject-specific AGENTS.md files guide Codex behavior, and worktrees isolate analytical directions to keep diffs reviewable. Results can be packaged as Markdown memos, spreadsheets, Word documents, PDFs, or dashboard deployments.",
+    "overview_zh": "本使用情境著重於運用 Codex 將雜亂的資料轉化為精緻的分析與視覺化。工作流程從原始資料出發，歷經清理、合併來源、假設探索與建模，最終產出可重複使用的成果，而非轉瞬即逝的 notebook 狀態。\n\n專案專屬的 AGENTS.md 檔案引導 Codex 的行為，並以 worktree 隔離不同分析方向，使差異易於審查。結果可包裝成 Markdown 備忘錄、試算表、Word 文件、PDF，或儀表板部署。",
+    "when_en": [
+      "Data analysis projects starting with disorganized files and culminating in charts, memos, dashboards, or reports",
+      "Analysts seeking help with cleanup, joins, exploratory work, and reproducible script generation",
+      "Teams prioritizing reviewable deliverables over transient notebook environments"
+    ],
+    "when_zh": [
+      "從雜亂檔案出發、最終要產出圖表、備忘錄、儀表板或報告的資料分析專案",
+      "需要協助清理、合併、探索與產生可重現腳本的分析人員",
+      "重視可審查交付物、勝過短暫 notebook 環境的團隊"
+    ],
+    "steps_en": [
+      "Define your use case: select one specific question to answer (e.g. 'To what extent are houses near the highway lower in property valuation?').",
+      "Set up the environment: establish the Python environment, package management, folder conventions, and output standards, using AGENTS.md to organize raw data separately and never overwrite source files.",
+      "Import the data: inspect file formats and contents, and ask Codex to identify likely identifiers, targets, dates, and quality issues before analysis.",
+      "Tidy and merge inputs: profile merges before executing—check key uniqueness, measure null rates, normalize formatting, run trial joins, and document match rates.",
+      "Explore with charts and worktrees, using separate worktrees to isolate directions (e.g. address cleanup vs. modeling) and keep diffs reviewable.",
+      "Model the question with interpretable baselines, then communicate results as Markdown memos, spreadsheets, Word documents, PDFs, or dashboards."
+    ],
+    "steps_zh": [
+      "定義你的使用情境：選定一個要回答的具體問題（例如「靠近高速公路的房屋在房地產估值上低多少？」）。",
+      "設定環境：建立 Python 環境、套件管理、資料夾慣例與輸出標準，並用 AGENTS.md 將原始資料另行存放、絕不覆蓋來源檔案。",
+      "匯入資料：檢視檔案格式與內容，並請 Codex 在分析前找出可能的識別欄、目標、日期與品質問題。",
+      "整理並合併輸入：在執行合併前先剖析——檢查鍵值唯一性、量測空值率、正規化格式、試跑 join，並記錄比對率。",
+      "用圖表與 worktree 探索，以不同的 worktree 隔離各方向（例如地址清理對比建模），讓差異易於審查。",
+      "用可解釋的基準模型對問題建模，再將結果以 Markdown 備忘錄、試算表、Word 文件、PDF 或儀表板呈現。"
+    ],
+    "prompt_en": "I'm doing a data analysis project in this workspace. Goal: Figure out whether houses near the highway have lower property valuations. Start by: reading `AGENTS.md` and explaining the recommended Python environment; loading the dataset(s) at [dataset path]; describing what each file contains, likely join keys, and obvious data quality issues; proposing a reproducible workflow from import and tidy through visualization, modeling, and report output. Constraints: prefer scripts and saved artifacts over one-off notebook state; do not invent missing values or merge keys; suggest any skills or worktree splits that would make the workflow more reproducible. Output: setup plan, data inventory, analysis plan, first commands or files to create.",
+    "prompt_zh": "我正在這個工作區進行一個資料分析專案。目標：釐清靠近高速公路的房屋是否房地產估值較低。請從以下開始：閱讀 `AGENTS.md` 並說明建議的 Python 環境；載入位於 [資料集路徑] 的資料集；描述每個檔案的內容、可能的 join 鍵，以及明顯的資料品質問題；提出一套可重現的工作流程，從匯入與整理，到視覺化、建模與報告輸出。限制：偏好腳本與已儲存的成果，而非一次性的 notebook 狀態；不要捏造缺漏值或合併鍵；建議任何能讓工作流程更可重現的技能或 worktree 拆分。產出：設定計畫、資料清單、分析計畫，以及要建立的第一批指令或檔案。"
+  },
+  {
+    "slug": "complete-tasks-from-messages",
+    "url": "https://developers.openai.com/codex/use-cases/complete-tasks-from-messages",
+    "tags": ["Knowledge Work"],
+    "title_en": "Complete tasks from messages",
+    "title_zh": "從訊息完成任務",
+    "summary_en": "Turn iMessage threads into completed work across the apps involved, with a drafted reply in the same thread.",
+    "summary_zh": "將 iMessage 對話串轉成跨相關應用程式完成的工作，並在同一對話串中草擬回覆。",
+    "overview_en": "This use case enables users to turn iMessage threads into completed work across the apps involved. The feature leverages Computer Use to read message threads, complete requested tasks, and draft replies within the conversation.\n\nFor reliability, request pauses before irreversible actions (payments, orders, bookings, schedule confirmations), pre-sign into supporting apps (Maps, Calendar, Notes, reservation sites), and note that opening the thread marks it as read.",
+    "overview_zh": "本使用情境讓使用者將 iMessage 對話串轉成跨相關應用程式完成的工作。此功能運用 Computer Use 閱讀訊息對話串、完成所要求的任務，並在對話中草擬回覆。\n\n為求可靠，請要求在不可逆動作（付款、下單、訂位、確認行程）前暫停、先登入支援的應用程式（地圖、行事曆、備忘錄、訂位網站），並留意開啟對話串會將其標示為已讀。",
+    "when_en": [
+      "Message threads containing concrete requests, follow-ups, or booking tasks",
+      "Work requiring quick verification across Messages and related applications"
+    ],
+    "when_zh": [
+      "含有具體請求、後續事項或訂位任務的訊息對話串",
+      "需要在 Messages 與相關應用程式間快速核對的工作"
+    ],
+    "steps_en": [
+      "Install the Computer Use plugin.",
+      "Ask Codex to review a specific message thread or sender.",
+      "Specify the action to take and whether to pause before completing tasks, especially before irreversible actions.",
+      "Indicate whether a reply should be drafted in the original thread."
+    ],
+    "steps_zh": [
+      "安裝 Computer Use 外掛程式。",
+      "請 Codex 檢視某個特定的訊息對話串或寄件者。",
+      "指明要採取的動作，以及是否在完成任務前暫停，尤其是在不可逆動作之前。",
+      "說明是否要在原始對話串中草擬回覆。"
+    ],
+    "prompt_en": "@Computer Look at my messages from [person]. Then: - understand the request - complete the task across the apps involved - draft a reply in the same thread Pause before anything irreversible, such as placing an order or confirming a booking.",
+    "prompt_zh": "@Computer 查看我來自 [某人] 的訊息。然後： - 理解該請求 - 跨相關應用程式完成任務 - 在同一對話串中草擬回覆 在任何不可逆的動作前暫停，例如下單或確認訂位。"
+  },
+  {
+    "slug": "idea-to-proof-of-concept",
+    "url": "https://developers.openai.com/codex/use-cases/idea-to-proof-of-concept",
+    "tags": ["Engineering", "Design"],
+    "title_en": "Get from idea to proof of concept",
+    "title_zh": "從構想到概念驗證",
+    "summary_en": "Combine Codex with ImageGen to turn rough product ideas into visual directions and working prototypes for validation.",
+    "summary_zh": "結合 Codex 與 ImageGen，將粗略的產品構想轉為視覺方向與可運作的原型以供驗證。",
+    "overview_en": "This use case demonstrates how to combine Codex with ImageGen to transform rough product ideas into visual directions and working prototypes. The workflow emphasizes validation through functional prototypes rather than lengthy planning documents, enabling teams to test concepts with actual implementations before major investment.\n\nIt leverages ImageGen (UI mockups via gpt-image-2), Playwright (browser verification), the Build Web Apps plugin (concept-first web apps, dashboards, and frontend prototypes), and the Game Studio plugin (browser-based game prototypes with playable loops and asset workflows).",
+    "overview_zh": "本使用情境示範如何結合 Codex 與 ImageGen，將粗略的產品構想轉化為視覺方向與可運作的原型。此工作流程強調透過可運作的原型來驗證，而非冗長的規劃文件，讓團隊在大量投入前能以實際實作測試概念。\n\n它運用 ImageGen（以 gpt-image-2 產出 UI 樣稿）、Playwright（瀏覽器驗證）、Build Web Apps 外掛程式（概念優先的網頁應用、儀表板與前端原型），以及 Game Studio 外掛程式（含可玩迴圈與素材流程的瀏覽器遊戲原型）。",
+    "when_en": [
+      "Early-stage product ideas requiring working prototypes to validate assumptions",
+      "Web apps, dashboards, and tools needing visual exploration before full development",
+      "Teams seeking to validate concepts through functional implementations before committing resources"
+    ],
+    "when_zh": [
+      "需要可運作原型來驗證假設的早期產品構想",
+      "在全面開發前需要視覺探索的網頁應用、儀表板與工具",
+      "希望在投入資源前以可運作實作來驗證概念的團隊"
+    ],
+    "steps_en": [
+      "Generate a visual direction using ImageGen iterations to create UI mockups and visual concepts.",
+      "Implement the prototype using the appropriate plugin (Build Web Apps for web apps/dashboards, Game Studio for browser games).",
+      "Verify the implementation in the browser using Playwright.",
+      "Iterate with scoped changes and feedback cycles."
+    ],
+    "steps_zh": [
+      "使用 ImageGen 反覆產出 UI 樣稿與視覺概念，產生視覺方向。",
+      "使用合適的外掛程式實作原型（網頁應用／儀表板用 Build Web Apps，瀏覽器遊戲用 Game Studio）。",
+      "使用 Playwright 在瀏覽器中驗證實作。",
+      "以範圍受控的變更與回饋循環反覆迭代。"
+    ],
+    "prompt_en": "Use ImageGen to generate a high quality UI mockup for the following idea, then use the [Build Web Apps plugin/Game studio plugin] to implement it: [describe the idea, target user, and the main workflow]",
+    "prompt_zh": "使用 ImageGen 為以下構想產出一份高品質的 UI 樣稿，接著使用 [Build Web Apps 外掛程式／Game studio 外掛程式] 將其實作出來：[描述構想、目標使用者，以及主要的工作流程]"
+  }
+]

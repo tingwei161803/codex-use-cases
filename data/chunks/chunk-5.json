@@ -1,0 +1,306 @@
+[
+  {
+    "slug": "ios-liquid-glass",
+    "url": "https://developers.openai.com/codex/use-cases/ios-liquid-glass",
+    "tags": ["Front-end", "iOS"],
+    "title_en": "Adopt liquid glass",
+    "title_zh": "採用 Liquid Glass",
+    "summary_en": "Use Codex to audit SwiftUI UI and migrate custom blur stacks to native iOS 26 Liquid Glass.",
+    "summary_zh": "用 Codex 稽核 SwiftUI 介面，將自訂模糊堆疊遷移為原生 iOS 26 Liquid Glass。",
+    "overview_en": "Use Codex and the Build iOS Apps plugin to audit existing iPhone and iPad UI, replace custom blur or material stacks with native Liquid Glass, and keep the migration safe with iOS 26 availability checks and simulator-driven validation.",
+    "overview_zh": "用 Codex 搭配 Build iOS Apps 外掛稽核既有的 iPhone 與 iPad 介面，將自訂的模糊或材質堆疊替換為原生 Liquid Glass，並透過 iOS 26 可用性檢查與 simulator 驅動的驗證，讓整個遷移過程保持安全。",
+    "when_en": [
+      "Existing SwiftUI apps needing practical iOS 26 Liquid Glass migration plans, not vague redesign briefs",
+      "Teams wanting Codex to audit custom cards, sheets, tab bars, toolbars, and action buttons, then implement migration incrementally",
+      "Apps supporting older iOS versions needing `#available(iOS 26, *)` fallbacks instead of one-way visual rewrites"
+    ],
+    "when_zh": [
+      "既有 SwiftUI app 需要務實的 iOS 26 Liquid Glass 遷移計畫，而非模糊的重新設計簡報",
+      "團隊希望 Codex 稽核自訂卡片、sheet、tab bar、toolbar 與動作按鈕，再逐步實作遷移",
+      "支援較舊 iOS 版本的 app 需要 `#available(iOS 26, *)` 後備方案，而非單向的視覺重寫"
+    ],
+    "steps_en": [
+      "Start from iOS 26 baseline: rebuild with the iOS 26 SDK, inspect standard SwiftUI control outputs, then ask Codex to redesign only the custom parts that look flat or detached from system chrome.",
+      "Leverage the iOS plugin: use the Build iOS Apps plugin to combine SwiftUI changes with simulator verification—audit one flow, migrate surfaces, launch on an iOS 26 simulator, and capture screenshots before expanding scope.",
+      "Watch reference sessions: review WWDC25 sessions on Liquid Glass, the design system, SwiftUI apps, and UIKit apps.",
+      "Prompt migration plan first: separate 'where should glass appear?' from implementation—request a quick audit, then implement one self-contained slice with verification.",
+      "Practical tips: don't glass everything; start with one high-traffic flow; review fallback behavior deliberately."
+    ],
+    "steps_zh": [
+      "從 iOS 26 基線開始：以 iOS 26 SDK 重新建置，檢視標準 SwiftUI 控制項的輸出，再請 Codex 只重新設計那些看起來扁平或與系統 chrome 脫節的自訂部分。",
+      "善用 iOS 外掛：用 Build iOS Apps 外掛把 SwiftUI 變更與 simulator 驗證結合起來——先稽核一個流程，遷移各個介面，在 iOS 26 simulator 上啟動，並在擴大範圍前擷取截圖。",
+      "觀看參考議程：回顧 WWDC25 關於 Liquid Glass、設計系統、SwiftUI app 與 UIKit app 的議程。",
+      "先請 Codex 規劃遷移計畫：把「玻璃效果該出現在哪裡？」與實作分開——先要求快速稽核，再實作一個自成一體的切片並驗證。",
+      "實務建議：不要全部都套用玻璃效果；從一個高流量流程開始；刻意審視後備行為。"
+    ],
+    "prompt_en": "Use the Build iOS Apps plugin and its SwiftUI Liquid Glass skill to migrate one high-traffic flow in this app to Liquid Glass. Constraints: Treat this as an iOS 26 + Xcode 26 migration, but preserve a non-glass fallback for earlier deployment targets with `#available(iOS 26, *)`. Audit the flow first. Call out custom backgrounds, blur stacks, chips, buttons, sheets, and toolbars that should become native Liquid Glass and call out surfaces that should stay plain content. Prefer system controls and native APIs like `glassEffect`, `GlassEffectContainer`, `glassEffectID`, `.buttonStyle(.glass)`, and `.buttonStyle(.glassProminent)` over custom blurs. Use `glassEffectID` with `@Namespace` only when a real morphing transition improves the flow. Apply `glassEffect` after layout and visual modifiers, keep shapes consistent, and use `.interactive()` only on controls that actually respond to touch. Use XcodeBuildMCP to build and run on an iOS 26 simulator, capture screenshots for the migrated flow, and mention exactly which scheme, simulator, and checks you used. Deliver: a concise migration plan for the flow, the implemented Liquid Glass slice, the fallback behavior for pre-iOS 26 devices, the simulator validation steps and screenshots you used.",
+    "prompt_zh": "使用 Build iOS Apps 外掛及其 SwiftUI Liquid Glass skill，將這個 app 中一個高流量流程遷移到 Liquid Glass。限制條件：將此視為 iOS 26 + Xcode 26 的遷移，但要用 `#available(iOS 26, *)` 為較早的部署目標保留非玻璃的後備方案。先稽核該流程。標示出應該變成原生 Liquid Glass 的自訂背景、模糊堆疊、chip、按鈕、sheet 與 toolbar，並標示出應該維持為純內容的介面。優先採用系統控制項與原生 API，例如 `glassEffect`、`GlassEffectContainer`、`glassEffectID`、`.buttonStyle(.glass)` 與 `.buttonStyle(.glassProminent)`，而非自訂模糊。只有在真正的變形轉場能改善流程時，才搭配 `@Namespace` 使用 `glassEffectID`。在版面與視覺修飾子之後才套用 `glassEffect`，保持形狀一致，並只在真正會回應觸控的控制項上使用 `.interactive()`。使用 XcodeBuildMCP 在 iOS 26 simulator 上建置與執行，為遷移後的流程擷取截圖，並明確說明你用了哪個 scheme、simulator 與檢查。交付：該流程簡潔的遷移計畫、實作出來的 Liquid Glass 切片、iOS 26 以前裝置的後備行為，以及你使用的 simulator 驗證步驟與截圖。"
+  },
+  {
+    "slug": "macos-telemetry-logs",
+    "url": "https://developers.openai.com/codex/use-cases/macos-telemetry-logs",
+    "tags": ["macOS", "Debugging"],
+    "title_en": "Add Mac telemetry",
+    "title_zh": "為 Mac 加上 telemetry",
+    "summary_en": "Use Codex to instrument one Mac feature with Logger, run the app, and verify events from unified logs.",
+    "summary_zh": "用 Codex 以 Logger 為單一 Mac 功能加上儀表，執行 app，並從 unified logs 驗證事件。",
+    "overview_en": "Use Codex to instrument one Mac feature with Logger, run the app, and verify the action from unified logs. The guide focuses on adding lightweight unified logging around windows, sidebars, commands, or sync flows, then validating those events fire correctly via Console or `log stream`.",
+    "overview_zh": "用 Codex 以 Logger 為單一 Mac 功能加上儀表，執行 app，並從 unified logs 驗證該動作。本指南聚焦於圍繞視窗、側邊欄、命令或同步流程加上輕量的 unified logging，再透過 Console 或 `log stream` 驗證這些事件是否正確觸發。",
+    "when_en": [
+      "Mac app features requiring reliable tracing of window opening, sidebar selection, menu commands, menu bar actions, sync milestones, or fallback paths",
+      "Agentic debugging loops where Codex patches code, reruns the app, inspects logs, and decides next fixes from evidence rather than assumptions",
+      "Local app-session collection loops tracking compact sequences of user actions and lifecycle events comparable across repeated runs"
+    ],
+    "when_zh": [
+      "Mac app 功能需要可靠追蹤視窗開啟、側邊欄選取、選單命令、選單列動作、同步里程碑或後備路徑",
+      "代理式除錯迴圈中，Codex 修補程式碼、重新執行 app、檢視 logs，並依證據而非假設決定下一步修正",
+      "本地 app 工作階段收集迴圈，追蹤可在多次執行間比對的精簡使用者動作與生命週期事件序列"
+    ],
+    "steps_en": [
+      "Instrument one feature at a time—start with one sidebar, window, command, or sync path to keep the log sequence inspectable.",
+      "Add one Logger where debugging gets vague—use the Build macOS Apps plugin's lightweight telemetry skill; employ Apple's `Logger`, select clear subsystem/category pairs, log action boundaries and state transitions, and avoid sensitive payloads.",
+      "Use `info` for stable, high-signal events—keep permanent info logs focused on concise action and lifecycle events; reserve `debug` for noisier details removable before completion.",
+      "Ask Codex to prove events from logs—run the app, trigger instrumented flows, capture the exact Console filter or `log stream` predicate used, and include representative log lines.",
+      "Save session traces for later passes—for longer or intermittent issues, preserve filtered log streams in local trace files to enable multi-pass debugging without replaying entire sessions.",
+      "Make privacy part of the prompt—instruct Codex to explain every logged identifier and avoid writing secrets, personal data, or raw content to unified logs."
+    ],
+    "steps_zh": [
+      "一次只為一個功能加上儀表——從單一側邊欄、視窗、命令或同步路徑開始，讓 log 序列保持可檢視。",
+      "在除錯變得模糊之處加上一個 Logger——使用 Build macOS Apps 外掛的輕量 telemetry skill；採用 Apple 的 `Logger`，選定清楚的 subsystem/category 配對，記錄動作邊界與狀態轉換，並避免敏感資料內容。",
+      "用 `info` 記錄穩定且高訊號的事件——讓永久的 info log 聚焦於精簡的動作與生命週期事件；把 `debug` 保留給較吵雜、可在完成前移除的細節。",
+      "請 Codex 從 logs 證明事件——執行 app、觸發已加儀表的流程、擷取所用的確切 Console 篩選條件或 `log stream` predicate，並附上代表性的 log 行。",
+      "為後續分析保存工作階段追蹤——對於較長或間歇性的問題，將篩選後的 log 串流保存到本地 trace 檔，以便進行多階段除錯而無需重播整個工作階段。",
+      "讓隱私成為 prompt 的一部分——指示 Codex 解釋每個記錄的識別碼，並避免將機密、個資或原始內容寫入 unified logs。"
+    ],
+    "prompt_en": "Use the Build macOS Apps plugin to add lightweight unified logging around [name one Mac feature or action flow], then run the app and verify from logs that those events fire in the expected order.\n\nConstraints:\n- Prefer `Logger` from `OSLog`, not `print`, and create a clear subsystem/category pair for this feature so the logs are easy to filter.\n- Log one concise line for each important action boundary or state transition: for example window opened, sidebar selection changed, menu command invoked, sync started, sync finished, or fallback path taken.\n- Keep permanent `info` logs stable and high signal. Use `debug` only for noisy local details, and remove or demote temporary instrumentation before finishing.\n- Do not log secrets, auth tokens, personal data, or raw document contents. If an identifier must be logged, choose the safest privacy annotation and explain why.\n- Build and run the app, exercise the feature path yourself, and verify the events with Console or a focused `log stream` predicate.\n- If the flow is long, intermittent, or easier to reproduce by hand, save the filtered log stream to a small local session trace file, let me manually exercise the app if needed, then read that file back and summarize the event timeline.\n- If an expected event does not appear, move the log closer to the suspected control path, rerun the flow, and continue until the logs explain what happened.\n\nDeliver:\n- the new logger setup and the exact events you added\n- the Console filter or `log stream` predicate you used\n- a short before/after summary of what the logs now make observable\n- the saved trace file and timeline summary if this became a longer capture session\n- one or two representative log lines that prove the flow is instrumented correctly",
+    "prompt_zh": "使用 Build macOS Apps 外掛，圍繞 [指定一個 Mac 功能或動作流程] 加上輕量的 unified logging，然後執行 app 並從 logs 驗證這些事件是否以預期順序觸發。\n\n限制條件：\n- 優先使用 `OSLog` 的 `Logger` 而非 `print`，並為此功能建立清楚的 subsystem/category 配對，讓 logs 易於篩選。\n- 為每個重要的動作邊界或狀態轉換記錄一行精簡訊息：例如視窗已開啟、側邊欄選取已變更、選單命令已呼叫、同步已開始、同步已完成或已採用後備路徑。\n- 讓永久的 `info` log 保持穩定且高訊號。只在吵雜的本地細節使用 `debug`，並在完成前移除或降級臨時的儀表。\n- 不要記錄機密、auth token、個資或原始文件內容。若必須記錄某個識別碼，請選擇最安全的隱私註記並說明原因。\n- 建置並執行 app，自行操作該功能路徑，並用 Console 或聚焦的 `log stream` predicate 驗證事件。\n- 若該流程冗長、間歇出現或較容易手動重現，請將篩選後的 log 串流保存到一個小型本地工作階段 trace 檔，必要時讓我手動操作 app，再讀回該檔案並摘要事件時間軸。\n- 若預期事件未出現，請將 log 移近可疑的控制路徑，重新執行該流程，並持續到 logs 能解釋發生了什麼為止。\n\n交付：\n- 新的 logger 設定與你加入的確切事件\n- 你使用的 Console 篩選條件或 `log stream` predicate\n- logs 現在讓哪些東西變得可觀察的簡短前後對照摘要\n- 若這變成較長的擷取工作階段，附上保存的 trace 檔與時間軸摘要\n- 一到兩行能證明流程已正確加上儀表的代表性 log 行"
+  },
+  {
+    "slug": "ios-simulator-bug-debugging",
+    "url": "https://developers.openai.com/codex/use-cases/ios-simulator-bug-debugging",
+    "tags": ["iOS", "Debugging"],
+    "title_en": "Debug in iOS simulator",
+    "title_zh": "在 iOS simulator 中除錯",
+    "summary_en": "Use Codex and XcodeBuildMCP to drive the app in iOS Simulator, capture evidence, and iterate toward a fix.",
+    "summary_zh": "用 Codex 與 XcodeBuildMCP 在 iOS Simulator 中操作 app、擷取證據並反覆迭代直到修好。",
+    "overview_en": "Use Codex and XcodeBuildMCP to drive your app in iOS Simulator, capture evidence, and iterate toward a fix. The workflow enables discovering the right Xcode scheme and simulator, launching the app, inspecting the UI tree, performing interactions (tap, type, swipe), capturing screenshots and logs, and attaching LLDB when needed to transform vague bug reports into verified fixes.",
+    "overview_zh": "用 Codex 與 XcodeBuildMCP 在 iOS Simulator 中操作你的 app、擷取證據並反覆迭代直到修好。此工作流程可找出正確的 Xcode scheme 與 simulator、啟動 app、檢視 UI 樹、執行互動（點按、輸入、滑動）、擷取截圖與 logs，並在需要時掛接 LLDB，把模糊的 bug 回報轉化為已驗證的修正。",
+    "when_en": [
+      "UI bugs requiring specific tap, scroll, or form entry paths in Simulator",
+      "Crashes, hangs, or broken navigation needing logs, screenshots, view hierarchy state, and debugger backtraces",
+      "Teams wanting Codex to own the reproduce-fix-verify cycle autonomously"
+    ],
+    "when_zh": [
+      "需要在 Simulator 中以特定點按、捲動或表單輸入路徑才能觸發的 UI bug",
+      "崩潰、卡頓或導覽失常，需要 logs、截圖、view hierarchy 狀態與除錯器 backtrace",
+      "團隊希望 Codex 自主掌握重現—修正—驗證的循環"
+    ],
+    "steps_en": [
+      "Select the app target and discover the right Xcode scheme and simulator.",
+      "Launch the app in iOS Simulator and inspect the current screen and UI tree.",
+      "Execute the reproduction steps via interactions (tap, type, swipe).",
+      "Gather diagnostic data: logs, screenshots, view hierarchy state, and debugger backtraces, attaching LLDB when needed.",
+      "Patch the code with the smallest change that addresses the bug.",
+      "Rerun the simulator flow and revalidate to confirm exactly how the fix was verified."
+    ],
+    "steps_zh": [
+      "選定 app target，並找出正確的 Xcode scheme 與 simulator。",
+      "在 iOS Simulator 中啟動 app，檢視目前畫面與 UI 樹。",
+      "透過互動（點按、輸入、滑動）執行重現步驟。",
+      "蒐集診斷資料：logs、截圖、view hierarchy 狀態與除錯器 backtrace，必要時掛接 LLDB。",
+      "以能解決該 bug 的最小變更修補程式碼。",
+      "重新執行 simulator 流程並重新驗證，確認修正是如何被驗證的。"
+    ],
+    "prompt_en": "Use the Build iOS Apps plugin and XcodeBuildMCP to reproduce this bug directly in Simulator, diagnose the root cause, and implement a small fix... Make the smallest code change that addresses the bug, then rerun the simulator flow and tell me exactly how you verified the fix.",
+    "prompt_zh": "使用 Build iOS Apps 外掛與 XcodeBuildMCP，直接在 Simulator 中重現這個 bug、診斷根本原因，並實作一個小幅修正……以能解決該 bug 的最小程式碼變更，然後重新執行 simulator 流程，並明確告訴我你是如何驗證該修正的。"
+  },
+  {
+    "slug": "dependency-incident-audits",
+    "url": "https://developers.openai.com/codex/use-cases/dependency-incident-audits",
+    "tags": ["Security", "DevOps"],
+    "title_en": "Audit dependency incidents",
+    "title_zh": "稽核相依套件事件",
+    "summary_en": "Use Codex to turn public package advisories into safe, read-only repository exposure audits.",
+    "summary_zh": "用 Codex 把公開的套件安全公告轉化為安全、唯讀的儲存庫暴露稽核。",
+    "overview_en": "This use case guides teams through converting public package advisories into safe, read-only repository audits. The approach involves using Codex to inspect manifests, lock files, CI workflows, and scripts without executing untrusted code.",
+    "overview_zh": "此 use case 引導團隊把公開的套件安全公告轉化為安全、唯讀的儲存庫稽核。其做法是用 Codex 檢查 manifest、lock 檔、CI workflow 與指令稿，而不執行不受信任的程式碼。",
+    "when_en": [
+      "Engineering and security teams responding to package or supply chain advisories",
+      "Maintainers needing to review lock files, scripts, CI permissions, and caches before changing dependencies",
+      "Incident reviews requiring evidence gathering without installing packages or running untrusted code"
+    ],
+    "when_zh": [
+      "工程與安全團隊需要回應套件或供應鏈安全公告",
+      "維護者需要在變更相依套件前審視 lock 檔、指令稿、CI 權限與快取",
+      "事件檢討需要蒐集證據，但不安裝套件或執行不受信任的程式碼"
+    ],
+    "steps_en": [
+      "Start with a safe audit plan: define what changed, which packages might be affected, and what evidence would prove exposure before taking any action.",
+      "Keep the first pass read-only: provide the public advisory to Codex and separate authoritative sources from broader commentary.",
+      "Define what evidence would prove or rule out exposure.",
+      "Inspect manifests, lock files, CI workflows, install/build/postinstall scripts, vendored artifacts, and cache or token exposure paths.",
+      "Report findings grouped by evidence status, severity, and next steps—with file references for every repo-specific claim.",
+      "Report evidence status separately from severity: distinguish confirmed exposure, needs verification, and ruled out, paired with severity assessment."
+    ],
+    "steps_zh": [
+      "從安全的稽核計畫開始：在採取任何行動前，定義有什麼變更、哪些套件可能受影響，以及什麼證據能證明暴露。",
+      "讓第一輪保持唯讀：把公開的安全公告提供給 Codex，並把權威來源與較廣泛的評論區分開來。",
+      "定義什麼證據能證明或排除暴露。",
+      "檢查 manifest、lock 檔、CI workflow、install/build/postinstall 指令稿、vendored 產物，以及快取或 token 的暴露路徑。",
+      "依證據狀態、嚴重程度與後續步驟分組回報發現——並為每個與該儲存庫相關的論斷附上檔案參照。",
+      "將證據狀態與嚴重程度分開回報：區分已確認暴露、需要驗證與已排除，並搭配嚴重程度評估。"
+    ],
+    "prompt_en": "Help me audit this repository for exposure to this public package advisory: [advisory URL]. Stay read-only unless I explicitly approve a remediation step. First, summarize: affected packages and version ranges; authoritative sources versus broader reports; what evidence would prove exposure; what evidence would rule it out. Then inspect: package manifests and lock files; CI workflows and permissions; install, build, and postinstall scripts; vendored artifacts, containers, or generated bundles if relevant; cache or token exposure paths. Return: evidence status (confirmed exposure, needs verification, or ruled out); severity and blast-radius notes; file references for every repo-specific claim; caveats and recommended next steps. Do not install packages, run lifecycle scripts, build the project, execute untrusted code, rotate credentials, or clean up files unless explicitly approved.",
+    "prompt_zh": "請協助我稽核這個儲存庫是否暴露於這則公開套件安全公告：[advisory URL]。除非我明確核准修補步驟，否則維持唯讀。首先，摘要：受影響的套件與版本範圍；權威來源相對於較廣泛的報導；什麼證據能證明暴露；什麼證據能排除暴露。接著檢查：套件 manifest 與 lock 檔；CI workflow 與權限；install、build 與 postinstall 指令稿；相關的 vendored 產物、容器或產生的 bundle；快取或 token 暴露路徑。回傳：證據狀態（已確認暴露、需要驗證或已排除）；嚴重程度與影響範圍註記；每個與該儲存庫相關論斷的檔案參照；注意事項與建議的後續步驟。除非明確核准，否則不要安裝套件、執行生命週期指令稿、建置專案、執行不受信任的程式碼、輪替憑證或清理檔案。"
+  },
+  {
+    "slug": "meeting-prep-briefs",
+    "url": "https://developers.openai.com/codex/use-cases/meeting-prep-briefs",
+    "tags": ["Productivity", "Knowledge"],
+    "title_en": "Prepare meeting briefs",
+    "title_zh": "準備會議簡報",
+    "summary_en": "Use Codex with Calendar, Drive, Slack, and Gmail to turn meeting context into an agenda and notes plan.",
+    "summary_zh": "用 Codex 搭配 Calendar、Drive、Slack 與 Gmail，把會議脈絡轉化為議程與筆記計畫。",
+    "overview_en": "Turn calendar context into an agenda and notes plan. Use Codex with Calendar, Drive, Slack, and Gmail to gather approved sources before a meeting, then draft objectives, agenda, questions, and a notes template.",
+    "overview_zh": "把行事曆脈絡轉化為議程與筆記計畫。用 Codex 搭配 Calendar、Drive、Slack 與 Gmail，在會議前蒐集已核可的來源，再草擬目標、議程、問題與筆記範本。",
+    "when_en": [
+      "Meetings where context is split across calendar invites, docs, Slack threads, email, and notes",
+      "Managers, product teams, operators, and interviewers who want a source-backed prep packet"
+    ],
+    "when_zh": [
+      "脈絡分散在行事曆邀請、文件、Slack 討論串、電子郵件與筆記之間的會議",
+      "希望取得有來源佐證的準備資料包的主管、產品團隊、營運人員與面試官"
+    ],
+    "steps_en": [
+      "Name the meeting, date, or calendar event.",
+      "Point Codex at the docs, notes, Slack threads, email threads, or folders it can use.",
+      "Ask Codex to inventory the sources before writing the brief.",
+      "Have it separate confirmed context, source gaps, and open questions.",
+      "Ask for a notes template or scorecard if needed to capture decisions.",
+      "Keep the brief scannable by requesting the smallest useful output (objective, context, questions, notes template)."
+    ],
+    "steps_zh": [
+      "指明會議、日期或行事曆事件。",
+      "指引 Codex 使用可用的文件、筆記、Slack 討論串、電子郵件討論串或資料夾。",
+      "請 Codex 在撰寫簡報前先盤點來源。",
+      "讓它把已確認脈絡、來源缺口與待解問題分開。",
+      "如有需要，要求一份用來記錄決議的筆記範本或評分表。",
+      "透過要求最精簡有用的輸出（目標、脈絡、問題、筆記範本）讓簡報易於瀏覽。"
+    ],
+    "prompt_en": "Help me prepare for [meeting] on [date]. Use only these sources: - calendar event: [event name or date range] - docs or notes: [links or names] - Slack channels or threads: [optional] - Gmail thread or sender: [optional] First, inventory the sources you can access and name any source gaps. Return: - meeting objective - attendee context - key source-backed facts - likely agenda - open questions - decisions or follow-ups I may owe - suggested notes template for the meeting Keep unsupported claims in a separate source gaps section.",
+    "prompt_zh": "請協助我準備 [date] 的 [meeting]。只使用以下來源：- 行事曆事件：[事件名稱或日期範圍] - 文件或筆記：[連結或名稱] - Slack 頻道或討論串：[選填] - Gmail 討論串或寄件者：[選填] 首先，盤點你能存取的來源，並指出任何來源缺口。回傳：- 會議目標 - 與會者脈絡 - 有來源佐證的關鍵事實 - 可能的議程 - 待解問題 - 我可能該負責的決議或後續事項 - 建議用於此會議的筆記範本 將沒有來源佐證的論斷放在獨立的來源缺口區段中。"
+  },
+  {
+    "slug": "event-launch-playbooks",
+    "url": "https://developers.openai.com/codex/use-cases/event-launch-playbooks",
+    "tags": ["Productivity", "Operations"],
+    "title_en": "Run event playbooks",
+    "title_zh": "執行活動 playbook",
+    "summary_en": "Use Codex with Slack, Drive, and Calendar to draft attendee copy and a private event checklist with owners.",
+    "summary_zh": "用 Codex 搭配 Slack、Drive 與 Calendar 草擬對外文案與含負責人的私有活動檢核表。",
+    "overview_en": "Use Codex with Slack, Google Drive, and Calendar to gather planning context, draft attendee-facing copy, and prepare a private checklist with owners, approvals, and open questions.",
+    "overview_zh": "用 Codex 搭配 Slack、Google Drive 與 Calendar 蒐集規劃脈絡、草擬對外（面向參加者）的文案，並準備一份含負責人、待核可項目與待解問題的私有檢核表。",
+    "when_en": [
+      "Community, developer relations, marketing, and operations teams running events",
+      "Event pages, handoffs, and launch checklists where public copy and private operations need separation",
+      "Recurring event programs requiring source-backed templates, owners, approvals, and open questions"
+    ],
+    "when_zh": [
+      "舉辦活動的社群、開發者關係、行銷與營運團隊",
+      "需要將公開文案與私有營運分開的活動頁面、交接與上線檢核表",
+      "需要有來源佐證的範本、負責人、待核可項目與待解問題的週期性活動計畫"
+    ],
+    "steps_en": [
+      "Use the starter prompt to generate an event playbook naming planning sources.",
+      "List the required information for the event.",
+      "Define rules for attendee-facing copy versus private operations.",
+      "Split the output into attendee-facing copy, a private operating checklist, an owner map, support resources, approvals needed, open questions, and a source appendix.",
+      "After initial success, ask Codex to run the playbook as scheduled automation, reviewing event requests for proper separation of public and private content."
+    ],
+    "steps_zh": [
+      "使用入門 prompt 產生一份指明規劃來源的活動 playbook。",
+      "列出該活動所需的資訊。",
+      "為對外文案與私有營運定義規則。",
+      "將輸出分為對外文案、私有營運檢核表、負責人對應表、支援資源、待核可項目、待解問題與來源附錄。",
+      "在初次成功後，請 Codex 將此 playbook 作為排程自動化來執行，審查活動需求以確保公開與私有內容適當分離。"
+    ],
+    "prompt_en": "Create a source-backed playbook for [event]. Sources to use: - planning channels or threads: [links or names] - approved docs, decks, sheets, or templates: [links or names] - calendar events or deadlines: [links or dates] Split the output into: - attendee-facing copy - private operating checklist - owner map - support plan or resources - approvals still needed - open questions - source appendix Do not publish anything or assume missing details. Put unknowns in open questions and keep private operations out of the public copy.",
+    "prompt_zh": "為 [event] 建立一份有來源佐證的 playbook。要使用的來源：- 規劃頻道或討論串：[連結或名稱] - 已核可的文件、簡報、試算表或範本：[連結或名稱] - 行事曆事件或截止日期：[連結或日期] 將輸出分為：- 對外（面向參加者）文案 - 私有營運檢核表 - 負責人對應表 - 支援計畫或資源 - 仍需核可的項目 - 待解問題 - 來源附錄 不要發佈任何內容，也不要臆測缺漏的細節。把未知事項放進待解問題，並讓私有營運不出現在公開文案中。"
+  },
+  {
+    "slug": "code-migrations",
+    "url": "https://developers.openai.com/codex/use-cases/code-migrations",
+    "tags": ["Back-end", "DevOps"],
+    "title_en": "Run code migrations",
+    "title_zh": "執行程式碼遷移",
+    "summary_en": "Use Codex to migrate legacy stacks to modern ones in controlled checkpoints with parity validation.",
+    "summary_zh": "用 Codex 在受控的檢查點下，將舊有技術棧遷移到現代技術棧並驗證一致性。",
+    "overview_en": "This use case helps teams migrate legacy stacks to modern ones in controlled checkpoints. The approach leverages Codex to map legacy systems to new stacks, execute moves in milestones, and validate parity before each transition.",
+    "overview_zh": "此 use case 協助團隊在受控的檢查點下，將舊有技術棧遷移到現代技術棧。其做法是運用 Codex 將舊有系統對應到新技術棧、以里程碑方式逐步推進，並在每次轉換前驗證一致性。",
+    "when_en": [
+      "Legacy-to-modern stack transitions requiring framework, runtime, build system, or platform convention changes",
+      "Teams needing compatibility layers, phased transitions, and explicit validation at migration checkpoints"
+    ],
+    "when_zh": [
+      "需要變更框架、執行環境、建置系統或平台慣例的舊有到現代技術棧轉換",
+      "需要相容層、分階段轉換，並在遷移檢查點進行明確驗證的團隊"
+    ],
+    "steps_en": [
+      "Inventory the migration surface: legacy packages, routing, data access, auth, configuration, build tooling, tests, deployment assumptions, and external contracts.",
+      "Request Codex map legacy concepts to the target stack and identify unmatched elements.",
+      "Select an incremental strategy: compatibility layer, module-by-module port, branch-by-abstraction, or strangler pattern.",
+      "Maintain behavior stability unless the migration requires user-visible changes.",
+      "After each milestone, run validation: lint, type-check, focused tests, contract tests, or side-by-side comparisons.",
+      "Review diffs and remaining transition risks at each checkpoint rather than waiting for full completion."
+    ],
+    "steps_zh": [
+      "盤點遷移範圍：舊有套件、路由、資料存取、auth、設定、建置工具、測試、部署假設與外部合約。",
+      "請 Codex 將舊有概念對應到目標技術棧，並找出沒有對應項目的部分。",
+      "選擇漸進式策略：相容層、逐模組移植、branch-by-abstraction 或 strangler 模式。",
+      "除非遷移需要使用者可見的變更，否則維持行為穩定。",
+      "在每個里程碑後執行驗證：lint、型別檢查、聚焦測試、合約測試或並排比對。",
+      "在每個檢查點審視 diff 與剩餘的轉換風險，而非等到全部完成才檢視。"
+    ],
+    "prompt_en": "Migrate this codebase from [legacy stack or system] to [target stack or system]. Requirements: - Start by inventorying the legacy assumptions: routing, data models, auth, configuration, build tooling, tests, deployment, and external contracts. - Map the old stack to the new one and call out anything that has no direct equivalent. - Propose an incremental migration plan with compatibility layers or checkpoints instead of one big rewrite...",
+    "prompt_zh": "將這個程式庫從 [legacy stack or system] 遷移到 [target stack or system]。需求：- 先盤點舊有的假設：路由、資料模型、auth、設定、建置工具、測試、部署與外部合約。- 將舊技術棧對應到新的，並標示出任何沒有直接對應的部分。- 提出一個帶有相容層或檢查點的漸進式遷移計畫，而非一次性的大型重寫……"
+  },
+  {
+    "slug": "ios-swiftui-view-refactor",
+    "url": "https://developers.openai.com/codex/use-cases/ios-swiftui-view-refactor",
+    "tags": ["iOS", "Front-end"],
+    "title_en": "Refactor SwiftUI screens",
+    "title_zh": "重構 SwiftUI 畫面",
+    "summary_en": "Use Codex to decompose large SwiftUI views into smaller maintainable subviews while preserving behavior.",
+    "summary_zh": "用 Codex 將龐大的 SwiftUI view 拆解為更小、易維護的 subview，同時保留原本行為。",
+    "overview_en": "This use case guides developers in using Codex to decompose large SwiftUI views into smaller, maintainable subviews while preserving existing behavior and layout. The approach leverages the Build iOS Apps plugin to keep refactors MV-focused rather than introducing unnecessary architectural layers.",
+    "overview_zh": "此 use case 引導開發者運用 Codex，將龐大的 SwiftUI view 拆解為更小、易維護的 subview，同時保留既有行為與版面。其做法是利用 Build iOS Apps 外掛，讓重構聚焦於 MV，而非引入不必要的架構層。",
+    "when_en": [
+      "Large SwiftUI files where the `body` property mixes layout, branching, async operations, and inline actions",
+      "Existing features requiring internal improvement without visual or behavioral changes",
+      "Screens with complex state management or computed view fragments needing simplification"
+    ],
+    "when_zh": [
+      "`body` 屬性混雜了版面、分支、非同步操作與行內動作的龐大 SwiftUI 檔案",
+      "需要在不改變視覺或行為下進行內部改善的既有功能",
+      "具有複雜狀態管理或計算式 view 片段、需要簡化的畫面"
+    ],
+    "steps_en": [
+      "Reorder file structure for clarity: environment dependencies, stored properties, computed state, `init`, `body`, view helpers, and methods.",
+      "Extract meaningful sections into dedicated `View` types with explicit inputs, `@Binding`s, and callbacks.",
+      "Avoid excessive computed properties—replace giant screens with actual subview types, not piles of private view helpers.",
+      "Move side effects out of `body` into methods; relocate business logic to services or models.",
+      "Maintain root tree stability—use localized conditionals instead of swapping entire screens via top-level branching.",
+      "Fix Observation patterns—use `@State` for root `@Observable` models on iOS 17+; validate incrementally after each extraction using builds, previews, or focused tests."
+    ],
+    "steps_zh": [
+      "重新排序檔案結構以提升清晰度：環境相依、儲存屬性、計算狀態、`init`、`body`、view 輔助項與方法。",
+      "將有意義的區段抽取成專屬的 `View` 型別，並帶有明確的輸入、`@Binding` 與 callback。",
+      "避免過多計算屬性——用真正的 subview 型別取代龐大畫面，而非一堆 private view 輔助項。",
+      "將副作用移出 `body` 放進方法中；把商業邏輯搬到 service 或 model。",
+      "維持 root 樹的穩定——使用局部條件式，而非透過頂層分支抽換整個畫面。",
+      "修正 Observation 模式——在 iOS 17+ 對 root `@Observable` model 使用 `@State`；每次抽取後以建置、preview 或聚焦測試進行漸進式驗證。"
+    ],
+    "prompt_en": "Use the Build iOS Apps plugin and its SwiftUI view refactor skill to clean up [NameOfScreen.swift] without changing what the screen does or how it looks. Constraints: - Preserve behavior, layout, navigation, and business logic unless you find a bug that must be called out separately. - Default to MV, not MVVM. Prefer `@State`, `@Environment`, `@Query`, `.task`, `.task(id:)`, and `onChange` before introducing a new view model, and only keep a view model if this feature clearly needs one. - Reorder the view so stored properties, computed state, `init`, `body`, view helpers, and helper methods are easy to scan top to bottom. - Extract meaningful sections into dedicated `View` types with small explicit inputs, `@Binding`s, and callbacks. Do not replace one giant `body` with a pile of large computed `some View` properties. - Move non-trivial button actions and side effects out of `body` into small methods, and move real business logic into services or models. - Keep the root view tree stable. Avoid top-level `if/else` branches that swap entirely different screens when localized conditional sections or modifiers are enough. - Fix Observation ownership while refactoring: use `@State` for root `@Observable` models on iOS 17+, and avoid optional or delayed-initialized view models unless the UI genuinely needs that state shape. - After each extraction, run the smallest useful build or test check that proves the screen still behaves the same. Deliver: - the refactored screen and any extracted subviews - a short explanation of the new subview boundaries and data flow - any places where you intentionally kept a view model and why - the validation checks you ran to prove behavior stayed intact",
+    "prompt_zh": "使用 Build iOS Apps 外掛及其 SwiftUI view refactor skill 來整理 [NameOfScreen.swift]，但不改變這個畫面的功能或外觀。限制條件：- 保留行為、版面、導覽與商業邏輯，除非你發現必須另外標示出來的 bug。- 預設採用 MV，而非 MVVM。在引入新的 view model 前，優先使用 `@State`、`@Environment`、`@Query`、`.task`、`.task(id:)` 與 `onChange`，只有在這個功能明確需要時才保留 view model。- 重新排序這個 view，讓儲存屬性、計算狀態、`init`、`body`、view 輔助項與輔助方法能由上到下輕鬆瀏覽。- 將有意義的區段抽取成專屬的 `View` 型別，並帶有小而明確的輸入、`@Binding` 與 callback。不要把一個龐大的 `body` 換成一堆龐大的計算式 `some View` 屬性。- 把不簡單的按鈕動作與副作用移出 `body` 放進小方法中，並把真正的商業邏輯移進 service 或 model。- 保持 root view 樹的穩定。當局部條件式區段或修飾子就足夠時，避免使用會抽換整個不同畫面的頂層 `if/else` 分支。- 在重構時修正 Observation 的擁有權：在 iOS 17+ 對 root `@Observable` model 使用 `@State`，並避免使用 optional 或延遲初始化的 view model，除非 UI 真的需要那種狀態形式。- 每次抽取後，執行能證明畫面行為維持不變的最精簡有用的建置或測試檢查。交付：- 重構後的畫面與任何抽取出的 subview - 對新 subview 邊界與資料流的簡短說明 - 你刻意保留 view model 的任何位置與原因 - 你執行過、用來證明行為維持完整的驗證檢查"
+  }
+]

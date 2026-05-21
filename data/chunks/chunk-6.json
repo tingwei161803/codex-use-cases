@@ -1,0 +1,288 @@
+[
+  {
+    "slug": "draft-prds-from-sources",
+    "url": "https://developers.openai.com/codex/use-cases/draft-prds-from-sources",
+    "tags": ["Knowledge Work", "Product"],
+    "title_en": "Draft PRDs from internal context",
+    "title_zh": "從內部脈絡草擬 PRD",
+    "summary_en": "Use Codex with connected apps to synthesize planning context into a reviewable, source-cited PRD.",
+    "summary_zh": "運用 Codex 與已連接的應用程式，將規劃脈絡整合成可審閱、附來源引用的 PRD。",
+    "overview_en": "This use case enables teams to create product requirements documents by leveraging Codex with the $documents skill and connected applications like Linear, Slack, Notion, and Google Drive. The tool synthesizes planning context into a comprehensive, reviewable PRD that includes expected sections, timeline, decisions, open questions, and source citations.",
+    "overview_zh": "這個使用情境讓團隊運用 Codex 搭配 $documents skill 以及 Linear、Slack、Notion、Google Drive 等已連接的應用程式來撰寫產品需求文件（PRD）。工具會將規劃脈絡整合成一份完整、可審閱的 PRD，內含預期章節、時程、決策、待解問題與來源引用。",
+    "when_en": [
+      "Product teams converting planning discussions into PRDs, proposals, launch briefs, or decision memos",
+      "Product managers needing to draft PRDs quickly after team alignment in internal conversations"
+    ],
+    "when_zh": [
+      "需要將規劃討論轉換成 PRD、提案、上市簡報或決策備忘錄的產品團隊",
+      "在內部對話達成團隊共識後，需要快速草擬 PRD 的產品經理"
+    ],
+    "steps_en": [
+      "Choose the sources: identify Linear projects, Slack channels or threads, and Drive docs, Notion pages, or meeting notes to cite, and define expected sections such as problem statement, user personas, goals/non-goals, requirements, UX, technical considerations, metrics, launch plan, and timeline.",
+      "Refine in the same thread: use the starter prompt for initial drafting, and direct Codex to additional sources if information is missing rather than restarting.",
+      "Check the source trail: before sharing, ask Codex to identify claims with weak source support, unresolved questions, and confirmed decisions to ensure auditability."
+    ],
+    "steps_zh": [
+      "選擇來源：找出要引用的 Linear 專案、Slack 頻道或討論串，以及 Drive 文件、Notion 頁面或會議記錄，並定義預期章節，例如問題陳述、使用者輪廓、目標／非目標、需求、UX、技術考量、指標、上市計畫與時程。",
+      "在同一個討論串中精修：使用起始 prompt 進行初版草擬，若資訊缺漏就引導 Codex 去查更多來源，而不是重新開始。",
+      "檢查來源軌跡：分享前請 Codex 指出來源支持薄弱的主張、未解的問題以及已確認的決策，以確保可稽核性。"
+    ],
+    "prompt_en": "Use $documents to create a PRD for [feature or product area] from @linear [project or milestone], @slack [channel or thread], and @google-drive or @notion [planning docs, research notes, meeting notes, or source folder]. Include the problem, users, goals/non-goals, requirements, UX, technical considerations, metrics, launch plan, risks, open questions, decisions, timeline, and source appendix. Cite the sources behind requirement-level claims. If sources disagree, call out the conflict instead of choosing silently. Draft only. Do not post, update Linear, or share the document until I approve it.",
+    "prompt_zh": "使用 $documents 從 @linear [專案或里程碑]、@slack [頻道或討論串]，以及 @google-drive 或 @notion [規劃文件、研究筆記、會議記錄或來源資料夾] 為 [功能或產品領域] 建立一份 PRD。內容應包含問題、使用者、目標／非目標、需求、UX、技術考量、指標、上市計畫、風險、待解問題、決策、時程與來源附錄。為需求層級的主張標註來源出處。若來源之間有衝突，請明確指出衝突而非自行靜默取捨。僅做草稿。在我核准之前，不要發布、更新 Linear 或分享這份文件。"
+  },
+  {
+    "slug": "cash-flow-forecast",
+    "url": "https://developers.openai.com/codex/use-cases/cash-flow-forecast",
+    "tags": ["Knowledge Work", "Finance"],
+    "title_en": "Forecast cash flow",
+    "title_zh": "預測現金流",
+    "summary_en": "Build an editable cash-flow forecast workbook with Codex to surface liquidity pressure and flag safety-balance breaches.",
+    "summary_zh": "用 Codex 建立可編輯的現金流預測活頁簿，找出流動性壓力點並標示安全餘額被突破的情況。",
+    "overview_en": "This use case guides finance teams through creating an editable cash-flow forecast workbook using Codex. The tool helps identify liquidity pressure points while preserving source data cadence and flagging safety-balance breaches.",
+    "overview_zh": "這個使用情境引導財務團隊使用 Codex 建立一份可編輯的現金流預測活頁簿。工具會在保留來源資料節奏的同時，協助找出流動性壓力點，並標示安全餘額被突破的情況。",
+    "when_en": [
+      "Finance and operations teams building 13-week or monthly cash forecasts",
+      "Forecasts requiring receipts, payroll, vendor payments, and working-capital assumptions",
+      "Teams reviewing runway and scenario drivers before planning meetings"
+    ],
+    "when_zh": [
+      "需要建立 13 週或月度現金預測的財務與營運團隊",
+      "需要納入收款、薪資、廠商付款與營運資金假設的預測",
+      "在規劃會議前要檢視營運資金存續期間（runway）與情境驅動因子的團隊"
+    ],
+    "steps_en": [
+      "Attach cash-flow inputs, operating assumptions, and model constraints",
+      "Run the starter prompt requesting an editable .xlsx workbook",
+      "Open the workbook in Codex and expand to full-screen view",
+      "Review timing assumptions, formulas, scenarios, and the summary tab",
+      "Review cash pressure by identifying low points and main drivers",
+      "Run scenarios by adjusting one driver at a time while monitoring ending cash impacts"
+    ],
+    "steps_zh": [
+      "附上現金流輸入資料、營運假設與模型限制條件",
+      "執行起始 prompt，要求產出可編輯的 .xlsx 活頁簿",
+      "在 Codex 中開啟活頁簿並展開為全螢幕檢視",
+      "檢查時間點假設、公式、情境與摘要分頁",
+      "找出現金低點與主要驅動因子，檢視現金壓力",
+      "一次只調整一個驅動因子來跑情境，同時觀察期末現金的影響"
+    ],
+    "prompt_en": "Use $spreadsheets to build an editable cash-flow forecast workbook from the attached source files. Use beginning cash, expected receipts, payroll, vendor payments, debt, tax, capex, working-capital items, and timing assumptions where available. Preserve the source cadence, whether weekly or monthly. Include a summary view that flags the liquidity low point, the minimum ending cash balance, and any breach of the safety cash threshold. Use formulas so I can change assumptions later, and call out missing timing assumptions before using placeholders.",
+    "prompt_zh": "使用 $spreadsheets 從附上的來源檔案建立一份可編輯的現金流預測活頁簿。在有資料的情況下，使用期初現金、預期收款、薪資、廠商付款、債務、稅金、資本支出、營運資金項目與時間點假設。保留來源的節奏，無論是每週或每月。納入一個摘要檢視，標示流動性低點、最低期末現金餘額，以及任何突破安全現金門檻的情況。使用公式以便我之後能更改假設，並在使用佔位數值前先指出缺漏的時間點假設。"
+  },
+  {
+    "slug": "dcf-model",
+    "url": "https://developers.openai.com/codex/use-cases/dcf-model",
+    "tags": ["Knowledge Work", "Finance"],
+    "title_en": "Model a DCF valuation",
+    "title_zh": "建立 DCF 估值模型",
+    "summary_en": "Turn historical financials and assumptions into an editable DCF valuation workbook you can inspect and revise in Codex.",
+    "summary_zh": "將歷史財務數據與假設轉換成可在 Codex 中檢視與修改的可編輯 DCF 估值活頁簿。",
+    "overview_en": "This use case enables analysts to transform financial inputs into editable valuation workbooks. Users attach historical financials, valuation assumptions, and modeling notes, then request a DCF workbook they can inspect and revise within Codex.",
+    "overview_zh": "這個使用情境讓分析師將財務輸入資料轉換成可編輯的估值活頁簿。使用者附上歷史財務數據、估值假設與建模筆記，然後要求一份可在 Codex 中檢視與修改的 DCF 活頁簿。",
+    "when_en": [
+      "Analysts converting historical financials and assumptions into DCF workbooks",
+      "Finance teams wanting to inspect and iterate on workbooks in Codex",
+      "Teams preparing valuation models from source files"
+    ],
+    "when_zh": [
+      "需要將歷史財務數據與假設轉換成 DCF 活頁簿的分析師",
+      "希望在 Codex 中檢視並反覆修改活頁簿的財務團隊",
+      "要從來源檔案製作估值模型的團隊"
+    ],
+    "steps_en": [
+      "Attach historical financials, assumptions, and modeling notes (or provide exact file references)",
+      "Execute the starter prompt requesting an editable .xlsx workbook",
+      "Open the generated workbook in Codex's full-screen view",
+      "Inspect model tabs, formulas, assumptions, and valuation summaries",
+      "Continue in the same thread to verify formulas, adjust assumptions, and add scenarios; then ask Codex to audit source tie-outs, formula integrity, hardcoded values, UFCF, WACC/terminal value, and missing inputs"
+    ],
+    "steps_zh": [
+      "附上歷史財務數據、假設與建模筆記（或提供確切的檔案參照）",
+      "執行起始 prompt，要求產出可編輯的 .xlsx 活頁簿",
+      "在 Codex 的全螢幕檢視中開啟產生的活頁簿",
+      "檢查模型分頁、公式、假設與估值摘要",
+      "在同一個討論串中繼續驗證公式、調整假設並新增情境；接著請 Codex 稽核來源勾稽、公式完整性、寫死的數值、UFCF、WACC／終值，以及缺漏的輸入項"
+    ],
+    "prompt_en": "Use $spreadsheets to build a DCF workbook for the company in the attached source files. Include explicit operating drivers for revenue growth, margins, capex, and working capital. Calculate unlevered free cash flow, WACC, terminal value, and enterprise value. If capital structure and diluted share count are provided, bridge to implied equity value and implied equity value per share. Use any assumptions included in the source files. If an assumption is missing, add a clearly labeled placeholder in the assumptions tab instead of hiding it in a formula. If full balance sheet or cash-flow statement inputs are missing, create the operating forecast needed for unlevered free cash flow and flag the missing statement inputs. Generate the result as an editable .xlsx workbook.",
+    "prompt_zh": "使用 $spreadsheets 為附上的來源檔案中的公司建立一份 DCF 活頁簿。納入營收成長、利潤率、資本支出與營運資金的明確營運驅動因子。計算無槓桿自由現金流（UFCF）、WACC、終值與企業價值。若有提供資本結構與稀釋後股數，請推導出隱含股權價值與每股隱含股權價值。使用來源檔案中所含的任何假設。若某項假設缺漏，請在假設分頁中加入清楚標示的佔位項，而不要把它藏在公式裡。若完整的資產負債表或現金流量表輸入項缺漏，請建立計算 UFCF 所需的營運預測，並標示缺漏的報表輸入項。將結果產出為可編輯的 .xlsx 活頁簿。"
+  },
+  {
+    "slug": "budget-vs-actuals-review",
+    "url": "https://developers.openai.com/codex/use-cases/budget-vs-actuals-review",
+    "tags": ["Knowledge Work", "Finance"],
+    "title_en": "Review budget vs. actuals",
+    "title_zh": "檢視預算與實際對比",
+    "summary_en": "Turn budget plans, actuals exports, and close notes into a variance workbook that maps categories and flags reconciliation gaps.",
+    "summary_zh": "將預算計畫、實際數匯出與結帳筆記轉換成差異分析活頁簿，對應分類並標示對帳缺口。",
+    "overview_en": "Transform budget plans, actuals exports, and close notes into a functional variance workbook. The use case enables finance teams to map actuals to budget categories, compute variances, identify reconciliation gaps, and distinguish documented explanations from unresolved questions.",
+    "overview_zh": "將預算計畫、實際數匯出與結帳筆記轉換成一份可運作的差異分析活頁簿。這個使用情境讓財務團隊能將實際數對應到預算分類、計算差異、找出對帳缺口，並區分有文件佐證的說明與尚未解決的問題。",
+    "when_en": [
+      "Month-end reviews comparing budget plans with actual spend exports",
+      "Finance teams preparing leadership commentary from GL, spend, or department actuals",
+      "Workbooks requiring category mapping, tie-outs, and flagging of unsupported explanations"
+    ],
+    "when_zh": [
+      "比較預算計畫與實際支出匯出的月底檢視",
+      "需要從總帳（GL）、支出或部門實際數整理出給管理層說明的財務團隊",
+      "需要分類對應、勾稽，並標示缺乏佐證之說明的活頁簿"
+    ],
+    "steps_en": [
+      "Attach the budget plan, actuals export, and close notes",
+      "Request an editable .xlsx workbook output",
+      "Open the workbook in Codex to inspect raw inputs, mappings, variance formulas, and the summary tab",
+      "Refine category mappings, add department cuts, or draft finance summaries in the same thread",
+      "Ask Codex to audit categories, formulas, and variance explanations before sharing"
+    ],
+    "steps_zh": [
+      "附上預算計畫、實際數匯出與結帳筆記",
+      "要求產出一份可編輯的 .xlsx 活頁簿",
+      "在 Codex 中開啟活頁簿，檢查原始輸入資料、對應關係、差異公式與摘要分頁",
+      "在同一個討論串中精修分類對應、加入部門切分，或草擬財務摘要",
+      "分享前請 Codex 稽核分類、公式與差異說明"
+    ],
+    "prompt_en": "Use $spreadsheets to update the budget vs. actuals review from the attached files. Compare actuals to plan, map actuals to the right budget categories, summarize the major variances, and prepare a clean review view as an editable .xlsx workbook. Preserve the raw inputs, use formulas for dollar and percentage variance calculations, and flag categories that do not map cleanly instead of forcing a match.",
+    "prompt_zh": "使用 $spreadsheets 從附上的檔案更新預算與實際對比的檢視。將實際數與計畫做比較，把實際數對應到正確的預算分類，摘要主要差異，並準備一份乾淨的檢視畫面，產出為可編輯的 .xlsx 活頁簿。保留原始輸入資料，使用公式計算金額與百分比差異，並標示無法乾淨對應的分類，而不要硬湊配對。"
+  },
+  {
+    "slug": "ai-app-evals",
+    "url": "https://developers.openai.com/codex/use-cases/ai-app-evals",
+    "tags": ["Coding", "Evaluation"],
+    "title_en": "Add evals to your AI application",
+    "title_zh": "為你的 AI 應用程式加入 eval",
+    "summary_en": "Use Codex to turn expected app behavior into a runnable Promptfoo eval suite with regression tests before merging.",
+    "summary_zh": "用 Codex 將預期的應用程式行為轉換成可執行的 Promptfoo eval 套件，在合併前建立回歸測試。",
+    "overview_en": "This use case guides developers to leverage Codex for transforming expected application behavior into a runnable Promptfoo eval suite. The core idea is using AI assistance to inspect existing applications, identify testable behaviors, and implement systematic evaluation frameworks.",
+    "overview_zh": "這個使用情境引導開發者運用 Codex 將預期的應用程式行為轉換成可執行的 Promptfoo eval 套件。核心概念是借助 AI 協助來檢視既有的應用程式、找出可測試的行為，並建立系統化的評估框架。",
+    "when_en": [
+      "AI applications with prompts, model calls, tools, retrieval, or agents but lacking repeatable eval suites",
+      "Teams preparing model/prompt/retrieval changes who want regression tests before merging",
+      "Quality review scenarios where manual checks should become committed test cases"
+    ],
+    "when_zh": [
+      "具備 prompt、模型呼叫、工具、檢索或 agent，但缺乏可重複執行之 eval 套件的 AI 應用程式",
+      "準備變更模型／prompt／檢索，且希望在合併前有回歸測試的團隊",
+      "希望把人工檢查轉為提交進版本控制之測試案例的品質審查情境"
+    ],
+    "steps_en": [
+      "Inspect before editing: review the application path users access and any existing evals, then propose a minimal eval plan covering target adapter, seed test cases, assertions, required files, commands, and environment variables",
+      "Plan the suite: define what behavior to evaluate (support quality, tool correctness, retrieval grounding, business rules, or task completion) without modifying production behavior initially",
+      "Implement and run: create the Promptfoo configuration, test fixtures, and target adapter, then execute locally to establish a baseline before making application changes",
+      "Iterate and expand: add new cases when bugs surface or requirements change, and maintain the test command through CI/release processes"
+    ],
+    "steps_zh": [
+      "編輯前先檢視：檢視使用者存取的應用程式路徑與任何既有的 eval，接著提出一份最精簡的 eval 計畫，涵蓋目標 adapter、種子測試案例、assertion、所需檔案、指令與環境變數",
+      "規劃套件：定義要評估的行為（客服品質、工具正確性、檢索依據（grounding）、業務規則或任務完成度），一開始不更動正式環境的行為",
+      "實作並執行：建立 Promptfoo 設定、測試 fixture 與目標 adapter，接著在本機執行以建立基準，之後再對應用程式做變更",
+      "反覆迭代與擴充：在出現 bug 或需求變動時新增案例，並透過 CI／發布流程維護測試指令"
+    ],
+    "prompt_en": "Use $promptfoo-evals to add a Promptfoo eval suite for this AI application. If there is not already a working Promptfoo provider or target adapter, use $promptfoo-provider-setup first.",
+    "prompt_zh": "使用 $promptfoo-evals 為這個 AI 應用程式加入一套 Promptfoo eval 套件。若尚未有可運作的 Promptfoo provider 或目標 adapter，請先使用 $promptfoo-provider-setup。"
+  },
+  {
+    "slug": "user-stories-to-ui-mocks",
+    "url": "https://developers.openai.com/codex/use-cases/user-stories-to-ui-mocks",
+    "tags": ["Knowledge Work", "Product", "Design"],
+    "title_en": "Turn user stories into UI mocks",
+    "title_zh": "把使用者故事轉成 UI mock",
+    "summary_en": "Normalize scattered feedback into user stories, then generate UI mocks with ImageGen grounded in your design system.",
+    "summary_zh": "將零散的回饋整理成使用者故事，再用 ImageGen 依據你的設計系統產生 UI mock。",
+    "overview_en": "This use case guides product teams in converting scattered feedback into visual mockups. The workflow involves gathering product feedback from multiple sources, normalizing it into user stories and constraints, then generating UI mockups with ImageGen for team validation and implementation.",
+    "overview_zh": "這個使用情境引導產品團隊將零散的回饋轉換成視覺化的 mock。流程包含從多個來源蒐集產品回饋、將其整理成使用者故事與限制條件，接著用 ImageGen 產生 UI mock 供團隊驗證與後續實作。",
+    "when_en": [
+      "Product teams converting scattered feedback into visual feature direction",
+      "Design and engineering teams wanting mockups grounded in source material before building",
+      "Teams prioritizing fast iteration based on user feedback"
+    ],
+    "when_zh": [
+      "需要把零散回饋轉換成視覺化功能方向的產品團隊",
+      "希望在開發前先有依據來源素材之 mock 的設計與工程團隊",
+      "重視根據使用者回饋快速迭代的團隊"
+    ],
+    "steps_en": [
+      "Generate visual truth: start with a clear user story or synthesize one from various sources, then use ImageGen to create multiple mock directions while preserving the product's information architecture and design system",
+      "Provide current UI screenshots or Figma files as references and iterate until satisfied with the mock",
+      "Move from mock to prototype: reattach the final mock image in a new conversation",
+      "Request Codex implement it as a working prototype, optionally using the Build Web Apps plugin for web applications"
+    ],
+    "steps_zh": [
+      "產生視覺依據：從一個清楚的使用者故事開始，或從各種來源整理出一個故事，接著用 ImageGen 在保留產品資訊架構與設計系統的前提下產生多個 mock 方向",
+      "提供現有的 UI 截圖或 Figma 檔案作為參考，反覆調整直到滿意這份 mock",
+      "從 mock 進到原型：在新的對話中重新附上最終的 mock 圖片",
+      "請 Codex 把它實作成可運作的原型，若為網頁應用程式可選用 Build Web Apps plugin"
+    ],
+    "prompt_en": "Turn this [user story/set of user feedbacks] into a UI mock for a feature that would solve the problem, using these sources as context: - @slack [channels or thread links] - @linear [issue links, project, team, or view] - @google-drive [research notes, survey export, doc, sheet, or slide deck] Do that while respecting the current design system and existing UI [provide Figma file or screenshot as reference].",
+    "prompt_zh": "把這個 [使用者故事／一組使用者回饋] 轉成一個能解決問題之功能的 UI mock，並用以下來源作為脈絡：- @slack [頻道或討論串連結] - @linear [issue 連結、專案、團隊或檢視] - @google-drive [研究筆記、問卷匯出、文件、試算表或簡報]。在進行的同時，請尊重目前的設計系統與既有的 UI [提供 Figma 檔案或截圖作為參考]。"
+  },
+  {
+    "slug": "chatgpt-apps",
+    "url": "https://developers.openai.com/codex/use-cases/chatgpt-apps",
+    "tags": ["Coding", "Apps"],
+    "title_en": "Bring your app to ChatGPT",
+    "title_zh": "把你的應用程式帶進 ChatGPT",
+    "summary_en": "Build one narrow ChatGPT app end-to-end: define tools, scaffold the MCP server and widget, connect, and iterate.",
+    "summary_zh": "從頭到尾打造一個聚焦的 ChatGPT app：定義工具、建立 MCP server 與 widget、連接並反覆迭代。",
+    "overview_en": "Turn your use cases into focused apps for ChatGPT. The page guides developers through building one narrow ChatGPT app outcome end-to-end: defining tools, scaffolding the MCP server and optional widget, connecting it in ChatGPT, and iterating until the core flow works.",
+    "overview_zh": "將你的使用情境轉化成聚焦的 ChatGPT app。本頁引導開發者從頭到尾打造一個範圍狹窄的 ChatGPT app 成果：定義工具、建立 MCP server 與選用的 widget、在 ChatGPT 中連接它，並反覆迭代直到核心流程能順利運作。",
+    "when_en": [
+      "Planning a first ChatGPT app around a user outcome",
+      "Scaffolding an MCP server, tool metadata, and optional widget without overbuilding",
+      "Running a tight loop from local HTTPS testing to ChatGPT developer-mode verification"
+    ],
+    "when_zh": [
+      "圍繞某個使用者成果規劃第一個 ChatGPT app",
+      "在不過度開發的前提下建立 MCP server、工具 metadata 與選用的 widget",
+      "從本機 HTTPS 測試到 ChatGPT 開發者模式驗證，跑一個緊湊的迭代迴圈"
+    ],
+    "steps_en": [
+      "Start with one narrow app outcome; ask Codex to propose 3-5 tools with clear names, descriptions, inputs, and outputs",
+      "Decide if v1 needs a widget or stays data-only; scaffold the MCP server and optional widget using existing patterns",
+      "Run the app locally behind HTTPS, connect in ChatGPT developer mode, and test with direct/indirect/negative prompts",
+      "Iterate on metadata, state handling, structuredContent, and _meta payloads until the core read flow works reliably",
+      "Add OAuth 2.1 only when user-specific data or write actions require it; prepare a hosted preview with a stable /mcp endpoint"
+    ],
+    "steps_zh": [
+      "從一個範圍狹窄的 app 成果開始；請 Codex 提出 3 至 5 個工具，並附上清楚的名稱、描述、輸入與輸出",
+      "決定 v1 是否需要 widget，還是維持純資料；運用既有模式建立 MCP server 與選用的 widget",
+      "在本機以 HTTPS 執行 app，於 ChatGPT 開發者模式中連接，並用直接／間接／反向 prompt 進行測試",
+      "在 metadata、狀態處理、structuredContent 與 _meta payload 上反覆迭代，直到核心讀取流程能穩定運作",
+      "只有在需要使用者專屬資料或寫入動作時才加入 OAuth 2.1；準備一個帶有穩定 /mcp 端點的 hosted 預覽"
+    ],
+    "prompt_en": "Use $chatgpt-apps with $openai-docs to plan a ChatGPT app for [use case] in this repo. Requirements: - Start with one core user outcome. - Propose 3-5 tools with clear names, descriptions, inputs, and outputs. - Recommend whether v1 needs a widget or can start data-only. - Prefer TypeScript for the MCP server and React for the widget. - Call out auth, deployment, and test requirements. Output: - Tool plan - Proposed file tree - Golden prompt set - Risks and open questions",
+    "prompt_zh": "在這個 repo 中使用 $chatgpt-apps 搭配 $openai-docs，為 [使用情境] 規劃一個 ChatGPT app。需求：- 從一個核心的使用者成果開始。- 提出 3 至 5 個工具，並附上清楚的名稱、描述、輸入與輸出。- 建議 v1 是否需要 widget，或者可以從純資料開始。- MCP server 偏好使用 TypeScript，widget 偏好使用 React。- 點出 auth、部署與測試需求。產出：- 工具計畫 - 建議的檔案樹 - 黃金 prompt 集（golden prompt set）- 風險與待解問題"
+  },
+  {
+    "slug": "react-native-expo-apps",
+    "url": "https://developers.openai.com/codex/use-cases/react-native-expo-apps",
+    "tags": ["Coding", "Mobile"],
+    "title_en": "Build React Native apps with Expo",
+    "title_zh": "用 Expo 打造 React Native app",
+    "summary_en": "Use Codex with the Expo plugin to scaffold React Native apps, starting with Expo Go for rapid testing.",
+    "summary_zh": "用 Codex 搭配 Expo plugin 來建立 React Native app，先從 Expo Go 開始進行快速測試。",
+    "overview_en": "This use case guides developers in using Codex with the Expo plugin to scaffold React Native applications. The approach emphasizes starting with Expo Go for rapid testing before moving to more complex build configurations.",
+    "overview_zh": "這個使用情境引導開發者使用 Codex 搭配 Expo plugin 來建立 React Native 應用程式。其做法強調先從 Expo Go 開始進行快速測試，再轉向較複雜的建置設定。",
+    "when_en": [
+      "Developers prototyping or shipping React Native apps with Expo",
+      "Expo Router projects requiring adherence to Expo conventions",
+      "Teams migrating web applications to mobile platforms"
+    ],
+    "when_zh": [
+      "用 Expo 製作原型或交付 React Native app 的開發者",
+      "需要遵循 Expo 慣例的 Expo Router 專案",
+      "要將網頁應用程式遷移到行動平台的團隊"
+    ],
+    "steps_en": [
+      "Have Codex inspect the repository and confirm if it's a new or existing Expo project",
+      "Begin with Expo Router and Expo Go, using `npx expo install` for package additions",
+      "Request Codex build one complete workflow with native-feeling navigation and proper state handling",
+      "Verify using the fastest available path (Expo Go on device/simulator), advancing to dev client or EAS only when necessary"
+    ],
+    "steps_zh": [
+      "讓 Codex 檢視 repository，並確認這是新的還是既有的 Expo 專案",
+      "從 Expo Router 與 Expo Go 開始，新增套件時使用 `npx expo install`",
+      "請 Codex 打造一個完整的工作流程，具備類原生的導覽與妥善的狀態處理",
+      "用最快可行的路徑進行驗證（在裝置／模擬器上的 Expo Go），只有在必要時才進階到 dev client 或 EAS"
+    ],
+    "prompt_en": "Use the Expo plugin to build a React Native app with Expo for this idea: [describe the app idea, target users, and the main workflow] Requirements: - Start with Expo Router and Expo-native project conventions. - Try `npx expo start` and Expo Go first before creating a custom build. - Use `npx expo install` for Expo packages so dependencies stay compatible. - Use native-feeling UI patterns for navigation, forms, lists, empty states, and loading states. Deliver: - the working app slice - the run command - the verification path you used, including Expo Go, device, simulator, dev client, or EAS",
+    "prompt_zh": "使用 Expo plugin 為這個構想用 Expo 打造一個 React Native app：[描述 app 構想、目標使用者與主要工作流程]。需求：- 從 Expo Router 與 Expo 原生的專案慣例開始。- 在建立自訂 build 之前，先嘗試 `npx expo start` 與 Expo Go。- 安裝 Expo 套件時使用 `npx expo install`，讓相依套件維持相容。- 在導覽、表單、清單、空狀態與載入狀態上使用類原生的 UI 模式。交付：- 可運作的 app 片段 - 執行指令 - 你所使用的驗證路徑，包含 Expo Go、裝置、模擬器、dev client 或 EAS"
+  }
+]

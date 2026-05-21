@@ -1,0 +1,282 @@
+[
+  {
+    "slug": "frontend-designs",
+    "url": "https://developers.openai.com/codex/use-cases/frontend-designs",
+    "tags": ["Front-end", "Design"],
+    "title_en": "Build responsive front-end designs",
+    "title_zh": "打造響應式前端設計",
+    "summary_en": "Turn screenshots and visual references into responsive UI code aligned with your design system.",
+    "summary_zh": "將截圖與視覺參考轉換成符合既有設計系統的響應式 UI 程式碼。",
+    "overview_en": "Use Codex to turn screenshots and visual references into responsive UI code while staying aligned with your repository's existing design system. The workflow translates design briefs into code, validates implementations through visual checks, and iterates until the result matches the references across different screen sizes.",
+    "overview_zh": "運用 Codex 將截圖與視覺參考轉換成響應式 UI 程式碼，同時與專案中既有的設計系統保持一致。整個流程會把設計需求轉成程式碼、透過視覺檢查驗證實作，並反覆調整，直到在不同螢幕尺寸下都與參考稿吻合。",
+    "when_en": [
+      "Creating new front-end projects from scratch",
+      "Implementing already-designed screens or flows from screenshots in an existing codebase"
+    ],
+    "when_zh": [
+      "從零開始建立全新的前端專案",
+      "在既有程式碼庫中，依截圖實作已設計好的畫面或流程"
+    ],
+    "steps_en": [
+      "Start from references: give Codex the clearest visual references available, including multiple states (desktop/mobile layouts, hover states, empty/loading views).",
+      "Prepare the design system: ensure the target repo has a clear component layer, and specify the primitives to reuse, token locations, and canonical patterns for buttons, inputs, cards, typography, and icons.",
+      "Be specific: provide detailed instructions about interaction patterns and styling preferences to avoid generic implementations.",
+      "Leverage Playwright: use the Playwright skill to open the app in a browser, compare against the screenshots, and test responsiveness across breakpoints.",
+      "Iterate: ask Codex to compare the implementation back to the screenshots and refine until close visual alignment is achieved."
+    ],
+    "steps_zh": [
+      "從參考稿出發：提供 Codex 最清晰的視覺參考，包含多種狀態（桌面/行動版版面、滑鼠懸停狀態、空白/載入畫面）。",
+      "準備設計系統：確保目標專案有清楚的元件層，並指定要重用的基本元件、token 位置，以及按鈕、輸入框、卡片、字體與圖示的標準樣式。",
+      "說明要具體：詳細交代互動模式與樣式偏好，避免做出過於通用的實作。",
+      "善用 Playwright：使用 Playwright skill 在瀏覽器中開啟 App，與截圖比對，並在各斷點測試響應式表現。",
+      "反覆迭代：請 Codex 將實作與截圖比對並持續修正，直到視覺上高度吻合。"
+    ],
+    "prompt_en": "Implement this UI in the current project using the screenshots and notes I provide as the source of truth. Requirements: - Reuse the existing design system components and tokens. - Translate the screenshots into this repo's utilities and component patterns instead of inventing a parallel system. - Match spacing, layout, hierarchy, and responsive behavior closely. - Respect the repo's routing, state, and data-fetch patterns. - Make the page responsive on desktop and mobile. - If any screenshot detail is ambiguous, choose the simplest implementation that still matches the overall direction and note the assumption briefly. Validation: - Compare the finished UI against the provided screenshots for both look and behavior. - Use $playwright-interactive to check that the UI matches the references and iterate as needed until it does.",
+    "prompt_zh": "請在目前的專案中實作這個 UI，並以我提供的截圖與筆記為唯一依據。需求：- 重用既有的設計系統元件與 token。- 將截圖轉換為本專案的 utilities 與元件模式，不要另建一套平行系統。- 緊密符合間距、版面、層級與響應式行為。- 遵循本專案的 routing、state 與資料抓取模式。- 讓頁面在桌面與行動版皆為響應式。- 若截圖中有任何細節含糊不清，選擇仍符合整體方向的最簡單實作，並簡短註明你的假設。驗證：- 將完成的 UI 與所提供的截圖在外觀與行為上比對。- 使用 $playwright-interactive 檢查 UI 是否符合參考稿，並依需要反覆調整直到吻合。"
+  },
+  {
+    "slug": "codebase-onboarding",
+    "url": "https://developers.openai.com/codex/use-cases/codebase-onboarding",
+    "tags": ["Onboarding", "Codebase"],
+    "title_en": "Understand large codebases",
+    "title_zh": "理解大型程式碼庫",
+    "summary_en": "Map unfamiliar codebases, explain modules and data flow, and find the next files worth reading.",
+    "summary_zh": "梳理陌生的程式碼庫、解說各模組與資料流，並指出接下來值得閱讀的檔案。",
+    "overview_en": "Use Codex to map unfamiliar codebases, explain different modules and data flow, and point you to the next files worth reading before you edit. It is ideal for new engineers onboarding to a repo, or for anyone who needs to understand how a feature works before changing it.",
+    "overview_zh": "運用 Codex 梳理陌生的程式碼庫、解說不同模組與資料流，並在你動手修改前指出接下來值得閱讀的檔案。這非常適合剛加入專案的新工程師，或任何在變更前需要先了解某功能運作方式的人。",
+    "when_en": [
+      "New engineers onboarding to a new repo or service",
+      "Anyone trying to understand how a feature works before changing it"
+    ],
+    "when_zh": [
+      "剛加入新專案或服務的工程師",
+      "任何想在變更前先了解某功能如何運作的人"
+    ],
+    "steps_en": [
+      "Provide Codex with the relevant files, directories, or feature areas.",
+      "Ask it to trace the request flow and explain module ownership (business logic, transport, persistence, UI).",
+      "Inquire about validation, side effects, and state transitions before editing.",
+      "Request identification of the next files to read and the risky areas to watch."
+    ],
+    "steps_zh": [
+      "提供 Codex 相關的檔案、目錄或功能範圍。",
+      "請它追蹤請求流程，並解說各模組的職責歸屬（商業邏輯、傳輸層、持久層、UI）。",
+      "在修改前詢問驗證邏輯、副作用與狀態轉換。",
+      "請它指出接下來該閱讀的檔案，以及需要留意的風險區域。"
+    ],
+    "prompt_en": "Explain how the request flows through <name of the system area> in the codebase. Include: - which modules own what - where data is validated - the top gotchas to watch for before making changes End with the files I should read next.",
+    "prompt_zh": "請說明請求在程式碼庫中如何流經 <name of the system area>。內容包含：- 哪些模組負責哪些職責 - 資料在何處被驗證 - 變更前最需要留意的幾個陷阱 最後列出我接下來應該閱讀的檔案。"
+  },
+  {
+    "slug": "macos-sidebar-detail-inspector",
+    "url": "https://developers.openai.com/codex/use-cases/macos-sidebar-detail-inspector",
+    "tags": ["macOS", "SwiftUI"],
+    "title_en": "Build a Mac app shell",
+    "title_zh": "打造 Mac App 外殼",
+    "summary_en": "Turn an app idea into a desktop-native NavigationSplitView shell with menus, toolbars, and settings.",
+    "summary_zh": "把 App 構想轉化為桌面原生的 NavigationSplitView 外殼，含選單、工具列與設定。",
+    "overview_en": "Use Codex and the Build macOS Apps plugin to turn an app idea into a desktop-native NavigationSplitView app. Keep sidebar selection stable, add menus, toolbars, and keyboard shortcuts, and move preferences into a dedicated Settings scene so the app feels truly Mac-native rather than a ported iPad or web layout.",
+    "overview_zh": "運用 Codex 與 Build macOS Apps plugin，把 App 構想轉化為桌面原生的 NavigationSplitView 應用程式。維持側邊欄選取狀態穩定，加入選單、工具列與鍵盤快捷鍵，並把偏好設定移到專屬的 Settings scene，讓 App 真正具備 Mac 原生感，而非移植自 iPad 或網頁的版面。",
+    "when_en": [
+      "New Mac app ideas, or iPad-first/web-first concepts that need a real desktop shell with persistent navigation, menus, toolbars, and keyboard shortcuts",
+      "Editor, library, admin, or review tools where sidebar selection drives a detail pane and an inspector exposes secondary metadata or actions",
+      "Mac apps where settings should live in a dedicated preferences window instead of another pushed screen in the main content stack"
+    ],
+    "when_zh": [
+      "全新的 Mac App 構想，或需要真正桌面外殼（持久導覽、選單、工具列、鍵盤快捷鍵）的 iPad 優先/網頁優先概念",
+      "編輯器、資料庫、管理或審閱類工具，由側邊欄選取驅動詳情面板，並以 inspector 呈現次要的中繼資料或操作",
+      "設定應放在專屬偏好設定視窗、而非主內容堆疊中再推一個畫面的 Mac App"
+    ],
+    "steps_en": [
+      "Start from the Mac scene model: choose the scene model first, then design the main window around stable sidebar selection, a detail surface, and an inspector for secondary controls or metadata.",
+      "Build a sidebar, detail pane, and inspector: prefer NavigationSplitView for persistent navigation with stable selected items, keep sidebar rows native and lightweight, use system backgrounds, and reserve custom cards for the detail pane or inspector.",
+      "Put commands, toolbars, and shortcuts in the desktop layer: wire scene-level commands, context-sensitive menu items, and toolbar buttons so users can discover important actions in the menu bar, toolbar, and via keyboard shortcuts.",
+      "Keep preferences in Settings: use a dedicated Settings scene and persist choices with @AppStorage rather than pushing settings screens inside the main content window.",
+      "Prompt the app concept, then validate the shell: name the app concept, main content objects, and primary actions, then ask Codex to build the desktop shell, run a build/run check, and summarize the scene structure, command wiring, and state ownership."
+    ],
+    "steps_zh": [
+      "從 Mac 的 scene model 出發：先選定 scene model，再圍繞穩定的側邊欄選取、詳情區域，以及承載次要控制項或中繼資料的 inspector 來設計主視窗。",
+      "建立側邊欄、詳情面板與 inspector：偏好使用 NavigationSplitView 以維持持久導覽與穩定的選取項目，側邊欄列保持原生且輕量，使用系統背景，並把自訂卡片保留給詳情面板或 inspector。",
+      "把指令、工具列與快捷鍵放在桌面層：串接 scene 層級的 commands、情境感知的選單項目與工具列按鈕，讓使用者能在選單列、工具列與鍵盤快捷鍵中找到重要操作。",
+      "把偏好設定放在 Settings：使用專屬的 Settings scene，並以 @AppStorage 儲存選項，而非在主內容視窗中再推出設定畫面。",
+      "提示 App 概念，再驗證外殼：說明 App 概念、主要內容物件與主要操作，請 Codex 建立桌面外殼、執行一次 build/run 檢查，並總結 scene 結構、指令串接與狀態歸屬。"
+    ],
+    "prompt_en": "Use the Build macOS Apps plugin to turn [describe your app idea] into a Mac-native SwiftUI app shell with a sidebar, detail pane, inspector, commands, and Settings.\n\nConstraints:\n- Choose the scene model first. Prefer `WindowGroup` for the main window and add a dedicated `Settings` scene for preferences.\n- Build the main UI around `NavigationSplitView` with explicit selection state, a native `.sidebar` list, a detail surface, and an `inspector(isPresented:)` panel for secondary metadata or controls.\n- Keep sidebar rows lightweight and native: one icon, one title line, and at most one short secondary line. Do not wrap every row in large custom cards unless there is a strong product reason.\n- Expose important actions through scene-level `commands`, `CommandMenu`, toolbar buttons, and keyboard shortcuts. Do not hide the only path to a critical action behind gestures.\n- Use `@SceneStorage` for window-scoped UI state, `@AppStorage` for preferences, and explicit parent-owned selection bindings for sidebar/detail coordination.\n- Prefer system materials, semantic colors, and standard sidebar backgrounds. Add custom styling only to detail or inspector content cards when needed.\n- Use a narrow AppKit bridge only if SwiftUI cannot express one specific desktop behavior cleanly.\n- Create or update `script/build_and_run.sh`, run the smallest useful build/run check, and tell me the exact commands you used.\n\nDeliver:\n- the scene structure and main sidebar/detail/inspector views\n- the menu, toolbar, and keyboard shortcut wiring\n- the Settings scene and preference state model\n- any AppKit bridge you added and why it was necessary\n- the build/run validation steps and any desktop UX follow-up you recommend",
+    "prompt_zh": "使用 Build macOS Apps plugin，把 [describe your app idea] 轉化為一個 Mac 原生的 SwiftUI App 外殼，含側邊欄、詳情面板、inspector、commands 與 Settings。\n\n限制條件：\n- 先選定 scene model。主視窗偏好使用 `WindowGroup`，並為偏好設定加入專屬的 `Settings` scene。\n- 主 UI 圍繞 `NavigationSplitView` 建構，具備明確的選取狀態、原生的 `.sidebar` 清單、詳情區域，以及承載次要中繼資料或控制項的 `inspector(isPresented:)` 面板。\n- 側邊欄列保持輕量且原生：一個圖示、一行標題，最多再加一行簡短的次要文字。除非有強烈的產品理由，否則不要把每一列都包進大型自訂卡片中。\n- 透過 scene 層級的 `commands`、`CommandMenu`、工具列按鈕與鍵盤快捷鍵來呈現重要操作。不要把通往關鍵操作的唯一路徑藏在手勢之後。\n- 視窗範圍的 UI 狀態使用 `@SceneStorage`，偏好設定使用 `@AppStorage`，側邊欄/詳情的協調則使用由父層擁有的明確選取 binding。\n- 偏好使用系統材質、語意化色彩與標準側邊欄背景。僅在需要時對詳情或 inspector 的內容卡片加上自訂樣式。\n- 僅在 SwiftUI 無法乾淨地表達某個特定桌面行為時，才使用範圍狹窄的 AppKit bridge。\n- 建立或更新 `script/build_and_run.sh`，執行最小但有用的 build/run 檢查，並告訴我你實際使用的指令。\n\n交付內容：\n- scene 結構與主要的側邊欄/詳情/inspector 視圖\n- 選單、工具列與鍵盤快捷鍵的串接\n- Settings scene 與偏好設定的狀態模型\n- 你新增的任何 AppKit bridge，以及為何有其必要\n- build/run 的驗證步驟，以及你建議的任何桌面 UX 後續事項"
+  },
+  {
+    "slug": "automation-bug-triage",
+    "url": "https://developers.openai.com/codex/use-cases/automation-bug-triage",
+    "tags": ["Automation", "Bug Triage"],
+    "title_en": "Automate bug triage",
+    "title_zh": "自動化錯誤分類",
+    "summary_en": "Turn daily bug reports into a prioritized list, then schedule automated triage sweeps.",
+    "summary_zh": "把每日的錯誤回報整理成優先順序清單，再排程自動化的分類掃描。",
+    "overview_en": "Transform daily bug reports into a prioritized list, then schedule automated sweeps. Teams ask Codex to check recent alerts, issues, failed checks, logs, and chat reports, refine the list interactively, then run that workflow on a schedule.",
+    "overview_zh": "把每日的錯誤回報整理成優先順序清單，再排程自動化掃描。團隊可請 Codex 檢查近期的警示、issue、失敗的檢查、日誌與聊天回報，互動式地優化清單，最後將該流程排程定期執行。",
+    "when_en": [
+      "Teams tracking bugs across Sentry alerts, Slack threads, Linear issues, GitHub issues, failing PR checks, support tickets, or logs",
+      "Triage workflows teams want to manually test in one Codex thread before scheduling as automation"
+    ],
+    "when_zh": [
+      "需要橫跨 Sentry 警示、Slack 討論串、Linear issue、GitHub issue、失敗的 PR 檢查、支援工單或日誌來追蹤錯誤的團隊",
+      "想先在單一 Codex 討論串中手動測試、再排程為自動化的分類流程"
+    ],
+    "steps_en": [
+      "Run the sweep: execute the starter prompt against your bug sources using integrated plugins for Slack, Linear, GitHub, and Sentry.",
+      "Make the report useful: refine the output in the same thread until it gives high-signal bugs sorted from P0 to P3, groups duplicates, includes evidence links, separates guesses from facts, and recommends actions.",
+      "Automate it: convert the refined thread into a scheduled automation with consistent sources and report format.",
+      "Route follow-ups: draft Slack updates, Linear issues, GitHub comments, or handoff notes based on the automated runs."
+    ],
+    "steps_zh": [
+      "執行掃描：使用 Slack、Linear、GitHub 與 Sentry 的整合 plugin，對你的錯誤來源執行起始 prompt。",
+      "讓報告更有用：在同一討論串中優化輸出，直到它能列出高訊號的錯誤、依 P0 到 P3 排序、合併重複項、附上佐證連結、區分臆測與事實，並建議後續行動。",
+      "將其自動化：把優化後的討論串轉換為排程自動化，維持一致的來源與報告格式。",
+      "分派後續事項：依自動執行的結果，草擬 Slack 更新、Linear issue、GitHub 留言或交接筆記。"
+    ],
+    "prompt_en": "Run a bug triage sweep for [repo/service/team] covering the last [time window]. Use these plugins: [@Sentry / @Slack / @Linear / @GitHub / none] Input sources: - Sentry: [project / alert link / none] - Slack: [channel / thread links / none] - Linear: [team / project / view / issue query / none] - GitHub: [repo / issue query / PR checks / none] - Other: [logs / support tickets / deploy link / dashboard / attached file / none] Output format: First, name any input source you could not access. Then return a prioritized list of bugs, sorted from P0 to P3. If you find no bugs, say: No qualifying bugs found. For each bug, include: - Priority: P0, P1, P2, or P3 - Title - Evidence (links or short citations) - Recommended next action Rules: - Do not post, create, assign, label, close, rerun, or edit anything. - Group duplicate reports under one bug. - Keep observed evidence separate from guesses.",
+    "prompt_zh": "為 [repo/service/team] 執行一次錯誤分類掃描，涵蓋最近的 [time window]。使用這些 plugin：[@Sentry / @Slack / @Linear / @GitHub / none] 輸入來源：- Sentry：[project / alert link / none] - Slack：[channel / thread links / none] - Linear：[team / project / view / issue query / none] - GitHub：[repo / issue query / PR checks / none] - Other：[logs / support tickets / deploy link / dashboard / attached file / none] 輸出格式：首先，列出任何你無法存取的輸入來源。接著回傳一份依 P0 到 P3 排序的優先順序錯誤清單。若未找到錯誤，請說：No qualifying bugs found。每個錯誤請包含：- Priority：P0、P1、P2 或 P3 - Title - Evidence（連結或簡短引用）- Recommended next action 規則：- 不要張貼、建立、指派、加標籤、關閉、重跑或編輯任何東西。- 將重複回報合併為同一個錯誤。- 將觀察到的證據與臆測分開。"
+  },
+  {
+    "slug": "generate-slide-decks",
+    "url": "https://developers.openai.com/codex/use-cases/generate-slide-decks",
+    "tags": ["Slides", "Automation"],
+    "title_en": "Generate slide decks",
+    "title_zh": "產生簡報投影片",
+    "summary_en": "Manipulate PowerPoint files and use image generation to automate slide deck creation.",
+    "summary_zh": "操作 PowerPoint 檔案並運用圖片生成，自動化建立簡報投影片。",
+    "overview_en": "This use case lets teams manipulate PowerPoint files and leverage image generation to automate slide creation. You can update existing presentations or build new decks by editing slides through code, generating visuals, and applying repeatable layout rules systematically.",
+    "overview_zh": "這個使用情境讓團隊能操作 PowerPoint 檔案，並運用圖片生成來自動化建立投影片。你可以更新既有簡報，或透過程式碼編輯投影片、生成視覺素材，以及系統化地套用可重複的版面規則來打造全新的簡報。",
+    "when_en": [
+      "Teams converting notes or structured inputs into repeatable slide decks",
+      "Creating fresh visual presentations from scratch",
+      "Rebuilding or extending decks from screenshots, PDFs, or reference presentations"
+    ],
+    "when_zh": [
+      "需要把筆記或結構化輸入轉成可重複套用的投影片的團隊",
+      "從零開始建立全新的視覺化簡報",
+      "依截圖、PDF 或參考簡報重建或擴充投影片"
+    ],
+    "steps_en": [
+      "Start from the existing deck and references: inspect source decks before making changes, match the source aspect ratio, and render references visually for accurate comparison.",
+      "Keep decks editable: preserve text as text objects and simple charts as native PowerPoint charts where practical, rather than rasterizing everything.",
+      "Generate visuals intentionally: define a visual direction upfront, reuse it consistently, and save generation notes for future extensions.",
+      "Keep slide logic explicit: treat each slide as an individual decision rather than applying blanket rules.",
+      "Validate before delivery: use bundled scripts to render decks to PNGs, check for overflow, and report font substitutions."
+    ],
+    "steps_zh": [
+      "從既有簡報與參考稿出發：修改前先檢視來源簡報，比照來源的長寬比，並把參考稿渲染成圖片以便準確比對。",
+      "讓簡報保持可編輯：在可行的情況下，把文字保留為文字物件、把簡單圖表保留為原生的 PowerPoint 圖表，而非全部點陣化。",
+      "刻意地生成視覺素材：事先定義視覺方向、一致地重複使用，並儲存生成筆記以便日後擴充。",
+      "讓投影片邏輯明確：把每張投影片視為獨立的決策，而非套用一體適用的規則。",
+      "交付前先驗證：使用內建腳本把簡報渲染為 PNG、檢查內容溢出，並回報字體替換情況。"
+    ],
+    "prompt_en": "Use the $slides and $imagegen skills to edit this slide deck in the following way: - If present, add logo.png in the bottom right corner on every slide - On slides X, Y and Z, move the text to the left and use image generation to generate an illustration (style: abstract, digital art) on the right - Preserve text as text and simple charts as native PowerPoint charts where practical. - Add these slides: [describe new slides here] - Use the existing branding on new slides and new text (colors, fonts, layout, etc.) - Render the updated deck to slide images, review the output, and fix layout issues before delivery. - Run overflow and font-substitution checks before delivery, especially if the deck is dense. - Save reusable prompts or generation notes when you create a batch of related images. Output: - A copy of the slide deck with the changes applied - notes on which slides were generated, rewritten, or left unchanged",
+    "prompt_zh": "使用 $slides 與 $imagegen skills，依下列方式編輯這份簡報：- 若存在 logo.png，將其加到每張投影片的右下角 - 在第 X、Y、Z 張投影片，把文字移到左側，並用圖片生成在右側產生一張插圖（風格：abstract, digital art）- 在可行的情況下，把文字保留為文字、把簡單圖表保留為原生的 PowerPoint 圖表。- 新增這些投影片：[describe new slides here] - 在新投影片與新文字上沿用既有品牌風格（顏色、字體、版面等）- 把更新後的簡報渲染成投影片圖片、檢視輸出，並在交付前修正版面問題。- 交付前執行內容溢出與字體替換檢查，尤其當簡報內容密集時。- 當你建立一批相關圖片時，儲存可重複使用的 prompt 或生成筆記。輸出：- 一份套用變更後的簡報副本 - 說明哪些投影片是生成、改寫或維持不變的筆記"
+  },
+  {
+    "slug": "slack-coding-tasks",
+    "url": "https://developers.openai.com/codex/use-cases/slack-coding-tasks",
+    "tags": ["Slack", "Automation"],
+    "title_en": "Kick off coding tasks from Slack",
+    "title_zh": "從 Slack 啟動程式任務",
+    "summary_en": "Turn Slack threads into scoped cloud tasks by mentioning @Codex, then review results in the thread.",
+    "summary_zh": "在 Slack 中標記 @Codex，把討論串變成範圍明確的雲端任務，再回討論串檢視結果。",
+    "overview_en": "Turn Slack threads into scoped cloud tasks. Mention @Codex in Slack to start a task tied to the right repo and environment, then review the result back in the thread or in Codex cloud.",
+    "overview_zh": "把 Slack 討論串變成範圍明確的雲端任務。在 Slack 中標記 @Codex 即可啟動一個綁定到正確 repo 與環境的任務，接著在討論串中或 Codex cloud 上檢視結果。",
+    "when_en": [
+      "Asynchronous handoffs that originate in Slack threads with enough existing context",
+      "Teams wanting rapid issue triage, bug fixes, or limited-scope implementation without context switching"
+    ],
+    "when_zh": [
+      "源自 Slack 討論串、且已有足夠脈絡的非同步交接",
+      "想快速進行 issue 分類、修錯或小範圍實作，又不想切換工作環境的團隊"
+    ],
+    "steps_en": [
+      "Install the Slack app, connect the appropriate repositories and environments, and add @Codex to the channel.",
+      "Mention @Codex in a thread with an explicit request, constraints, and desired outcome.",
+      "Open the task link, evaluate the results, and continue follow-up in Slack if more iteration is needed."
+    ],
+    "steps_zh": [
+      "安裝 Slack app、連接適當的 repository 與環境，並把 @Codex 加入頻道。",
+      "在討論串中標記 @Codex，並附上明確的需求、限制條件與期望結果。",
+      "開啟任務連結、評估結果，若需要更多迭代，就在 Slack 中繼續後續討論。"
+    ],
+    "prompt_en": "@Codex analyze the issue mentioned in this thread and implement a fix in <name of your environment>.",
+    "prompt_zh": "@Codex 分析這個討論串中提到的 issue，並在 <name of your environment> 中實作修正。"
+  },
+  {
+    "slug": "make-granular-ui-changes",
+    "url": "https://developers.openai.com/codex/use-cases/make-granular-ui-changes",
+    "tags": ["Front-end", "UI"],
+    "title_en": "Make granular UI changes",
+    "title_zh": "進行細部 UI 調整",
+    "summary_en": "Make focused single UI adjustments in an existing app, verify in browser, and iterate fast.",
+    "summary_zh": "在既有 App 中進行專注的單一 UI 調整、在瀏覽器驗證並快速迭代。",
+    "overview_en": "Use Codex-Spark for focused UI iteration in existing applications. You can make individual visual adjustments, verify them in a browser, and iterate rapidly from a floating chat window positioned near your preview.",
+    "overview_zh": "使用 Codex-Spark 在既有應用程式中進行專注的 UI 迭代。你可以逐項做視覺調整、在瀏覽器中驗證，並從一個浮動於預覽畫面旁的聊天視窗快速迭代。",
+    "when_en": [
+      "Existing apps requiring small visual polish rather than structural changes",
+      "Rapid product/design review cycles where each feedback item becomes one focused code change",
+      "UI refinement passes that need browser verification without a broad redesign"
+    ],
+    "when_zh": [
+      "需要小幅視覺打磨、而非結構性變更的既有 App",
+      "快速的產品/設計審查循環，讓每則回饋都對應一次專注的程式碼變更",
+      "需要瀏覽器驗證、但不必大幅重新設計的 UI 精修階段"
+    ],
+    "steps_en": [
+      "Open the existing app and display the relevant route or component.",
+      "Pop the Codex conversation into a floating window near your browser or editor.",
+      "Request one specific UI change at a time, including route and viewport context.",
+      "Instruct Codex to inspect the current implementation and make minimal edits while preserving existing components and data flow.",
+      "Review the result, then send subsequent small adjustments in the same thread."
+    ],
+    "steps_zh": [
+      "開啟既有 App 並顯示相關的 route 或元件。",
+      "把 Codex 對話彈出為浮動視窗，置於你的瀏覽器或編輯器旁。",
+      "一次只提出一項明確的 UI 變更，並附上 route 與 viewport 的脈絡。",
+      "指示 Codex 檢視目前的實作，並在保留既有元件與資料流的前提下做最小幅度的修改。",
+      "檢視結果，接著在同一討論串中送出後續的小幅調整。"
+    ],
+    "prompt_en": "Make this UI change in the existing app: [describe the exact spacing, alignment, color, copy, responsive, or component-state adjustment] Constraints: - Change only the files needed for this UI adjustment. - Reuse existing components, tokens, icons, and layout patterns. - Keep behavior, data flow, and routing unchanged unless I explicitly ask for it. - Start or reuse the dev server, inspect the current UI in the browser, make the smallest patch, and verify the result visually. Stop after this one change and summarize the files changed plus the browser check you ran.",
+    "prompt_zh": "在既有 App 中進行這項 UI 變更：[describe the exact spacing, alignment, color, copy, responsive, or component-state adjustment] 限制條件：- 只更動這項 UI 調整所需的檔案。- 重用既有的元件、token、圖示與版面模式。- 除非我明確要求，否則維持行為、資料流與 routing 不變。- 啟動或重用 dev server，在瀏覽器中檢視目前的 UI，做最小幅度的修補，並以視覺方式驗證結果。完成這一項變更後即停止，並總結變更的檔案以及你執行的瀏覽器檢查。"
+  },
+  {
+    "slug": "new-hire-onboarding",
+    "url": "https://developers.openai.com/codex/use-cases/new-hire-onboarding",
+    "tags": ["Onboarding", "Operations"],
+    "title_en": "Coordinate new-hire onboarding",
+    "title_zh": "協調新進人員報到流程",
+    "summary_en": "Prepare onboarding trackers, team summaries, and welcome-space drafts staged for reviewer approval.",
+    "summary_zh": "準備報到追蹤表、團隊摘要與歡迎空間草稿，並等待審閱者核准。",
+    "overview_en": "Prepare onboarding trackers, team summaries, and welcome-space drafts using Codex. The workflow gathers approved new-hire context and stages reviewer-ready materials before any external actions occur, keeping channel creation, invitations, and messages behind explicit approval checkpoints.",
+    "overview_zh": "運用 Codex 準備報到追蹤表、團隊摘要與歡迎空間草稿。整個流程會蒐集已核准的新進人員脈絡，並在任何對外動作發生之前先備妥可供審閱的材料，將頻道建立、邀請與訊息發送都置於明確的核准關卡之後。",
+    "when_en": [
+      "People, recruiting, IT, or workplace operations teams managing batch starts",
+      "Managers preparing for new teammates and first-week coordination",
+      "Coordinators converting rosters into trackers, summaries, and welcome-space drafts"
+    ],
+    "when_zh": [
+      "管理批次報到的人資、招募、IT 或職場營運團隊",
+      "為新隊友與第一週協調做準備的主管",
+      "把名冊轉換成追蹤表、摘要與歡迎空間草稿的協調者"
+    ],
+    "steps_en": [
+      "Define the review boundary: establish which data sources, fields, destinations, reviewers, and actions are permitted, and exclude sensitive fields such as compensation, demographics, IDs, medical information, background checks, and interview feedback.",
+      "Gather approved inputs: source data from recruiting exports, HR systems, spreadsheets, or manager tables, and have Codex report all sources read, row counts, date ranges, and field selections before generating any tracker.",
+      "Build the tracker: separate source facts from generated planning fields, stage the tracker in a new CSV or draft format, and review rows, destination, and missing-field questions before approval.",
+      "Draft communications: prepare materials in reviewer order, including a team-by-team summary with counts and gaps, welcome-space names, invite lists and topics, and announcement copy that avoids unnecessary personal details.",
+      "Execute only after approval: keep channel creation, invitations, posts, and writes behind explicit approval checkpoints."
+    ],
+    "steps_zh": [
+      "界定審閱範圍：確立允許使用哪些資料來源、欄位、目的地、審閱者與動作，並排除敏感欄位，例如薪酬、人口統計資料、身分證件、醫療資訊、背景調查與面試回饋。",
+      "蒐集已核准的輸入：從招募匯出資料、HR 系統、試算表或主管表格取得資料，並讓 Codex 在產生任何追蹤表之前，先回報所讀取的所有來源、列數、日期區間與所選欄位。",
+      "建立追蹤表：把來源事實與生成的規劃欄位分開，將追蹤表暫存為新的 CSV 或草稿格式，並在核准前審閱各列、目的地與缺漏欄位的問題。",
+      "草擬溝通內容：依審閱順序備妥材料，包含逐隊摘要（含人數與缺口）、歡迎空間名稱、邀請名單與主題，以及避免不必要個人細節的公告文案。",
+      "僅在核准後才執行：將頻道建立、邀請、貼文與寫入動作都置於明確的核准關卡之後。"
+    ],
+    "prompt_en": "Help me prepare a reviewable onboarding packet for upcoming new hires... Start read-only: inventory the sources, fields, row counts, and date range... Then stage drafts: draft a reviewable tracker update... Safety: use only the approved sources I named...",
+    "prompt_zh": "協助我為即將報到的新進人員準備一份可供審閱的報到資料包……先以唯讀方式開始：盤點來源、欄位、列數與日期區間……接著備妥草稿：草擬一份可供審閱的追蹤表更新……安全規範：只使用我指定的已核准來源……"
+  }
+]

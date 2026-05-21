@@ -1,0 +1,298 @@
+[
+  {
+    "slug": "manage-your-inbox",
+    "url": "https://developers.openai.com/codex/use-cases/manage-your-inbox",
+    "tags": ["Automation", "Integrations", "Productivity"],
+    "title_en": "Manage your inbox",
+    "title_zh": "管理你的收件匣",
+    "summary_en": "Let Codex scan Gmail, flag emails needing replies, and draft responses in your own voice.",
+    "summary_zh": "讓 Codex 掃描 Gmail、標記需要回覆的郵件，並用你的語氣草擬回信。",
+    "overview_en": "Use Codex with Gmail to identify which emails actually need your attention and draft responses in your personal writing style. It pulls context from tools like Slack and Google Drive, and can monitor your inbox for new replies on a schedule so triage becomes a recurring, low-effort routine.",
+    "overview_zh": "搭配 Gmail 使用 Codex，找出哪些郵件真正需要你處理，並以你個人的書寫風格草擬回信。它會從 Slack、Google Drive 等工具擷取上下文，還能依排程持續監控收件匣的新回覆，讓郵件分類成為輕鬆的例行流程。",
+    "when_en": [
+      "You want automated email prioritization instead of manually sorting your inbox",
+      "You need recurring inbox reviews where Codex drafts responses for you to review before sending",
+      "You want drafts written in your own voice using your past replies as reference"
+    ],
+    "when_zh": [
+      "你希望自動排定郵件優先順序，而不是手動整理收件匣",
+      "你需要定期檢視收件匣，讓 Codex 先草擬回覆、由你審閱後再寄出",
+      "你希望草稿以你自己的語氣撰寫，並參考你過去的回信"
+    ],
+    "steps_en": [
+      "Ask Codex to check Gmail for messages that deserve a reply",
+      "Let it pull in Slack, docs, or project notes for context when an email is missing key information",
+      "Give feedback on which drafts are useful and which emails to ignore in future passes",
+      "Treat early passes as calibration: correct tone issues and specify which email categories matter",
+      "Schedule recurring checks so Codex monitors Gmail and generates reviewable drafts without sending",
+      "Use Gmail plugin commands to archive or label low-priority emails"
+    ],
+    "steps_zh": [
+      "請 Codex 檢查 Gmail，找出值得回覆的郵件",
+      "當郵件缺少關鍵資訊時，讓它從 Slack、文件或專案筆記擷取上下文",
+      "針對哪些草稿有用、哪些郵件未來可忽略給予回饋",
+      "把前幾次當作校準：修正語氣問題，並指定哪些郵件類別重要",
+      "排定定期檢查，讓 Codex 監控 Gmail 並產生可審閱的草稿，但不直接寄出",
+      "使用 Gmail plugin 指令封存或標記低優先順序的郵件"
+    ],
+    "prompt_en": "Can you check my @gmail, figure out what I need to respond to, and write drafts in my voice. Use my recent sent replies or @google-drive [writing examples] for tone. Use @slack, @google-drive, or other sources where my work happens when the email is missing the latest decision, owner, file, or blocker.",
+    "prompt_zh": "可以幫我檢查 @gmail，找出我需要回覆哪些郵件，並用我的語氣寫成草稿嗎。請參考我最近寄出的回信或 @google-drive [writing examples] 來抓語氣。當郵件缺少最新的決策、負責人、檔案或阻礙事項時，請從 @slack、@google-drive 或其他我工作所在的來源取得資訊。"
+  },
+  {
+    "slug": "use-your-computer-with-codex",
+    "url": "https://developers.openai.com/codex/use-cases/use-your-computer-with-codex",
+    "tags": ["Automation", "Computer Use", "Productivity"],
+    "title_en": "Use your computer with Codex",
+    "title_zh": "用 Codex 操作你的電腦",
+    "summary_en": "Hand off multi-step tasks across Mac apps, windows, and files using Computer Use.",
+    "summary_zh": "透過 Computer Use 把跨 Mac app、視窗與檔案的多步驟任務交給 Codex。",
+    "overview_en": "Computer Use lets you hand off multi-step tasks that span Mac apps, windows, and files. Codex can click, type, and navigate apps on your Mac, operating applications the same way you would by interacting directly with the UI elements.",
+    "overview_zh": "Computer Use 讓你把橫跨 Mac app、視窗與檔案的多步驟任務交給 Codex 處理。Codex 能在你的 Mac 上點擊、輸入文字並操作 app，就像你親自直接操作 UI 元件一樣。",
+    "when_en": [
+      "Tasks that move across multiple apps, windows, browser sessions, or local files",
+      "Work you want to run in the background while you focus on something else",
+      "Repetitive UI workflows that have no direct API or integration"
+    ],
+    "when_zh": [
+      "需要橫跨多個 app、視窗、瀏覽器工作階段或本機檔案的任務",
+      "你想讓它在背景執行、自己去專注於其他事情的工作",
+      "沒有現成 API 或整合、只能透過 UI 操作的重複性工作流程"
+    ],
+    "steps_en": [
+      "Install the Computer Use plugin",
+      "Start requests with @Computer or mention specific apps",
+      "Describe the task you want done and the outcome you expect",
+      "Approve access when prompted so Codex can complete the work in the background",
+      "Specify which browser Codex should use, stay signed into relevant services, and avoid running multiple Computer Use tasks in the same app at once"
+    ],
+    "steps_zh": [
+      "安裝 Computer Use plugin",
+      "用 @Computer 開頭發出請求，或指名特定的 app",
+      "描述你想完成的任務以及預期的結果",
+      "出現提示時核准存取權限，讓 Codex 在背景完成工作",
+      "指定 Codex 該使用哪個瀏覽器、保持登入相關服務，並避免同一個 app 同時跑多個 Computer Use 任務"
+    ],
+    "prompt_en": "@Computer [do the task you want completed across your Mac]\n\nFor example:\n- Play some music to help me focus.\n- Help me add my interview notes from Notes to Ashby.\n- Look through my Messages app for the trip ideas Brooke sent me this week, add the best options to a new note called \"Yosemite ideas\", and draft a reply back to her.",
+    "prompt_zh": "@Computer [描述你想在 Mac 上跨 app 完成的任務]\n\n例如：\n- 播放一些音樂幫我集中精神。\n- 幫我把 Notes 裡的面試筆記加到 Ashby。\n- 在我的 Messages app 裡找出 Brooke 這週傳給我的旅遊點子，把最好的幾個選項加進一則名為「Yosemite ideas」的新筆記，並草擬一則回覆給她。"
+  },
+  {
+    "slug": "follow-goals",
+    "url": "https://developers.openai.com/codex/use-cases/follow-goals",
+    "tags": ["Coding", "Automation", "Long-running"],
+    "title_en": "Follow a goal",
+    "title_zh": "追蹤一個目標",
+    "summary_en": "Give Codex a durable objective and stopping condition for autonomous long-running work.",
+    "summary_zh": "給 Codex 一個持久的目標與停止條件，讓它自主執行長時間運作的工作。",
+    "overview_en": "Use the /goal command when a task needs Codex to stay focused across many turns toward a single verifiable stopping condition. It lets Codex work independently on extended projects without constant user input, making incremental, demonstrable progress toward the objective.",
+    "overview_zh": "當任務需要 Codex 在多輪互動中持續聚焦於單一可驗證的停止條件時，使用 /goal 指令。它讓 Codex 在無須使用者持續介入的情況下，自主進行長期專案，並朝目標做出可展示的漸進式進展。",
+    "when_en": [
+      "Long-running coding projects with clear success metrics and validation loops",
+      "Code migrations, large refactors, deployment retry loops, experiments, games, or exploratory projects where progress can be shown incrementally",
+      "Teams running extended experiments with measurable completion criteria"
+    ],
+    "when_zh": [
+      "具有明確成功指標與驗證迴圈的長時間 coding 專案",
+      "code 遷移、大規模重構、部署重試迴圈、實驗、遊戲，或可展示漸進進展的探索型專案",
+      "進行長時間實驗、且有可衡量完成標準的團隊"
+    ],
+    "steps_en": [
+      "Set up the contract: define one objective and one stopping condition, and point Codex to relevant files, docs, issues, or plans",
+      "Define validation: specify which commands or artifacts demonstrate progress",
+      "Establish checkpoints: have Codex work in phases while keeping a concise progress log",
+      "Monitor status: use /goal to inspect progress while it runs",
+      "Control execution: pause, resume, or clear the goal as circumstances change"
+    ],
+    "steps_zh": [
+      "建立約定：定義一個目標與一個停止條件，並把相關的檔案、文件、issue 或計畫指給 Codex",
+      "定義驗證方式：指定哪些指令或產出可以證明進展",
+      "設定檢查點：讓 Codex 分階段執行，同時維護一份簡潔的進度紀錄",
+      "監控狀態：在執行期間用 /goal 檢視進度",
+      "控制執行：視情況變化暫停、恢復或清除該目標"
+    ],
+    "prompt_en": "/goal Complete [objective] without stopping until [verifiable end state].",
+    "prompt_zh": "/goal 完成 [目標]，在達到 [可驗證的結束狀態] 之前不要停止。"
+  },
+  {
+    "slug": "proactive-teammate",
+    "url": "https://developers.openai.com/codex/use-cases/proactive-teammate",
+    "tags": ["Automation", "Integrations", "Productivity"],
+    "title_en": "Set up a teammate",
+    "title_zh": "設定一位隊友",
+    "summary_en": "Configure Codex as a proactive assistant that monitors your tools and surfaces what needs attention.",
+    "summary_zh": "把 Codex 設定成主動的助理，監控你的工具並主動指出需要關注的事項。",
+    "overview_en": "Set up Codex as a proactive work assistant by connecting it to the tools where your work happens, training it on what matters, and automating the monitoring of changes across documents, communications, and project trackers. It surfaces anything important or surprising you might otherwise miss.",
+    "overview_zh": "把 Codex 設定成主動的工作助理：將它連接到你工作所在的各種工具，訓練它了解什麼重要，並自動監控文件、通訊與專案追蹤工具中的變動。它會主動指出你可能會錯過的重要或意外事項。",
+    "when_en": [
+      "Roles that manage context across multiple platforms (Slack, Gmail, calendar, docs, trackers, code, notes)",
+      "You need to keep track of active work and recurring decisions",
+      "Teams that need high-priority items escalated automatically"
+    ],
+    "when_zh": [
+      "需要橫跨多個平台（Slack、Gmail、行事曆、文件、追蹤工具、code、筆記）管理上下文的角色",
+      "你需要持續掌握進行中的工作與反覆出現的決策",
+      "需要自動將高優先順序事項升級提醒的團隊"
+    ],
+    "steps_en": [
+      "Connect plugins/MCPs for the tools where your work happens",
+      "Start a thread asking Codex to check those sources",
+      "Give feedback on which results are useful versus noisy",
+      "Add an automation to the thread and pin it",
+      "Keep operating from the same thread for questions and next steps"
+    ],
+    "steps_zh": [
+      "為你工作所在的工具連接 plugin 或 MCP",
+      "開一個 thread，請 Codex 檢查這些來源",
+      "針對哪些結果有用、哪些是雜訊給予回饋",
+      "在這個 thread 加上自動化並將它釘選",
+      "後續的提問與下一步都繼續沿用同一個 thread 進行"
+    ],
+    "prompt_en": "Can you check @slack, @gmail, @google-calendar, and @notion and tell me what needs my attention? Look for anything important or surprising that I might miss.",
+    "prompt_zh": "可以幫我檢查 @slack、@gmail、@google-calendar 和 @notion，然後告訴我有哪些事需要我關注嗎？請找出任何我可能會錯過的重要或意外的事項。"
+  },
+  {
+    "slug": "feedback-synthesis",
+    "url": "https://developers.openai.com/codex/use-cases/feedback-synthesis",
+    "tags": ["Data Knowledge Work", "Integrations", "Productivity"],
+    "title_en": "Turn feedback into actions",
+    "title_zh": "把回饋轉化為行動",
+    "summary_en": "Synthesize feedback from many sources into a reviewable sheet, doc, or update.",
+    "summary_zh": "把來自多個來源的回饋彙整成一份可審閱的試算表、文件或更新報告。",
+    "overview_en": "Connect Codex to multiple data sources such as Slack, GitHub, Linear, or Google Drive to group feedback into a reviewable Google Sheet, Google Doc, Slack update, or recurring feedback check. It helps teams turn scattered feedback into actionable, evidence-backed insights.",
+    "overview_zh": "把 Codex 連接到 Slack、GitHub、Linear 或 Google Drive 等多個資料來源，將回饋彙整成一份可審閱的 Google Sheet、Google Doc、Slack 更新報告，或定期的回饋檢查。它能協助團隊把零散的回饋轉化為有憑有據、可付諸行動的洞見。",
+    "when_en": [
+      "Analyzing feedback from Slack channels, issue threads, survey exports, support-ticket CSVs, or research notes",
+      "Teams that need to turn raw feedback into actionable insights",
+      "Feedback sources that keep changing and need a recurring check"
+    ],
+    "when_zh": [
+      "分析來自 Slack 頻道、issue 討論串、問卷匯出檔、客服工單 CSV 或研究筆記的回饋",
+      "需要把原始回饋轉化為可行動洞見的團隊",
+      "回饋來源持續變動、需要定期檢查的情境"
+    ],
+    "steps_en": [
+      "Give Codex the feedback sources and one sentence of context",
+      "Ask for a Google Sheet or Doc with themes, evidence links, questions, and follow-ups",
+      "Use the same thread to turn the reviewed sheet into a Slack update or issue draft",
+      "Refine the sheet by asking Codex to add columns, split themes, or draft updates",
+      "Pin the thread and add an automation so it checks feedback sources on a schedule, updating only when new themes emerge"
+    ],
+    "steps_zh": [
+      "把回饋來源以及一句話的背景脈絡交給 Codex",
+      "請它產出一份 Google Sheet 或 Doc，內含主題、佐證連結、問題與後續事項",
+      "在同一個 thread 中，把審閱過的試算表轉成 Slack 更新報告或 issue 草稿",
+      "請 Codex 增加欄位、拆分主題或草擬更新，藉此精修這份試算表",
+      "釘選該 thread 並加上自動化，讓它依排程檢查回饋來源，僅在出現新主題時更新"
+    ],
+    "prompt_en": "Can you synthesize the beta feedback on [feature or product area] into a @google-sheets review sheet? Use these sources: - @slack [feedback channel or thread links] - @github [issue search or issue links] - @google-drive [survey export, notes doc, or Drive folder] In the sheet, group repeated feedback, include source links or IDs, mark confidence, and call out which items need product or engineering follow-up. Keep names and private quotes out of the visible summary unless I approve them. Do not post, send, create issues, or assign owners.",
+    "prompt_zh": "可以把 [功能或產品領域] 的 beta 回饋彙整成一份 @google-sheets 審閱試算表嗎？請使用這些來源：- @slack [回饋頻道或討論串連結] - @github [issue 搜尋或 issue 連結] - @google-drive [問卷匯出檔、筆記文件或 Drive 資料夾]。在試算表中，把重複的回饋分組、附上來源連結或 ID、標註信心程度，並指出哪些項目需要 product 或 engineering 跟進。除非經我核准，否則不要把姓名與私人引述放進可見的摘要中。不要張貼、寄送、建立 issue 或指派負責人。"
+  },
+  {
+    "slug": "clean-messy-data",
+    "url": "https://developers.openai.com/codex/use-cases/clean-messy-data",
+    "tags": ["Data Knowledge Work", "Productivity"],
+    "title_en": "Clean and prepare messy data",
+    "title_zh": "清理並整理凌亂的資料",
+    "summary_en": "Drag in a messy CSV, describe the problems, and get a cleaned copy with the original kept intact.",
+    "summary_zh": "拖入凌亂的 CSV、描述問題，就能取得清理後的副本，同時保留原始檔案不變。",
+    "overview_en": "Codex processes tabular data while preserving the original file. Drag in or mention a messy CSV or spreadsheet, describe the problems you see, and ask Codex to write a cleaned copy while keeping the original file unchanged. It uses the Spreadsheet skill to inspect tabular files, clean columns, and produce reviewable outputs.",
+    "overview_zh": "Codex 在處理表格資料的同時會保留原始檔案。你可以拖入或提及凌亂的 CSV 或試算表、描述你看到的問題，然後請 Codex 寫出一份清理後的副本，並維持原始檔案不變。它會運用 Spreadsheet skill 檢視表格檔案、清理欄位並產出可審閱的結果。",
+    "when_en": [
+      "CSV or spreadsheet exports with mixed dates, currencies, duplicates, summary rows, or missing values",
+      "Teams working with data combined from multiple sources",
+      "You need a cleaned, upload-ready copy without touching the original file"
+    ],
+    "when_zh": [
+      "日期格式、幣別不一致，或含有重複資料、摘要列、缺漏值的 CSV 或試算表匯出檔",
+      "處理來自多個來源、合併在一起的資料的團隊",
+      "你需要一份清理過、可直接上傳的副本，又不想動到原始檔案"
+    ],
+    "steps_en": [
+      "Drag the file into Codex or reference it (e.g. @customer-export.csv)",
+      "Describe the visible problems with the data",
+      "Specify the desired output format: CSV, spreadsheet tab, or upload-ready file",
+      "Review the cleaned copy before using it downstream"
+    ],
+    "steps_zh": [
+      "把檔案拖進 Codex，或用 @customer-export.csv 之類的方式引用它",
+      "描述資料中看得到的問題",
+      "指定想要的輸出格式：CSV、試算表分頁，或可直接上傳的檔案",
+      "在後續使用之前先審閱清理過的副本"
+    ],
+    "prompt_en": "Clean @marketplace-risk-rollout-export.csv. What's wrong: - dates are mixed between MM/DD/YYYY and YYYY-MM-DD - currency values include $, commas, and blank cells - a few duplicate customer rows came from repeated exports - region and category names use several aliases - there are pasted summary rows mixed into the data What I want: - write a cleaned CSV - keep the original file unchanged - use one date format - keep blank currency cells blank - preserve source row IDs when possible - add a short data-quality note with rows you changed, removed, or could not clean confidently",
+    "prompt_zh": "清理 @marketplace-risk-rollout-export.csv。問題在於：- 日期混用了 MM/DD/YYYY 與 YYYY-MM-DD - 幣值欄位含有 $、逗號與空白儲存格 - 因重複匯出而出現幾筆重複的客戶資料列 - region 與 category 名稱使用了多種別名 - 資料中夾雜了貼上的摘要列。我想要的是：- 寫出一份清理過的 CSV - 保持原始檔案不變 - 統一使用一種日期格式 - 空白的幣值儲存格維持空白 - 盡可能保留 source row ID - 附上一段簡短的資料品質說明，列出你更動、移除，或無法有把握清理的資料列"
+  },
+  {
+    "slug": "analyze-data-export",
+    "url": "https://developers.openai.com/codex/use-cases/analyze-data-export",
+    "tags": ["Data Knowledge Work", "Productivity"],
+    "title_en": "Query tabular data",
+    "title_zh": "查詢表格資料",
+    "summary_en": "Ask a question about a CSV or export and get calculations, charts, and a browser visualization.",
+    "summary_zh": "針對 CSV 或匯出檔提問，取得計算結果、圖表與瀏覽器視覺化呈現。",
+    "overview_en": "Ask a question about a CSV, spreadsheet, export, or data folder. Codex inspects the columns, runs calculations, and can answer questions, create visualizations, and save results, letting you refine the analysis in the same thread and compare across dimensions like region, cohort, or product.",
+    "overview_zh": "針對 CSV、試算表、匯出檔或資料夾提出問題。Codex 會檢視欄位、執行計算，能回答問題、製作視覺化圖表並儲存結果，讓你在同一個 thread 中精修分析，並跨 region、cohort、product 等維度進行比較。",
+    "when_en": [
+      "Questions answerable through quick calculations, charts, tables, or summaries",
+      "Roles requiring data analysis and visualization creation",
+      "Follow-up analysis comparing results across different dimensions"
+    ],
+    "when_zh": [
+      "可以透過快速計算、圖表、表格或摘要來回答的問題",
+      "需要進行資料分析與製作視覺化圖表的角色",
+      "需要跨不同維度比較結果的後續分析"
+    ],
+    "steps_en": [
+      "Attach the file or mention the connected data source",
+      "Ask your analytical question",
+      "Have Codex inspect the columns, run calculations, and create an HTML visualization",
+      "Open the local preview in the Codex browser, then keep refining in the same thread",
+      "Run follow-up analysis comparing results across dimensions like region, cohort, or product"
+    ],
+    "steps_zh": [
+      "附上檔案，或提及已連接的資料來源",
+      "提出你的分析問題",
+      "讓 Codex 檢視欄位、執行計算，並製作成 HTML 視覺化檔案",
+      "在 Codex 瀏覽器中開啟本地預覽，再於同一個 thread 中持續精修",
+      "進行後續分析，跨 region、cohort、product 等維度比較結果"
+    ],
+    "prompt_en": "Analyze @sales-export.csv\n\nQuestion: Which customer segment changed the most last quarter?\n\nPlease:\n- inspect the columns before analyzing\n- answer the question from the data\n- create a simple browser visualization as an HTML file\n- start a local preview so I can open it in the Codex browser",
+    "prompt_zh": "分析 @sales-export.csv\n\n問題：上一季哪個 customer segment 的變化最大？\n\n請：\n- 在分析前先檢視欄位\n- 根據資料回答問題\n- 製作一個簡單的瀏覽器視覺化 HTML 檔案\n- 啟動本地預覽，讓我可以在 Codex 瀏覽器中開啟"
+  },
+  {
+    "slug": "github-code-reviews",
+    "url": "https://developers.openai.com/codex/use-cases/github-code-reviews",
+    "tags": ["Coding", "Integrations", "Code Review"],
+    "title_en": "Review GitHub pull requests",
+    "title_zh": "審查 GitHub pull request",
+    "summary_en": "Have Codex automatically surface regressions, missing tests, and doc issues on every PR.",
+    "summary_zh": "讓 Codex 在每個 PR 上自動找出回歸、缺漏的測試與文件問題。",
+    "overview_en": "Use Codex code review in GitHub to automatically surface regressions, missing tests, and documentation issues directly on a pull request. It acts as an additional review signal before human merge approval, and can be customized with an AGENTS.md file that defines review guidance applied to changed files.",
+    "overview_zh": "在 GitHub 中使用 Codex code review，直接在 pull request 上自動找出回歸、缺漏的測試與文件問題。它在人工核准 merge 之前作為額外的審查訊號，並可透過 AGENTS.md 檔案自訂，定義套用於變動檔案的審查指引。",
+    "when_en": [
+      "Teams wanting an additional review signal before human merge approval",
+      "Large codebases and production projects",
+      "Repositories where you want consistent, automated checks on every pull request"
+    ],
+    "when_zh": [
+      "希望在人工核准 merge 之前多一道審查訊號的團隊",
+      "大型 codebase 與正式環境的專案",
+      "希望每個 pull request 都有一致、自動化檢查的儲存庫"
+    ],
+    "steps_en": [
+      "Add Codex code review to your GitHub organization or repository",
+      "Configure Codex to automatically review every pull request, or request reviews with @codex review in comments",
+      "When Codex flags issues, request fixes by commenting @codex fix it",
+      "That kicks off a cloud task that resolves the issue and updates the pull request",
+      "Customize reviews by adding an AGENTS.md file with review guidance that Codex applies to changed files"
+    ],
+    "steps_zh": [
+      "把 Codex code review 加到你的 GitHub organization 或 repository",
+      "設定 Codex 自動審查每個 pull request，或在留言中用 @codex review 來要求審查",
+      "當 Codex 標記出問題時，留言 @codex fix it 來要求修正",
+      "這會啟動一個 cloud task 來解決問題並更新該 pull request",
+      "新增一個 AGENTS.md 檔案來自訂審查，內含 Codex 套用於變動檔案的審查指引"
+    ],
+    "prompt_en": "@codex review for security regressions, missing tests, and risky behavior changes.",
+    "prompt_zh": "@codex review for security regressions, missing tests, and risky behavior changes."
+  }
+]

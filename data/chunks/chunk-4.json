@@ -1,0 +1,280 @@
+[
+  {
+    "slug": "browser-games",
+    "url": "https://developers.openai.com/codex/use-cases/browser-games",
+    "tags": ["Engineering", "Intermediate", "Long-running"],
+    "title_en": "Create browser-based games",
+    "title_zh": "打造瀏覽器遊戲",
+    "summary_en": "Use Codex to turn a game concept into a playable browser game, generating assets and testing live in the browser.",
+    "summary_zh": "運用 Codex 將遊戲概念轉化為可遊玩的瀏覽器遊戲，產生素材並在瀏覽器中即時測試。",
+    "overview_en": "This use case guides developers in leveraging Codex to transform a game concept into a fully functional browser-based game. The process involves using AI to create an initial plan, generate visual assets through ImageGen, and test the game iteratively in a live browser environment using Playwright.",
+    "overview_zh": "此使用情境引導開發者運用 Codex，將遊戲概念轉化為功能完整的瀏覽器遊戲。流程包含以 AI 建立初步計畫、透過 ImageGen 產生視覺素材，並使用 Playwright 在即時瀏覽器環境中反覆測試遊戲。",
+    "when_en": [
+      "Developers building browser-based games from scratch",
+      "Projects requiring repeated testing and refinement of controls, visuals, and UI elements"
+    ],
+    "when_zh": [
+      "從零開始打造瀏覽器遊戲的開發者",
+      "需要反覆測試與調整操作、視覺與 UI 元素的專案"
+    ],
+    "steps_en": [
+      "Create a game plan: have Codex write a PLAN.md defining player objectives, core gameplay loop, input controls, win/fail conditions, difficulty progression, visual direction, tech stack, and milestones.",
+      "Define behavior with AGENTS.md: specify the tech stack (Next.js, Fastify, Postgres, Redis, OpenAI) plus verification, asset generation, and testing guidance.",
+      "Activate required skills: integrate Imagegen for assets, Playwright interactive for live browser testing, and OpenAI docs access.",
+      "Execute and iterate: let Codex build the initial version, test gameplay in a live browser, generate consistent visual assets, and refine based on feedback."
+    ],
+    "steps_zh": [
+      "建立遊戲計畫：請 Codex 撰寫 PLAN.md，定義玩家目標、核心遊戲迴圈、操作輸入、勝負條件、難度遞增、視覺方向、技術堆疊與開發里程碑。",
+      "以 AGENTS.md 定義行為：指定技術堆疊（Next.js、Fastify、Postgres、Redis、OpenAI），並提供驗證、素材產生與測試的指引。",
+      "啟用所需 skills：整合 Imagegen 產生素材、Playwright interactive 進行即時瀏覽器測試，以及 OpenAI 文件存取。",
+      "執行並反覆迭代：讓 Codex 建立初版、在即時瀏覽器中測試遊玩、產生風格一致的視覺素材，並依回饋持續優化。"
+    ],
+    "prompt_en": "Use $playwright-interactive, $imagegen, and $openai-docs to plan and build a browser game in this repo. Implement PLAN.md, and log your work under `.logs/`.",
+    "prompt_zh": "使用 $playwright-interactive、$imagegen 與 $openai-docs，在此 repo 中規劃並打造一款瀏覽器遊戲。實作 PLAN.md，並將你的工作記錄在 `.logs/` 之下。"
+  },
+  {
+    "slug": "iterate-on-difficult-problems",
+    "url": "https://developers.openai.com/codex/use-cases/iterate-on-difficult-problems",
+    "tags": ["Engineering", "Advanced", "Long-running"],
+    "title_en": "Iterate on difficult problems",
+    "title_zh": "反覆攻克困難問題",
+    "summary_en": "Apply Codex to optimization problems using an eval-driven loop where each iteration is scored until quality thresholds are met.",
+    "summary_zh": "以 eval 驅動的迴圈將 Codex 應用於最佳化問題，每次迭代皆評分，直到達成品質門檻。",
+    "overview_en": "This use case addresses optimization challenges requiring multiple iterative passes with tight evaluation loops. Rather than one-shot verification, it applies Codex to problems where each iteration can be scored, but the best result usually takes many passes. The approach pairs Codex with evaluation systems—scripts, reviewable artifacts, and scoring mechanisms—enabling continuous improvement until quality thresholds are reached.",
+    "overview_zh": "此使用情境針對需要多次迭代與緊密評估迴圈的最佳化挑戰。它不採用一次性驗證，而是將 Codex 應用於每次迭代都能評分、但最佳結果通常需要多輪嘗試的問題。此方法將 Codex 與評估系統（腳本、可審查的產物與評分機制）搭配，得以持續改進，直到達成品質門檻。",
+    "when_en": [
+      "Tasks with both deterministic and subjective elements needing script-based checks and LLM-as-judge scoring",
+      "Visual or subjective outputs needing inspection across iterations",
+      "Long-running sessions where progress tracking matters more than context preservation"
+    ],
+    "when_zh": [
+      "同時包含確定性與主觀元素、需要腳本檢查與 LLM-as-judge 評分的任務",
+      "需要在多次迭代間進行檢視的視覺或主觀產出",
+      "進度追蹤比保留 context 更重要的長時間執行工作"
+    ],
+    "steps_en": [
+      "Start with evals: define success through deterministic checks (constraint violations, computed metrics) and LLM-as-judge rubrics (readability, usefulness, quality); store eval output as machine-readable data.",
+      "Set stopping rules: establish explicit targets, e.g. keep iterating until both overall score and LLM average exceed 90%.",
+      "Maintain running logs: track current best scores, recent changes, eval feedback, and planned next steps.",
+      "Inspect artifacts: view generated outputs directly (images, layouts, states), not just logs and diffs.",
+      "Follow explicit iteration discipline: run baseline evals, identify bottlenecks, make one focused change, re-run evals, log results, and continue until thresholds are met."
+    ],
+    "steps_zh": [
+      "從 evals 開始：透過確定性檢查（違反約束、計算指標）與 LLM-as-judge 評分標準（可讀性、實用性、品質）定義成功，並將 eval 輸出儲存為機器可讀的資料。",
+      "設定停止規則：建立明確目標，例如持續迭代直到整體分數與 LLM 平均分數皆超過 90%。",
+      "維護執行記錄：追蹤目前最佳分數、最近的變更、eval 回饋與下一步規劃。",
+      "檢視產物：直接查看產生的輸出（圖片、版面、狀態），而非僅看 log 與 diff。",
+      "遵循明確的迭代紀律：先對基線執行 evals、找出瓶頸、做一項聚焦的變更、重跑 evals、記錄結果，並持續至達成門檻。"
+    ],
+    "prompt_en": "I have a difficult task in this workspace and I want you to run it as an eval-driven improvement loop. Before changing anything: - Read `AGENTS.md`. - Find the script or command that scores the current output. Iteration loop: - Make one focused improvement at a time. - Re-run the eval command after each meaningful change. - Log the scores and what changed. - Inspect generated artifacts directly. If the output is visual, use `view_image`. - Keep going until both the overall score and the LLM average are above 90%. Constraints: - Do not stop at the first acceptable result. - Do not revert to an earlier version unless the new result is clearly worse in scores or artifacts. - If the eval improves but is still below target, explain the bottleneck and continue. Output: - current best scores - log of major iterations - remaining risks or weak spots",
+    "prompt_zh": "我在這個 workspace 裡有一項困難的任務，希望你以 eval 驅動的改進迴圈來執行。在做任何變更之前：- 閱讀 `AGENTS.md`。- 找出為目前輸出評分的腳本或指令。迭代迴圈：- 一次只做一項聚焦的改進。- 在每次有意義的變更後重跑 eval 指令。- 記錄分數與變更內容。- 直接檢視產生的產物。若輸出為視覺類，使用 `view_image`。- 持續進行，直到整體分數與 LLM 平均分數皆超過 90%。約束：- 不要在第一個可接受的結果就停下。- 除非新結果在分數或產物上明顯更差，否則不要回退到先前版本。- 若 eval 有改善但仍低於目標，請說明瓶頸並繼續。輸出：- 目前最佳分數 - 主要迭代的記錄 - 仍存在的風險或弱點"
+  },
+  {
+    "slug": "reusable-codex-skills",
+    "url": "https://developers.openai.com/codex/use-cases/reusable-codex-skills",
+    "tags": ["Engineering", "Easy", "5m"],
+    "title_en": "Save workflows as skills",
+    "title_zh": "將工作流程存為 skills",
+    "summary_en": "Turn a working Codex thread, review rules, or repo scripts into reusable skills Codex can apply in future threads.",
+    "summary_zh": "將可運作的 Codex thread、審查規則或 repo 腳本轉為可重複使用的 skills，供 Codex 在未來的 threads 中套用。",
+    "overview_en": "This use case guides teams through converting working Codex threads, review rules, test commands, release checklists, design conventions, writing examples, or repository-specific scripts into reusable skills. The core concept: turn a working Codex thread, review rules, test commands, release checklists, design conventions, writing examples, or repo-specific scripts into a skill Codex can use in future threads.",
+    "overview_zh": "此使用情境引導團隊將可運作的 Codex threads、審查規則、測試指令、發布檢查清單、設計慣例、寫作範例或 repo 專屬腳本，轉換為可重複使用的 skills。核心概念是：把一個可運作的 Codex thread、審查規則、測試指令、發布檢查清單、設計慣例、寫作範例或 repo 專屬腳本，變成 Codex 在未來 threads 中可使用的 skill。",
+    "when_en": [
+      "Codified workflows that need to be executed repeatedly",
+      "Teams seeking reusable instructions rather than long prompts pasted into every session"
+    ],
+    "when_zh": [
+      "需要被反覆執行的既定工作流程",
+      "希望使用可重複套用的指示、而非每次 session 都貼上冗長 prompt 的團隊"
+    ],
+    "steps_en": [
+      "Gather context: stay in the working Codex thread and paste relevant documentation, links, or Slack threads that explain the workflow.",
+      "Run the starter prompt: invoke $skill-creator with the thread, documentation, or command you want preserved.",
+      "Let Codex create and validate: the skill defines its name, triggering conditions, and reusable instructions.",
+      "Deploy and refine: use the new skill on subsequent tasks, and request updates if it misses steps or uses incorrect commands."
+    ],
+    "steps_zh": [
+      "蒐集 context：停留在可運作的 Codex thread 中，貼上能說明該工作流程的相關文件、連結或 Slack threads。",
+      "執行啟動 prompt：以 $skill-creator 帶入你想保留的 thread、文件或指令。",
+      "讓 Codex 建立並驗證：該 skill 會定義自己的名稱、觸發條件與可重複使用的指示。",
+      "部署並優化：在後續任務中使用這個新 skill，若它遺漏步驟或使用了錯誤指令，再請它更新。"
+    ],
+    "prompt_en": "Use $skill-creator to create a Codex skill that [fixes failing Buildkite checks on a GitHub PR / turns PR notes into inline review comments / writes our release notes from merged PRs]",
+    "prompt_zh": "使用 $skill-creator 建立一個 Codex skill，用來〔修正 GitHub PR 上失敗的 Buildkite 檢查／將 PR 註記轉為行內審查留言／從已合併的 PR 撰寫我們的發布說明〕"
+  },
+  {
+    "slug": "update-documentation",
+    "url": "https://developers.openai.com/codex/use-cases/update-documentation",
+    "tags": ["Engineering", "Easy", "30m"],
+    "title_en": "Keep documentation up-to-date",
+    "title_zh": "讓文件保持最新",
+    "summary_en": "Use Codex to compare code changes against docs and draft focused, verified documentation updates before publishing.",
+    "summary_zh": "運用 Codex 比對程式碼變更與文件，於發布前草擬聚焦且經驗證的文件更新。",
+    "overview_en": "Use Codex to compare source code changes, public docs, release notes, and PR context, then draft focused documentation updates with verification steps before publishing.",
+    "overview_zh": "運用 Codex 比對原始碼變更、公開文件、發布說明與 PR context，接著草擬聚焦的文件更新，並在發布前附上驗證步驟。",
+    "when_en": [
+      "Developer docs, READMEs, runbooks, examples, and migration notes that track frequently changing behavior",
+      "Teams maintaining documentation for technical products"
+    ],
+    "when_zh": [
+      "需要追蹤頻繁變動行為的開發者文件、README、runbook、範例與遷移說明",
+      "維護技術產品文件的團隊"
+    ],
+    "steps_en": [
+      "Start from the change: share the branch, PR, commit, issue, or files, and specify if docs are public to exclude unpublished roadmap and private details.",
+      "Map affected docs: have Codex search existing docs for feature names, config keys, commands, examples, and related terms before drafting.",
+      "Update minimal surface: preserve current page structure, terminology, cross-links, and frontmatter, avoiding broad rewrites when precise updates suffice.",
+      "Verify changes: run formatting and docs checks fitting the repo, then summarize the evidence behind each user-facing claim."
+    ],
+    "steps_zh": [
+      "從變更出發：提供分支、PR、commit、issue 或檔案，並說明文件是否為公開，以排除尚未發布的 roadmap 與私有細節。",
+      "盤點受影響的文件：在草擬之前，請 Codex 搜尋既有文件中的功能名稱、設定鍵、指令、範例與相關詞彙。",
+      "以最小幅度更新：保留現有頁面結構、術語、交叉連結與 frontmatter，在精準更新就足夠時避免大幅改寫。",
+      "驗證變更：執行符合 repo 的格式與文件檢查，接著總結每項面向使用者的說法背後的佐證。"
+    ],
+    "prompt_en": "Update the [product/feature] documentation based on the following sources: the changed source files in [this repo/source linked repo], existing docs pages mentioning new behavior, any linked issue, PR, release note, or public reference. Then: identify user-facing changes, update only necessary docs, keep unpublished roadmap and private details out, preserve existing structure and cross-links, run applicable docs checks. Before finalizing, summarize what changed, what you verified, and any unproven claims.",
+    "prompt_zh": "請根據以下來源更新〔產品／功能〕文件：〔本 repo／所連結的原始碼 repo〕中變更的原始檔、提及新行為的既有文件頁面，以及任何連結的 issue、PR、發布說明或公開參考資料。接著：辨識面向使用者的變更、只更新必要的文件、排除尚未發布的 roadmap 與私有細節、保留既有結構與交叉連結、執行適用的文件檢查。在定稿前，總結變更了什麼、你驗證了什麼，以及任何尚未獲證實的說法。"
+  },
+  {
+    "slug": "native-ios-apps",
+    "url": "https://developers.openai.com/codex/use-cases/native-ios-apps",
+    "tags": ["Engineering", "Advanced", "1h"],
+    "title_en": "Build for iOS",
+    "title_zh": "為 iOS 開發",
+    "summary_en": "Use Codex to scaffold, build, and debug SwiftUI apps for iPhone and iPad with a CLI-first workflow.",
+    "summary_zh": "運用 Codex 以 CLI 優先的工作流程，為 iPhone 與 iPad 建立、開發並除錯 SwiftUI 應用程式。",
+    "overview_en": "This use case guides developers to employ Codex for scaffolding, constructing, and troubleshooting SwiftUI applications targeting iPhone and iPad. The approach maintains a CLI-first workflow using xcodebuild or Tuist, with optional integration of XcodeBuildMCP or specialized SwiftUI skills for advanced tasks.",
+    "overview_zh": "此使用情境引導開發者運用 Codex，為 iPhone 與 iPad 建立、構築並排除 SwiftUI 應用程式的問題。此方法以 CLI 優先的工作流程為主，使用 xcodebuild 或 Tuist，並可選擇性整合 XcodeBuildMCP 或專門的 SwiftUI skills 來處理進階任務。",
+    "when_en": [
+      "Creating new iOS SwiftUI apps where Codex handles initial scaffolding and build infrastructure",
+      "Enhancing existing iPhone/iPad projects needing schemes, simulator output, visual captures, or automated testing",
+      "Teams preferring agentic, terminal-based iOS workflows over GUI-dependent development"
+    ],
+    "when_zh": [
+      "建立新的 iOS SwiftUI app，由 Codex 處理初始建置與建置基礎設施",
+      "強化既有 iPhone/iPad 專案，需要 schemes、模擬器輸出、視覺截圖或自動化測試",
+      "偏好以 agentic、終端機為基礎的 iOS 工作流程，而非依賴 GUI 開發的團隊"
+    ],
+    "steps_en": [
+      "Scaffold the app and build loop: for greenfield projects, ask Codex to generate a starter SwiftUI app and a build-launch script to wire into local environment actions, keeping things terminal-centric with xcodebuild for scheme management and builds.",
+      "Leverage skills: add specialized skills once work becomes domain-specific—SwiftUI expert, SwiftUI Pro, Liquid Glass expert, performance auditing, Swift concurrency, view refactoring, and UI pattern resources.",
+      "Iterate: make specific requests, clarify whether working greenfield or modifying existing projects, specify device/deployment requirements, and define validation expectations."
+    ],
+    "steps_zh": [
+      "建立 app 與建置迴圈：對全新專案，請 Codex 產生一個 SwiftUI 起始 app 與一個 build-launch 腳本，以串接本地環境動作，並以 xcodebuild 進行 scheme 管理與建置，保持以終端機為中心。",
+      "善用 skills：當工作進入特定領域時加入專門 skills，例如 SwiftUI expert、SwiftUI Pro、Liquid Glass expert、效能稽核、Swift 並行處理指引、view 重構與 UI 模式資源。",
+      "反覆迭代：提出具體需求，釐清是進行全新開發或修改既有專案，指定裝置／部署需求，並定義驗證期望。"
+    ],
+    "prompt_en": "Scaffold a starter SwiftUI app and add a build-and-launch script I can wire to a `Build` action in my local environment. Constraints: - Stay CLI-first. Prefer Apple's `xcodebuild`; if a cleaner setup helps, it's okay to use Tuist. - If this repo already contains a full Xcode project, use XcodeBuildMCP to list targets, pick the right scheme, build, launch, and capture screenshots while you iterate...",
+    "prompt_zh": "建立一個 SwiftUI 起始 app，並加入一個 build-and-launch 腳本，讓我能串接到本地環境中的 `Build` 動作。約束：- 維持 CLI 優先。優先使用 Apple 的 `xcodebuild`；若更乾淨的設定有幫助，可以使用 Tuist。- 若此 repo 已包含完整的 Xcode 專案，請使用 XcodeBuildMCP 列出 targets、挑選正確的 scheme、建置、啟動，並在你迭代時擷取截圖……"
+  },
+  {
+    "slug": "refactor-your-codebase",
+    "url": "https://developers.openai.com/codex/use-cases/refactor-your-codebase",
+    "tags": ["Engineering", "Advanced", "1h"],
+    "title_en": "Refactor your codebase",
+    "title_zh": "重構你的程式碼庫",
+    "summary_en": "Use Codex to remove dead code and modernize legacy patterns in small, reviewable passes without changing behavior.",
+    "summary_zh": "運用 Codex 以小幅、可審查的多次推進，移除無用程式碼並現代化舊有模式，且不改變行為。",
+    "overview_en": "This use case guides teams through removing dead code and modernizing legacy patterns without altering system behavior. Codex helps identify structural debt, then executes cleanup in small, reviewable passes rather than large migrations. The approach focuses on deleting unused code, stale helpers, and compatibility shims; shrinking noisy modules through extraction and splitting; replacing legacy patterns with current repository conventions; and maintaining stable public APIs during refactoring.",
+    "overview_zh": "此使用情境引導團隊在不改變系統行為的前提下，移除無用程式碼並現代化舊有模式。Codex 協助辨識結構性技術債，接著以小幅、可審查的多次推進進行清理，而非一次性大規模遷移。此方法聚焦於：刪除未使用的程式碼、過時的輔助函式與相容性墊片；透過抽取與拆分縮減雜亂的模組；以目前的 repo 慣例取代舊有模式；並在重構過程中維持公開 API 穩定。",
+    "when_en": [
+      "Codebases containing dead code, oversized modules, duplicated logic, or stale abstractions",
+      "Teams modernizing code in place without framework or stack migrations"
+    ],
+    "when_zh": [
+      "包含無用程式碼、過大模組、重複邏輯或過時抽象的程式碼庫",
+      "希望就地現代化程式碼、不進行框架或技術堆疊遷移的團隊"
+    ],
+    "steps_en": [
+      "Map the area: ask Codex to identify noisy modules, duplicated logic, unused code, tests, and outdated patterns.",
+      "Choose one cleanup theme: focus on a single area—unused code removal, control flow simplification, pattern modernization, or file splitting.",
+      "State the intent: have Codex articulate current behavior, the structural improvement, and minimal validation checks.",
+      "Review incrementally: run checks after each pass rather than batching changes.",
+      "Defer migrations: keep stack changes and dependency upgrades as separate tasks."
+    ],
+    "steps_zh": [
+      "盤點範圍：請 Codex 辨識雜亂的模組、重複邏輯、未使用的程式碼與測試，以及過時的模式。",
+      "選定單一清理主題：聚焦於單一面向，如移除未使用程式碼、簡化控制流程、現代化模式或拆分檔案。",
+      "說明意圖：請 Codex 闡明目前行為、結構性的改進，以及最小的驗證檢查。",
+      "逐步審查：在每次推進後執行檢查，而非把變更累積成批。",
+      "延後遷移：將技術堆疊變更與相依套件升級保留為獨立任務。"
+    ],
+    "prompt_en": "Modernize and refactor this codebase. Requirements: Preserve behavior unless explicitly requested. Identify dead code, duplicated paths, oversized modules, stale abstractions, and legacy patterns. For each pass, name current behavior, structural improvement, and validation checks. Break work into small reviewable refactor passes. Keep public APIs stable. Call out framework migrations or dependency upgrades for separate tasks. Propose a plan.",
+    "prompt_zh": "請現代化並重構這個程式碼庫。需求：除非明確要求，否則保留行為。辨識無用程式碼、重複路徑、過大模組、過時抽象與舊有模式。每一次推進，請說明目前行為、結構性改進與驗證檢查。將工作拆成小幅、可審查的重構推進。維持公開 API 穩定。將框架遷移或相依套件升級標示為獨立任務。請提出一份計畫。"
+  },
+  {
+    "slug": "ios-app-intents",
+    "url": "https://developers.openai.com/codex/use-cases/ios-app-intents",
+    "tags": ["Engineering", "Advanced", "1h"],
+    "title_en": "Add iOS app intents",
+    "title_zh": "新增 iOS App Intents",
+    "summary_en": "Use Codex with the Build iOS Apps plugin to expose app actions and content via App Intents for Shortcuts, Siri, and Spotlight.",
+    "summary_zh": "搭配 Build iOS Apps plugin 使用 Codex，透過 App Intents 將 app 動作與內容開放給 Shortcuts、Siri 與 Spotlight。",
+    "overview_en": "This use case guides developers to employ Codex with the Build iOS Apps plugin to expose app actions and content through App Intents, making them accessible via Shortcuts, Siri, Spotlight, and emerging assistant-driven system experiences.",
+    "overview_zh": "此使用情境引導開發者搭配 Build iOS Apps plugin 使用 Codex，透過 App Intents 將 app 的動作與內容開放出來，使其可經由 Shortcuts、Siri、Spotlight 以及新興的助理驅動系統體驗來存取。",
+    "when_en": [
+      "iOS apps with valuable actions currently invisible to system interfaces",
+      "Teams wanting to launch high-priority actions first while progressively adopting assistant-friendly workflows",
+      "Apps featuring distinct entities (accounts, lists, filters, destinations, drafts, media) convertible from UI-locked states"
+    ],
+    "when_zh": [
+      "擁有重要動作、但目前對系統介面不可見的 iOS app",
+      "希望先推出高優先動作、再逐步採用對助理友善工作流程的團隊",
+      "具有明確 entities（帳號、清單、篩選、目的地、草稿、媒體）、可從 UI 鎖定狀態轉出的 app"
+    ],
+    "steps_en": [
+      "Identify high-value actions: pinpoint the user actions most valuable outside the app and the core objects needing system-level exposure.",
+      "Maintain focused scope: select a limited initial set of intents genuinely useful without full app navigation, plus open-app intents for targeted deep-linking.",
+      "Design a minimal entity surface: define only the app entities the system needs for routing and understanding, avoiding mirroring entire internal models.",
+      "Add discoverability: incorporate App Shortcuts with titles and phrases suitable for Siri, Spotlight, and the Shortcuts app.",
+      "Handle intent routing: cleanly route intent handling back into the main UI, showing how the app scene responds to system handoffs.",
+      "Build and validate: compile and test the app, documenting which actions, entities, and system surfaces are now supported."
+    ],
+    "steps_zh": [
+      "辨識高價值動作：找出在 app 之外最有價值的使用者動作，以及需要系統層級開放的核心物件。",
+      "維持聚焦範圍：挑選有限的初始 intents 組合，使其在不需完整 app 導覽下也真正實用，並加入用於精準 deep-linking 的 open-app intents。",
+      "設計最小 entity 介面：只定義系統在路由與理解上所需的 app entities，避免完整鏡射內部模型。",
+      "加入可被發現性：納入 App Shortcuts，搭配適合 Siri、Spotlight 與 Shortcuts app 的標題與語句。",
+      "處理 intent 路由：將 intent 處理乾淨地導回主要 UI，展示 app scene 如何回應系統交接。",
+      "建置並驗證：編譯並測試 app，記錄目前支援哪些動作、entities 與系統介面。"
+    ],
+    "prompt_en": "Use the Build iOS Apps plugin to audit this iOS app and add App Intents for the actions and entities that should be exposed to the system. Constraints: Start by identifying the app's highest-value user actions and core objects that should be available outside the app in Shortcuts, Siri, Spotlight, widgets, controls, or newer assistant-driven system surfaces...",
+    "prompt_zh": "使用 Build iOS Apps plugin 稽核這個 iOS app，並為應開放給系統的動作與 entities 新增 App Intents。約束：先辨識 app 中最高價值的使用者動作與核心物件，這些應能在 app 之外經由 Shortcuts、Siri、Spotlight、widgets、controls 或更新的助理驅動系統介面取用……"
+  },
+  {
+    "slug": "native-macos-apps",
+    "url": "https://developers.openai.com/codex/use-cases/native-macos-apps",
+    "tags": ["Engineering", "Advanced", "1h"],
+    "title_en": "Build for macOS",
+    "title_zh": "為 macOS 開發",
+    "summary_en": "Use Codex to build macOS SwiftUI apps with a shell-first build loop and desktop-native scene, window, and AppKit workflows.",
+    "summary_zh": "運用 Codex 以 shell 優先的建置迴圈打造 macOS SwiftUI app，並加入桌面原生的 scene、window 與 AppKit 工作流程。",
+    "overview_en": "Use Codex to build macOS SwiftUI apps, wire a shell-first build-and-run loop, and add desktop-native scene, window, AppKit, and signing workflows as the app matures.",
+    "overview_zh": "運用 Codex 打造 macOS SwiftUI app，串接 shell 優先的 build-and-run 迴圈，並隨著 app 成熟逐步加入桌面原生的 scene、window、AppKit 與簽署工作流程。",
+    "when_en": [
+      "Greenfield macOS SwiftUI apps needing Codex to scaffold a desktop-native app shell with a repeatable build script",
+      "Existing Mac apps where Codex addresses windows, menus, sidebars, settings, AppKit interoperability, or signing challenges",
+      "Teams preferring shell-first macOS work while respecting native desktop UX conventions"
+    ],
+    "when_zh": [
+      "需要 Codex 建立桌面原生 app 外殼與可重複建置腳本的全新 macOS SwiftUI app",
+      "需要 Codex 處理視窗、選單、側邊欄、設定、AppKit 互通或簽署問題的既有 Mac app",
+      "偏好以 shell 優先進行 macOS 開發、同時尊重原生桌面 UX 慣例的團隊"
+    ],
+    "steps_en": [
+      "Scaffold the app and build loop: choose the appropriate scene model first (WindowGroup, Window, Settings, MenuBarExtra, or DocumentGroup), keep execution shell-first with xcodebuild for Xcode projects and swift build for package-first apps, and bundle GUI apps as .app to avoid Dock and activation issues.",
+      "Leverage skills: add the Build macOS Apps plugin for desktop-specific work covering shell-first loops, SwiftPM packaging, SwiftUI patterns, AppKit interop, logging, testing, and signing workflows.",
+      "Build desktop-native UI: prefer Mac conventions over iOS patterns—use NavigationSplitView for sidebars, explicit Settings scenes, toolbars, and commands; add AppKit bridges minimally for missing functionality.",
+      "Debug, test, and prepare for shipping: add Logger events, run targeted xcodebuild test or swift test scopes, and prepare archive and notarization paths using scripts and App Store Connect CLI."
+    ],
+    "steps_zh": [
+      "建立 app 與建置迴圈：先選定合適的 scene 模型（WindowGroup、Window、Settings、MenuBarExtra 或 DocumentGroup），以 shell 優先執行（Xcode 專案用 xcodebuild、套件優先的 app 用 swift build），並將 GUI app 打包為 .app 以避免 Dock 與啟用問題。",
+      "善用 skills：加入 Build macOS Apps plugin 處理桌面專屬工作，涵蓋 shell 優先迴圈、SwiftPM 打包、SwiftUI 模式、AppKit 互通、logging、測試與簽署工作流程。",
+      "打造桌面原生 UI：相較 iOS 模式更偏好 Mac 慣例—側邊欄使用 NavigationSplitView、明確的 Settings scenes、toolbars 與 commands；僅在缺少功能時最小幅度加入 AppKit 橋接。",
+      "除錯、測試並準備出貨：加入 Logger 事件、執行針對性的 xcodebuild test 或 swift test 範圍，並使用腳本與 App Store Connect CLI 準備封存與公證路徑。"
+    ],
+    "prompt_en": "Use the Build macOS Apps plugin to build a native macOS SwiftUI version of this app feature. Constraints: - Use a desktop-native scene structure with a main window, settings, and toolbar/command actions where they make sense. - Prefer a sidebar/detail layout over iOS-style push navigation if the feature benefits from always-visible structure. - Add a tiny AppKit bridge only if SwiftUI cannot express one specific desktop behavior cleanly. - Create or update `script/build_and_run.sh` so the build/run loop stays shell-first. - Tell me which build, launch, test, and log commands you used. Ship the feature slice, verify it with the smallest relevant build or test loop, and summarize any signing or packaging follow-up needed before distribution.",
+    "prompt_zh": "使用 Build macOS Apps plugin，為這個 app 功能打造原生 macOS SwiftUI 版本。約束：- 使用桌面原生的 scene 結構，在合理之處加入主視窗、設定與 toolbar/command 動作。- 若該功能受益於始終可見的結構，相較 iOS 式的 push 導覽，更偏好 sidebar/detail 版面。- 僅在 SwiftUI 無法乾淨表達某項特定桌面行為時，才加入極小的 AppKit 橋接。- 建立或更新 `script/build_and_run.sh`，讓 build/run 迴圈維持 shell 優先。- 告訴我你使用了哪些 build、launch、test 與 log 指令。交付此功能切片，以最小的相關 build 或 test 迴圈驗證，並總結在發佈前所需的任何簽署或打包後續事項。"
+  }
+]

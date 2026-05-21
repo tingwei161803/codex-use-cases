@@ -1,0 +1,154 @@
+[
+  {
+    "slug": "agent-friendly-clis",
+    "url": "https://developers.openai.com/codex/use-cases/agent-friendly-clis",
+    "tags": ["Engineering", "Automation"],
+    "title_en": "Create a CLI Codex can use",
+    "title_zh": "打造 Codex 可以使用的 CLI",
+    "summary_en": "Build a composable CLI that Codex can run, combine with repo scripts, and reuse via skills.",
+    "summary_zh": "打造可組合的 CLI，讓 Codex 能執行、與 repo 腳本結合，並透過 skill 重複使用。",
+    "overview_en": "This use case guides you to give Codex a composable command for APIs, log sources, exports, or team scripts. The workflow helps you create tools that Codex can run from any folder, combine with repo scripts, download files with, and remember through companion skills. Instead of re-sharing documentation each time, you build a reusable command surface that future agent tasks can rely on.",
+    "overview_zh": "這個 use case 引導你為 API、log 來源、匯出檔或團隊腳本，提供 Codex 一個可組合的指令。此 workflow 協助你建立工具，讓 Codex 能從任何資料夾執行、與 repo 腳本結合、用來下載檔案，並透過搭配的 skill 記住它們。你不必每次重新分享文件，而是建立一個可重複使用的指令介面，供未來的 agent 任務依賴。",
+    "when_en": [
+      "Repeated work where Codex needs to search, read, download from, or safely write to the same service",
+      "Agent tools requiring paged search, exact reads by ID, predictable JSON outputs, or downloaded files",
+      "Workflows that need draft-before-write commands so changes are reviewed before they take effect"
+    ],
+    "when_zh": [
+      "重複性工作，Codex 需要對同一個服務進行搜尋、讀取、下載或安全寫入",
+      "需要分頁搜尋、依 ID 精確讀取、可預期 JSON 輸出或下載檔案的 agent 工具",
+      "需要「先草稿後寫入」指令的 workflow，讓變更在生效前先經過審查"
+    ],
+    "steps_en": [
+      "Decide what the CLI should do, focusing on the repeated task (read, search, download, export, draft, upload) rather than technology choices",
+      "Share source material: documentation, OpenAPI specs, redacted curl commands, existing scripts, log folders, CSV/JSON exports, databases, or --help output",
+      "Run the cli-creator skill with the starter prompt; Codex shows proposed commands and asks only for blocking details before building",
+      "Verify installation by testing the command works from outside its source folder, like a future agent would",
+      "Invoke the companion skill in future tasks instead of re-sharing documentation"
+    ],
+    "steps_zh": [
+      "決定 CLI 要做什麼，聚焦在重複性任務（讀取、搜尋、下載、匯出、草稿、上傳），而非技術選型",
+      "提供來源素材：文件、OpenAPI spec、去敏的 curl 指令、現有腳本、log 資料夾、CSV/JSON 匯出檔、資料庫或 --help 輸出",
+      "用 starter prompt 執行 cli-creator skill；Codex 會展示提議的指令，並只詢問會阻擋建置的細節",
+      "驗證安裝：測試該指令能在來源資料夾之外執行，就像未來的 agent 那樣使用",
+      "在未來任務中呼叫搭配的 skill，而不必重新分享文件"
+    ],
+    "prompt_en": "Use $cli-creator to create a CLI you can use, and use $skill-creator to create the companion skill in this same thread. Source to learn from: [docs URL, OpenAPI spec, redacted curl command, existing script path, log folder, CSV or JSON export, SQLite database path, or pasted --help output]. First job the CLI should support: [download failed CI logs from a build URL, search support tickets and read one by ID, query an admin API, read a local database, or run one step from an existing script]. Optional write job: [create a draft comment, upload media, retry a failed job, or read-only for now]. Command name: [cli-name, or recommend one]. Before coding, show me the proposed command surface and ask only for missing details that would block the build.",
+    "prompt_zh": "使用 $cli-creator 建立一個你可以使用的 CLI，並在同一個 thread 中使用 $skill-creator 建立搭配的 skill。學習來源：[文件 URL、OpenAPI spec、去敏的 curl 指令、現有腳本路徑、log 資料夾、CSV 或 JSON 匯出檔、SQLite 資料庫路徑，或貼上的 --help 輸出]。CLI 首先要支援的工作：[從 build URL 下載失敗的 CI logs、搜尋 support tickets 並依 ID 讀取其中一筆、查詢 admin API、讀取本機資料庫，或執行現有腳本中的某一步]。選用的寫入工作：[建立草稿留言、上傳媒體、重試失敗的 job，或目前僅唯讀]。指令名稱：[cli-name，或請你建議一個]。在開始寫程式前，先向我展示提議的指令介面，並只詢問會阻擋建置的缺漏細節。"
+  },
+  {
+    "slug": "slack-action-triage",
+    "url": "https://developers.openai.com/codex/use-cases/slack-action-triage",
+    "tags": ["Productivity", "Automation"],
+    "title_en": "Prioritize Slack action items",
+    "title_zh": "排序 Slack 待辦事項的優先順序",
+    "summary_en": "Turn Slack threads and DMs into a ranked queue of actionable next steps before drafting replies.",
+    "summary_zh": "在草擬回覆前，將 Slack thread 與 DM 轉成一份排序過的可行動下一步佇列。",
+    "overview_en": "This use case helps convert Slack threads and direct messages into a prioritized queue of actionable next steps. It uses Codex to identify direct requests, implicit follow-ups, resolved items, and high-impact actions before you draft replies or delegate work. The goal is to separate live asks from already-handled chatter so you spend attention where it matters.",
+    "overview_zh": "這個 use case 協助你將 Slack thread 與私訊轉換成一份排序過的可行動下一步佇列。它運用 Codex 在你草擬回覆或分派工作之前，辨識出直接的請求、隱含的後續事項、已解決的項目，以及高影響力的行動。目標是把仍待處理的請求與已經處理完的閒聊區分開來，讓你把注意力放在重要的地方。",
+    "when_en": [
+      "People who get work through Slack and need Codex to separate live asks from already-handled chatter",
+      "Teams in launch, community, support, product, or operations where work context spans multiple Slack locations",
+      "Groups wanting a ranked action queue before drafting replies, handoffs, docs changes, or follow-up tasks"
+    ],
+    "when_zh": [
+      "透過 Slack 接收工作的人，需要 Codex 把仍待處理的請求與已處理的閒聊區分開來",
+      "處於發布、社群、支援、產品或營運的團隊，工作脈絡橫跨多個 Slack 位置",
+      "希望在草擬回覆、交接、文件變更或後續任務前，先取得排序過的行動佇列的群組"
+    ],
+    "steps_en": [
+      "Provide Codex with a time window, workstream, or topic to scope the search",
+      "Request searches across DMs, group DMs, channel mentions, and thread replies",
+      "Have Codex read the latest thread messages to confirm items are still unresolved",
+      "Request a ranked queue sorted by urgency and impact",
+      "Ask for draft replies or handoff tasks once the queue is reviewed"
+    ],
+    "steps_zh": [
+      "提供 Codex 一個時間範圍、工作流或主題，以界定搜尋範圍",
+      "請它跨 DM、群組 DM、頻道提及與 thread 回覆進行搜尋",
+      "讓 Codex 讀取最新的 thread 訊息，確認項目仍未解決",
+      "請它輸出一份依緊急程度與影響力排序的佇列",
+      "在檢視佇列後，請它草擬回覆或交接任務"
+    ],
+    "prompt_en": "Can you check @slack for messages to me about [workstream] from [time window] and return a ranked action queue? Look across DMs, group DMs, channel mentions, and threads. For each item, include: - source link or thread - what is being asked - whether it needs my reply, a person or lead, a docs or code change, or just a decision - why it matters - the recommended next step Before calling anything unresolved, read the latest thread replies and skip items that were already handled. Do not post messages directly but suggest drafts for my review.",
+    "prompt_zh": "可以幫我查 @slack 中關於 [workstream]、來自 [time window] 寄給我的訊息，並回傳一份排序過的行動佇列嗎？請跨 DM、群組 DM、頻道提及與 thread 一起查找。每個項目請包含：- 來源連結或 thread - 對方在請求什麼 - 這需要我回覆、需要某個人或主管處理、需要文件或程式碼變更，還是只需要一個決定 - 為何它重要 - 建議的下一步 在把任何項目列為未解決之前，先讀取最新的 thread 回覆，並略過已經處理完的項目。請不要直接發送訊息，而是提供草稿供我審查。"
+  },
+  {
+    "slug": "verified-operations-workflows",
+    "url": "https://developers.openai.com/codex/use-cases/verified-operations-workflows",
+    "tags": ["Operations", "Automation"],
+    "title_en": "Run verified operations",
+    "title_zh": "執行已驗證的營運作業",
+    "summary_en": "Run repeatable operational workflows and verify each result through logs or artifacts before reporting.",
+    "summary_zh": "執行可重複的營運 workflow，並在回報前透過 logs 或產出物驗證每個結果。",
+    "overview_en": "This use case enables teams to run repeatable workflows and verify the result. Codex normalizes inputs, executes approved scripts or APIs, handles bounded failures with retries, and validates outcomes through logs or artifacts before reporting back. It keeps a narrow operational scope while reporting precisely what succeeded, what failed, and what requires a human decision.",
+    "overview_zh": "這個 use case 讓團隊能執行可重複的 workflow 並驗證結果。Codex 會正規化輸入、執行已核准的腳本或 API、在有限範圍內以重試處理失敗，並在回報前透過 logs 或產出物驗證結果。它會維持狹窄的操作範圍，同時精確回報哪些成功、哪些失敗，以及哪些需要由人來決定。",
+    "when_en": [
+      "Operations tasks featuring structured inputs, explicit approval processes, and auditable results",
+      "Repeated workflows such as access updates, invite batches, quota changes, customer setup, routing checks, and migration follow-ups",
+      "Teams needing Codex to keep a narrow scope while reporting exactly what succeeded, failed, or needs human decisions"
+    ],
+    "when_zh": [
+      "具備結構化輸入、明確核准流程與可稽核結果的營運任務",
+      "重複性 workflow，例如權限更新、批次邀請、配額變更、客戶設定、路由檢查與遷移後續事項",
+      "需要 Codex 維持狹窄範圍，同時精確回報哪些成功、失敗或需人工決策的團隊"
+    ],
+    "steps_en": [
+      "Provide an input table, files, or lists for batch processing, and reference the approval sources or policies that define allowed scope",
+      "Specify the script, API, skill, CLI, or app workflow to execute",
+      "Request dry runs first when the workflow supports them",
+      "Execute the batch, normalizing dates, amounts, owners, and IDs, and recording one success or failure row per item",
+      "Verify results through artifacts like result CSVs, logs, dashboards, or screenshots",
+      "Convert successful runs into reusable skills or automations for scheduling"
+    ],
+    "steps_zh": [
+      "提供輸入表格、檔案或清單以進行批次處理，並引用定義允許範圍的核准來源或政策",
+      "指定要執行的腳本、API、skill、CLI 或 app workflow",
+      "在 workflow 支援時，先要求進行 dry run",
+      "執行批次作業，正規化日期、金額、負責人與 ID，並為每個項目記錄一筆成功或失敗的列",
+      "透過結果 CSV、logs、儀表板或截圖等產出物驗證結果",
+      "將成功的執行轉換成可重複使用的 skill 或自動化排程"
+    ],
+    "prompt_en": "I need to run this workflow: Goal: [what should happen] Inputs: [CSV, Google Sheet, list, ticket, or file path]...Please: - inspect the inputs and ask only for missing required fields - normalize dates, amounts, owners, and IDs before running the workflow - run only the approved scope - record one success or failure row per item",
+    "prompt_zh": "我需要執行這個 workflow：目標：[應該發生什麼] 輸入：[CSV、Google Sheet、清單、ticket 或檔案路徑]……請：- 檢查輸入並只詢問缺漏的必填欄位 - 在執行 workflow 前正規化日期、金額、負責人與 ID - 只執行已核准的範圍 - 為每個項目記錄一筆成功或失敗的列"
+  },
+  {
+    "slug": "zoom-meeting-follow-ups",
+    "url": "https://developers.openai.com/codex/use-cases/zoom-meeting-follow-ups",
+    "tags": ["Productivity", "Sales"],
+    "title_en": "Turn meetings into follow-ups",
+    "title_zh": "把會議轉化為後續行動",
+    "summary_en": "Convert Zoom transcripts and summaries into customer emails, account plans, CRM updates, and team notifications.",
+    "summary_zh": "將 Zoom 逐字稿與摘要轉成客戶郵件、account plan、CRM 更新與團隊通知。",
+    "overview_en": "This use case enables teams to convert Zoom meeting insights into actionable follow-ups across multiple tools. The workflow leverages Zoom transcripts and AI Companion summaries to draft customer follow-up emails, account plans, CRM updates, and team notifications for review before execution. It removes the manual copying of notes between tools while keeping a human approval gate before anything external is sent.",
+    "overview_zh": "這個 use case 讓團隊能把 Zoom 會議洞察轉換成跨多個工具的可行動後續事項。此 workflow 運用 Zoom 逐字稿與 AI Companion 摘要，草擬客戶後續郵件、account plan、CRM 更新與團隊通知，供審查後再執行。它免去在工具之間手動複製筆記的功夫，同時在任何對外動作送出前保留人工核准的關卡。",
+    "when_en": [
+      "Teams seeking repeatable post-meeting execution without manually copying notes between tools",
+      "Customer follow-ups after discovery, renewal, implementation, or executive sponsor calls",
+      "Sales and customer success workflows requiring updates across meeting notes, docs, CRM, and team messaging"
+    ],
+    "when_zh": [
+      "希望會議後能可重複執行，而不必在工具之間手動複製筆記的團隊",
+      "在探索、續約、導入或高層贊助者通話之後的客戶後續追蹤",
+      "需要橫跨會議筆記、文件、CRM 與團隊訊息進行更新的 sales 與 customer success workflow"
+    ],
+    "steps_en": [
+      "Enable Zoom AI Companion meeting summaries, smart recordings, transcripts, cloud recording, and audio transcripts, then connect Zoom with your tools (Google Docs, Slack, Gmail, CRM)",
+      "Ask Codex to locate a meeting by customer, date, series, or title and retrieve the transcript and summary",
+      "Review the generated summary, risks, actions, email draft, account plan, CRM notes, and Slack message",
+      "Approve external actions only after validating audience, customer commitments with owners and dates, and whether confidential details need removing",
+      "Follow up on drafts by asking Codex to adjust audience focus, compare with prior calls, or create specialized versions",
+      "Automate recurring meetings by pinning threads and creating thread automations for weekly check-ins or deal reviews"
+    ],
+    "steps_zh": [
+      "啟用 Zoom AI Companion 會議摘要、智慧錄製、逐字稿、雲端錄製與語音轉錄，然後將 Zoom 與你的工具（Google Docs、Slack、Gmail、CRM）連接",
+      "請 Codex 依客戶、日期、系列或標題找到某場會議，並取回逐字稿與摘要",
+      "檢視生成的摘要、風險、行動項目、郵件草稿、account plan、CRM 筆記與 Slack 訊息",
+      "在驗證受眾、客戶承諾（含負責人與日期）以及是否需移除機密細節後，才核准對外動作",
+      "針對草稿進行後續調整，請 Codex 調整受眾重點、與先前通話比較，或建立特定版本",
+      "為定期會議建立自動化：釘選 thread 並建立 thread 自動化，用於每週客戶確認或交易檢視"
+    ],
+    "prompt_en": "Use my most recent Zoom meeting with [customer or account]. Retrieve the Zoom transcript and AI Companion summary. Name anything you cannot access before drafting. Summarize the key takeaways, decisions, risks, opportunities, and action items. Then draft: - a customer follow-up email - a Google Docs account plan - a CRM update with notes, risks, next steps, and owners - a Slack message to [team/channel/person] with the most important details Use evidence from the transcript where possible. Mark anything uncertain and keep internal-only details out of the customer draft. Do not send emails, post Slack messages, create docs, update CRM records, assign owners, or expose private data until I review and approve each action.",
+    "prompt_zh": "使用我最近一次與 [customer or account] 的 Zoom 會議。取回 Zoom 逐字稿與 AI Companion 摘要。在草擬前，先列出任何你無法存取的內容。彙整關鍵重點、決定、風險、機會與行動項目。接著草擬：- 一封客戶後續郵件 - 一份 Google Docs account plan - 一則 CRM 更新，包含筆記、風險、下一步與負責人 - 一則發給 [team/channel/person] 的 Slack 訊息，含最重要的細節 盡可能引用逐字稿中的證據。標記任何不確定之處，並將僅供內部的細節排除在客戶草稿之外。在我逐一審查並核准每個動作之前，不要發送郵件、張貼 Slack 訊息、建立文件、更新 CRM 紀錄、指派負責人或揭露私密資料。"
+  }
+]
