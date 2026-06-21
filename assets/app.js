@@ -63,7 +63,7 @@
 
   /* ---- state ---- */
   const state = {
-    lang: localStorage.getItem('codex.lang') || 'zh',
+    lang: localStorage.getItem('codex.lang') || 'en',
     theme: localStorage.getItem('codex.theme') ||
       (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
     cat: 'all',
