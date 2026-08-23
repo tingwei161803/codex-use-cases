@@ -218,16 +218,16 @@ a:hover { text-decoration: underline; }
   border: 1px solid var(--outline); border-radius: var(--r-full);
   overflow: hidden; height: 40px;
 }
-.seg button {
+.seg a {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 0 14px; font-size: .875rem; font-weight: 500;
-  color: var(--on-surface-variant);
+  color: var(--on-surface-variant); text-decoration: none;
   transition: background var(--dur-short) var(--ease-standard);
 }
-.seg button[aria-pressed="true"] {
+.seg a[aria-current="page"] {
   background: var(--secondary-container); color: var(--on-secondary-container);
 }
-.seg button + button { border-left: 1px solid var(--outline); }
+.seg a + a { border-left: 1px solid var(--outline); }
 .icon-btn {
   width: 40px; height: 40px; border-radius: var(--r-full);
   display: grid; place-items: center; color: var(--on-surface-variant);
@@ -514,7 +514,7 @@ a:hover { text-decoration: underline; }
   .grid { grid-template-columns: 1fr; padding-top: 20px; }
   .dialog { max-height: 100vh; border-radius: var(--r-xl) var(--r-xl) 0 0; align-self: end; }
   .scrim { padding: 0; align-items: end; }
-  .seg button span.lbl { display: none; }
+  .seg a span.lbl { display: none; }
   .ghstar__text { display: none; }
 }
 
