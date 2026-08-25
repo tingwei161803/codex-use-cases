@@ -62,8 +62,15 @@
   };
 
   /* ---- state ---- */
+  /* The URL decides the language: each language has its own page, and the page
+     declares it in <html lang>. Never read it back from storage — a visitor
+     landing on /en/ must get English even if they once chose 中文, and crawlers
+     have no storage at all. */
+  const pageLang = (document.documentElement.getAttribute('lang') || 'en')
+    .toLowerCase().startsWith('zh') ? 'zh' : 'en';
+
   const state = {
-    lang: localStorage.getItem('codex.lang') || 'en',
+    lang: pageLang,
     theme: localStorage.getItem('codex.theme') ||
       (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
     cat: 'all',
@@ -112,25 +119,13 @@
      Language
      ============================================================ */
   function applyStaticI18n() {
-    document.documentElement.lang = state.lang === 'zh' ? 'zh-Hant' : 'en';
     $$('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
     $$('[data-i18n-html]').forEach((el) => { el.innerHTML = t(el.dataset.i18nHtml); });
     $('#search').placeholder = t('searchPlaceholder');
-    $('#lang-zh').setAttribute('aria-pressed', String(state.lang === 'zh'));
-    $('#lang-en').setAttribute('aria-pressed', String(state.lang === 'en'));
+    $('#lang-zh').setAttribute('aria-current', state.lang === 'zh' ? 'page' : 'false');
+    $('#lang-en').setAttribute('aria-current', state.lang === 'en' ? 'page' : 'false');
     applyTheme();
   }
-  function setLang(lang) {
-    if (lang === state.lang) return;
-    state.lang = lang;
-    localStorage.setItem('codex.lang', lang);
-    applyStaticI18n();
-    renderChips();
-    renderCards();
-    if (openIndex >= 0) renderDialog();
-  }
-  $('#lang-zh').addEventListener('click', () => setLang('zh'));
-  $('#lang-en').addEventListener('click', () => setLang('en'));
 
   /* ============================================================
      Chips (category filter)
