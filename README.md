@@ -3,9 +3,9 @@
 > OpenAI Codex 全部 **52 個官方使用情境**的中英對照互動圖鑑。
 > An interactive, searchable, **bilingual (中 / EN)** gallery of every official OpenAI Codex use case.
 
-純靜態網頁 — HTML + CSS + 一支 JS，無 build step、無相依套件。採 **Material Design 3** 視覺語言（Google 風格），支援亮 / 暗色、語言切換、分類篩選、全文搜尋、詳情彈窗與可分享的深連結。
+純靜態網頁 — HTML + CSS + 一支 JS，無 build step、無相依套件。版面像一本 prompt 食譜：白底瑞士網格、近黑墨色、終端機綠，每個情境的範例 prompt 都排成可一鍵複製的終端機區塊。支援亮 / 暗色、中英兩個網址、分類篩選、全文搜尋、兩種檢視密度、詳情抽屜與可分享的深連結。
 
-A pure static site — HTML + CSS + one JS file, no build step, no dependencies. Styled with **Material Design 3**, with light/dark themes, a language toggle, category filters, full-text search, a detail dialog, and shareable deep links.
+A pure static site — HTML + CSS + one JS file, no build step, no dependencies. Designed like a prompt cookbook: a white Swiss grid, near-black ink and terminal green, with every example prompt set as a copy-ready terminal block. Light/dark themes, one URL per language, category filters, full-text search, two list densities, a detail drawer, and shareable deep links.
 
 ---
 
@@ -21,12 +21,14 @@ A pure static site — HTML + CSS + one JS file, no build step, no dependencies.
 
 ## ✨ 功能 · Features
 
-- **中英對照** — 右上角一鍵切換中文 / English，記憶你的偏好（localStorage）。
+- **中英對照** — 中文在 `/`、英文在 `/en/`，右上角切換。
 - **52 個使用情境** — 每個都含：概述、適用時機、運作步驟、可照抄的範例 prompt（附一鍵複製）。
+- **首屏範例 prompt** — 右側終端機區塊直接展示真實的 prompt，可切換、一鍵複製。
+- **兩種檢視** — 「食譜」顯示每個 prompt 的開頭並附複製鈕；「索引」是一行一個情境的密集清單。兩種都依分類分組。
 - **8 大分類篩選** — 生產力與自動化、工程開發、前端與設計、行動與原生 App、資料與分析、知識工作、品質與測試、財務。
 - **即時搜尋** — 跨中英標題、摘要、標籤同時比對。
-- **詳情彈窗** — 支援鍵盤 ←/→ 切換、Esc 關閉、焦點管理。
-- **可分享深連結** — 開啟任一情境後網址會帶上 `#slug`，貼給別人就能直接打開那一張卡片。
+- **詳情抽屜** — 從右側滑出，支援鍵盤 ←/→ 切換、Esc 關閉、焦點管理。
+- **可分享深連結** — 開啟任一情境後網址會帶上 `#slug`，貼給別人就能直接打開那個情境。
 - **亮 / 暗主題** — 預設跟隨系統，可手動切換。
 
 ---
@@ -40,7 +42,7 @@ A pure static site — HTML + CSS + one JS file, no build step, no dependencies.
 open index.html
 
 # 方式二：起一個本機伺服器（某些瀏覽器對 file:// 較嚴格時建議）
-python3 -m http.server 4173
+uv run python -m http.server 4173
 # 然後開 http://localhost:4173/
 ```
 
@@ -77,10 +79,11 @@ python3 -m http.server 4173
 
 ```
 .
-├── index.html            # 網頁外殼（內容由 JS 動態渲染）
+├── index.html            # 中文頁（內含預先渲染好的內容，JS 載入後重新渲染）
+├── en/index.html         # 英文頁
 ├── assets/
-│   ├── styles.css        # Material Design 3 樣式（亮/暗色 token、卡片、chips、dialog）
-│   └── app.js            # i18n、搜尋、篩選、詳情彈窗、ripple、主題、深連結
+│   ├── styles.css        # 設計系統（亮/暗色 token、首屏終端機、分類索引、列表、詳情抽屜）
+│   └── app.js            # 渲染、搜尋、篩選、檢視切換、複製 prompt、詳情抽屜、主題、深連結
 ├── data/
 │   ├── use-cases.js      # ⭐ 正式資料：window.USE_CASES（52 筆，中英雙語）
 │   ├── merge.js          # 把 chunks 合併成 use-cases.js 的腳本

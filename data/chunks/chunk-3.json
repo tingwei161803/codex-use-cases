@@ -8,7 +8,7 @@
     "summary_en": "Use Codex subagents to digest dense research papers or courses into a structured Markdown study report.",
     "summary_zh": "運用 Codex 子代理消化艱澀的研究論文或課程，產出結構化的 Markdown 學習報告。",
     "overview_en": "This use case teaches how to leverage Codex to study dense material like research papers or courses by distributing reading tasks across subagents, gathering supporting context, and generating a comprehensive Markdown report with visualizations.\n\nThe report structure includes an executive summary, prerequisite knowledge, key terms, a paper walkthrough, diagrams, an evidence table, limitations, and open questions, and can be iteratively refined as a study loop.",
-    "overview_zh": "本使用情境教你如何運用 Codex 研讀研究論文或課程等艱澀素材，方法是將閱讀任務分配給多個子代理 (subagent)、蒐集佐證脈絡，並產出含視覺化內容的完整 Markdown 報告。\n\n報告結構包含摘要、先備知識、關鍵詞彙、論文逐節解析、圖表、證據表、限制與待解問題，並可作為研讀迴圈反覆精修。",
+    "overview_zh": "本使用情境教你如何運用 Codex 研讀研究論文或課程等艱澀素材，方法是將閱讀任務分配給多個子代理（subagent）、蒐集佐證脈絡，並產出含視覺化內容的完整 Markdown 報告。\n\n報告結構包含摘要、先備知識、關鍵詞彙、論文逐節解析、圖表、證據表、限制與待解問題，並可作為研讀迴圈反覆精修。",
     "when_en": [
       "Individuals learning unfamiliar concepts",
       "Dense source material that benefits from parallel reading, context gathering, diagrams, and synthesis",

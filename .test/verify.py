@@ -21,16 +21,16 @@ with sync_playwright() as p:
     page.wait_for_timeout(400)
 
     # 1. cards rendered
-    cards = page.locator(".card")
-    check("52 cards render", cards.count() == 52, f"got {cards.count()}")
+    cards = page.locator(".uc")
+    check("52 use cases render", cards.count() == 52, f"got {cards.count()}")
 
     # 2. default lang zh: first card title should be Chinese
-    first_title = page.locator(".card h3").first.inner_text()
+    first_title = page.locator(".uc__title").first.inner_text()
     check("default zh title", any("一" <= c <= "鿿" for c in first_title), first_title)
 
     # 3. chips render (all + 8 categories = 9)
-    chips = page.locator(".chip")
-    check("9 category chips", chips.count() == 9, f"got {chips.count()}")
+    chips = page.locator(".cat")
+    check("9 category buttons", chips.count() == 9, f"got {chips.count()}")
 
     # 4. screenshot zh light
     page.screenshot(path="/tmp/codex-1-zh-light.png", full_page=False)
@@ -38,41 +38,41 @@ with sync_playwright() as p:
     # 5. language toggle -> EN
     page.locator("#lang-en").click()
     page.wait_for_timeout(300)
-    en_title = page.locator(".card h3").first.inner_text()
+    en_title = page.locator(".uc__title").first.inner_text()
     check("toggle EN title is latin", all(ord(c) < 0x3000 for c in en_title), en_title)
     page.screenshot(path="/tmp/codex-2-en-light.png", full_page=False)
 
     # 6. category filter: click 'coding' chip (data-cat=coding) -> 11 cards
-    page.locator('.chip[data-cat="coding"]').click()
+    page.locator('.cat[data-cat="coding"]').click()
     page.wait_for_timeout(300)
-    check("coding filter = 11 cards", page.locator(".card").count() == 11, f"got {page.locator('.card').count()}")
+    check("coding filter = 11 cards", page.locator(".uc").count() == 11, f"got {page.locator('.uc').count()}")
 
     # reset to all
-    page.locator('.chip[data-cat="all"]').click()
+    page.locator('.cat[data-cat="all"]').click()
     page.wait_for_timeout(200)
 
     # 7. search 'figma'
     page.locator("#search").fill("figma")
     page.wait_for_timeout(300)
-    n_search = page.locator(".card").count()
+    n_search = page.locator(".uc").count()
     check("search 'figma' returns >=1, <52", 1 <= n_search < 52, f"got {n_search}")
     page.locator("#search-clear").click()
     page.wait_for_timeout(200)
-    check("clear search restores 52", page.locator(".card").count() == 52, f"got {page.locator('.card').count()}")
+    check("clear search restores 52", page.locator(".uc").count() == 52, f"got {page.locator('.uc').count()}")
 
     # 8. open dialog on first card
-    page.locator(".card").first.click()
+    page.locator(".uc__title a").first.click()
     page.wait_for_timeout(400)
     check("dialog open", page.locator("#scrim.open").count() == 1)
-    check("dialog has steps", page.locator(".dialog ol.steps li").count() >= 1, f"steps {page.locator('.dialog ol.steps li').count()}")
-    check("dialog has overview", len(page.locator(".dialog p.lead").first.inner_text()) > 10)
+    check("dialog has steps", page.locator("#dialog ol.dlg__steps li").count() >= 1, f"steps {page.locator('#dialog ol.dlg__steps li').count()}")
+    check("dialog has overview", len(page.locator("#dialog p.dlg__lead").first.inner_text()) > 10)
     page.screenshot(path="/tmp/codex-3-dialog-en.png", full_page=False)
 
     # 9. copy button exists & click
-    if page.locator("#copy-btn").count():
-        page.locator("#copy-btn").click()
+    if page.locator("#dialog [data-copy]").count():
+        page.locator("#dialog [data-copy]").click()
         page.wait_for_timeout(200)
-        check("copy button toggles copied", page.locator("#copy-btn.copied").count() == 1)
+        check("copy button toggles copied", page.locator("#dialog [data-copy].is-copied").count() == 1)
     else:
         check("copy button present (first card)", False, "no prompt on first card")
 
