@@ -496,13 +496,15 @@ a:hover { text-decoration: underline; }
 
 /* ---------- Toast ---------- */
 .toast {
-  position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 120%);
+  position: fixed; left: 50%; bottom: 28px;
+  /* Push it fully below the fold and hide it, so no empty pill peeks out. */
+  transform: translate(-50%, calc(100% + 40px)); visibility: hidden;
   z-index: 80; padding: 12px 20px; border-radius: var(--r-sm);
   background: var(--surface-container-highest); color: var(--on-surface);
   box-shadow: var(--e2); font-size: .88rem;
-  transition: transform var(--dur-med) var(--ease-emph);
+  transition: transform var(--dur-med) var(--ease-emph), visibility 0s linear var(--dur-med);
 }
-.toast.show { transform: translate(-50%, 0); }
+.toast.show { transform: translate(-50%, 0); visibility: visible; transition: transform var(--dur-med) var(--ease-emph), visibility 0s; }
 
 /* ---------- Reveal-on-scroll ---------- */
 .reveal { opacity: 0; transform: translateY(18px); }
@@ -514,7 +516,7 @@ a:hover { text-decoration: underline; }
   .grid { grid-template-columns: 1fr; padding-top: 20px; }
   .dialog { max-height: 100vh; border-radius: var(--r-xl) var(--r-xl) 0 0; align-self: end; }
   .scrim { padding: 0; align-items: end; }
-  .seg a span.lbl { display: none; }
+  .seg a { padding: 0 12px; }  /* keep the 中文 / EN labels visible */
   .ghstar__text { display: none; }
 }
 

@@ -361,18 +361,28 @@
      ============================================================ */
   $$('.ripple-host').forEach(attachRipple);
 
-  /* Live GitHub star count (fails silently if offline / rate-limited). */
-  fetch('https://api.github.com/repos/tingwei161803/codex-use-cases')
-    .then((r) => (r.ok ? r.json() : null))
-    .then((j) => {
-      if (!j || typeof j.stargazers_count !== 'number') return;
+  /* Live GitHub star count: cached per session, and hidden unless the API
+     returns a real count (it is often rate-limited with 403). */
+  (function loadStars() {
+    const KEY = 'codex.gh.stars';
+    const show = (n) => {
       const el = $('#gh-count');
-      el.textContent = j.stargazers_count >= 1000
-        ? (j.stargazers_count / 1000).toFixed(1) + 'k'
-        : j.stargazers_count;
+      if (!(n > 0)) { el.hidden = true; return; }
+      el.textContent = n >= 1000 ? (n / 1000).toFixed(1) + 'k' : String(n);
       el.hidden = false;
-    })
-    .catch(() => {});
+    };
+    const remember = (n) => { try { sessionStorage.setItem(KEY, String(n)); } catch (_) { /* ignore */ } };
+    let cached = null;
+    try { cached = sessionStorage.getItem(KEY); } catch (_) { /* ignore */ }
+    if (cached !== null) { show(Number(cached)); return; }
+    fetch('https://api.github.com/repos/tingwei161803/codex-use-cases')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => {
+        const n = j && typeof j.stargazers_count === 'number' ? j.stargazers_count : 0;
+        remember(n); show(n);
+      })
+      .catch(() => { remember(0); show(0); });
+  })();
 
   $('#stat-total').textContent = DATA.length;
   $('#stat-cats').textContent = CATS.length;
