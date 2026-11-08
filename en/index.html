@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" class="no-js">
 <head>
   <!-- ==== Google Analytics 4 (Measurement ID: G-SX6T85P96R) ==== -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SX6T85P96R"></script>
@@ -12,6 +12,16 @@
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <script>
+    /* Theme before first paint: saved choice, else the OS setting. */
+    (function () {
+      var d = document.documentElement, t = null;
+      d.className = d.className.replace('no-js', 'js');
+      try { t = localStorage.getItem('codex.theme'); } catch (e) {}
+      if (t !== 'dark' && t !== 'light') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      d.setAttribute('data-theme', t);
+    })();
+  </script>
   <link rel="canonical" href="https://codex-use-cases.peteraim.com/en/" />
   <link rel="alternate" hreflang="zh-Hant" href="https://codex-use-cases.peteraim.com/" />
   <link rel="alternate" hreflang="en" href="https://codex-use-cases.peteraim.com/en/" />
@@ -25,14 +35,13 @@
   <meta property="og:description" content="An interactive bilingual (中/EN) gallery of every OpenAI Codex use case." />
   <meta property="og:type" content="website" />
 
-  <!-- Fonts: Material Design 3 (Roboto / Roboto Flex / Material Symbols) + 繁中 Noto Sans TC -->
+  <!-- Fonts: Schibsted Grotesk (Latin) + Noto Sans TC (繁中) + JetBrains Mono (prompts) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Flex:opsz,wght@8..144,400..700&family=Roboto+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="../assets/styles.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230b57d0'/><text x='50' y='68' font-size='56' text-anchor='middle' fill='white' font-family='monospace'>&gt;_</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23111111'/><text x='50' y='68' font-size='56' text-anchor='middle' fill='%2333d17a' font-family='monospace'>&gt;_</text></svg>" />
   <meta property="og:image" content="https://codex-use-cases.peteraim.com/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -40,597 +49,800 @@
   <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
-  <!-- Top app bar -->
-  <header class="appbar">
-    <div class="appbar__brand">
-      <span class="brand-mark"><span class="material-symbols-rounded">terminal</span></span>
-      <span>
-        <span data-i18n="brand">Codex Use Cases</span><br />
-        <span class="brand-sub" data-i18n="brandSub">52 use cases · bilingual</span>
-      </span>
-    </div>
+  <a class="skip" href="#browse" data-i18n="skip">Skip to the use cases</a>
 
-    <a class="ghstar ripple-host" href="https://github.com/tingwei161803/codex-use-cases" target="_blank" rel="noopener" aria-label="Star on GitHub">
-      <svg class="ghstar__logo" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-      <span class="ghstar__star" aria-hidden="true">★</span>
-      <span class="ghstar__text">Star</span>
-      <span class="ghstar__count" id="gh-count" hidden></span>
-    </a>
-
-    <div class="seg" role="group" aria-label="Language">
-      <a id="lang-zh" href="/" hreflang="zh-Hant" lang="zh-Hant" rel="alternate"><span class="lbl">中文</span></a>
-      <a id="lang-en" href="/en/" hreflang="en" lang="en" rel="alternate"><span class="lbl">EN</span></a>
+  <header class="top">
+    <div class="top__in">
+      <a class="brand" href="/en/" aria-label="Codex Use Cases">
+        <span class="brand__mark" aria-hidden="true">&gt;_</span>
+        <span class="brand__name" data-i18n="brand">Codex Use Cases</span>
+      </a>
+      <nav class="top__tools">
+        <a class="ghstar" href="https://github.com/tingwei161803/codex-use-cases" target="_blank" rel="noopener" aria-label="Star on GitHub">
+          <svg class="ico" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          <span class="ghstar__text">Star</span>
+          <span class="ghstar__count" id="gh-count" hidden=""></span>
+        </a>
+        <div class="lang" role="group" aria-label="Language">
+          <a id="lang-zh" href="/" hreflang="zh-Hant" lang="zh-Hant" rel="alternate" aria-current="false">中文</a>
+          <a id="lang-en" href="/en/" hreflang="en" lang="en" rel="alternate" aria-current="page">EN</a>
+        </div>
+        <button class="icon-btn needs-js" id="theme-toggle" type="button" aria-label="Switch to dark" title="Switch to dark"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.1A8.5 8.5 0 1 1 9.9 3.5a6.6 6.6 0 0 0 10.6 10.6Z"></path></svg></button>
+      </nav>
     </div>
-    <button class="icon-btn ripple-host" id="theme-toggle" aria-label="Toggle theme" title="Switch to dark">
-      <span class="material-symbols-rounded" id="theme-icon">dark_mode</span>
-    </button>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <span class="hero__eyebrow"><span class="dot"></span><span data-i18n="eyebrow">Sourced from OpenAI docs</span></span>
-    <h1 data-i18n-html="heroTitle">Everything you can do with <span class="grad">Codex</span></h1>
-    <p data-i18n="heroDesc">Every official OpenAI Codex use case, gathered into one interactive, searchable, bilingual (中 / EN) gallery. Open any card to see what it does, when to reach for it, and a copy-ready example prompt.</p>
-    <div class="hero__stats">
-      <div class="hero__stat"><b id="stat-total">52</b><span data-i18n="statCases">Use cases</span></div>
-      <div class="hero__stat"><b id="stat-cats">8</b><span data-i18n="statCats">Categories</span></div>
-      <div class="hero__stat"><b>2</b><span data-i18n="statLang">Languages</span></div>
+  <section class="hero wrap">
+    <div class="hero__text">
+      <h1 data-i18n-html="heroTitle">52 jobs you can hand to Codex</h1>
+      <p class="hero__desc" data-i18n="heroDesc">Every official OpenAI Codex use case, in English and Chinese. Each one comes with an example prompt you can copy and paste straight into Codex.</p>
+      <p class="hero__src" data-i18n-html="heroSource">Adapted from <a href="https://developers.openai.com/codex/use-cases" target="_blank" rel="noopener">OpenAI Codex Use Cases</a>. Unofficial companion.</p>
+    </div>
+    <div class="term term--hero" id="term">
+      <div class="term__bar">
+        <span class="term__label">Example prompt</span>
+        <span class="term__pos" aria-live="polite">1 / 6</span>
+        <button class="term__step" type="button" data-feat="-1" aria-label="Previous example"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+        <button class="term__step" type="button" data-feat="1" aria-label="Next example"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></button>
+      </div>
+      <a class="term__title" href="#manage-your-inbox" data-open="manage-your-inbox" style="--cat:var(--c-productivity)">
+        <span class="sw" aria-hidden="true"></span><span class="term__num">#01</span>Manage your inbox
+      </a>
+      <pre class="term__body"><span class="term__caret" aria-hidden="true">›</span>Can you check my @gmail, figure out what I need to respond to, and write drafts in my voice. Use my recent sent replies or @google-drive [writing examples] for tone. Use @slack, @google-drive, or other sources where my work happens when the email is missing the latest decision, owner, file, or blocker.<span class="term__cursor" aria-hidden="true"></span></pre>
+      <div class="term__foot">
+        <button class="btn btn--go needs-js" type="button" data-copy="manage-your-inbox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+        <a class="btn btn--ghost" href="#manage-your-inbox" data-open="manage-your-inbox">Full details</a>
+      </div></div>
+    <div class="dist">
+      <p class="dist__label" id="dist-label">8 categories. Select one to show only that category</p>
+      <div class="dist__bar" id="dist">
+      <button class="dist__seg" type="button" data-cat="productivity" aria-pressed="false" style="--cat:var(--c-productivity); flex-grow:9">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">Productivity &amp; Automation</span> <span class="dist__n">9</span></span>
+      </button>
+      <button class="dist__seg" type="button" data-cat="coding" aria-pressed="false" style="--cat:var(--c-coding); flex-grow:11">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">Engineering &amp; Coding</span> <span class="dist__n">11</span></span>
+      </button>
+      <button class="dist__seg" type="button" data-cat="frontend" aria-pressed="false" style="--cat:var(--c-frontend); flex-grow:5">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">Front-end &amp; Design</span> <span class="dist__n">5</span></span>
+      </button>
+      <button class="dist__seg" type="button" data-cat="mobile" aria-pressed="false" style="--cat:var(--c-mobile); flex-grow:9">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">Mobile &amp; Native</span> <span class="dist__n">9</span></span>
+      </button>
+      <button class="dist__seg" type="button" data-cat="data" aria-pressed="false" style="--cat:var(--c-data); flex-grow:3">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">Data &amp; Analysis</span> <span class="dist__n">3</span></span>
+      </button>
+      <button class="dist__seg" type="button" data-cat="knowledge" aria-pressed="false" style="--cat:var(--c-knowledge); flex-grow:7">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">Knowledge Work</span> <span class="dist__n">7</span></span>
+      </button>
+      <button class="dist__seg" type="button" data-cat="quality" aria-pressed="false" style="--cat:var(--c-quality); flex-grow:5">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">Quality &amp; Testing</span> <span class="dist__n">5</span></span>
+      </button>
+      <button class="dist__seg" type="button" data-cat="finance" aria-pressed="false" style="--cat:var(--c-finance); flex-grow:3">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">Finance</span> <span class="dist__n">3</span></span>
+      </button></div>
     </div>
   </section>
 
-  <!-- Controls -->
-  <section class="controls">
-    <div class="search ripple-host">
-      <span class="material-symbols-rounded">search</span>
-      <input id="search" type="search" autocomplete="off" />
-      <button class="icon-btn search__clear" id="search-clear" aria-label="Clear">
-        <span class="material-symbols-rounded">close</span>
-      </button>
-    </div>
-    <div class="chips" id="chips" role="group" aria-label="Categories"></div>
-  </section>
+  <div class="browse wrap" id="browse">
+    <aside class="side">
+      <div class="side__in">
+        <label class="search needs-js">
+          <span class="sr-only" data-i18n="searchLabel">Search use cases</span>
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="m20 20-4.4-4.4"></path></svg>
+          <input id="search" type="search" autocomplete="off" placeholder="Search use cases or tools">
+          <button class="search__clear" id="search-clear" type="button" data-i18n-aria="searchClear" aria-label="Clear search" hidden="">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+          </button>
+        </label>
+        <div class="viewtoggle needs-js" id="viewtoggle" role="group" data-i18n-aria="viewLabel" aria-label="View">
+          <button type="button" data-view="prompts" aria-pressed="true"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="4" width="7" height="7" rx="1"></rect><rect x="13.5" y="4" width="7" height="7" rx="1"></rect><rect x="3.5" y="14" width="7" height="6" rx="1"></rect><rect x="13.5" y="14" width="7" height="6" rx="1"></rect></svg><span data-i18n="viewPrompts">Prompts</span></button>
+          <button type="button" data-view="index" aria-pressed="false"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"></path></svg><span data-i18n="viewIndex">Index</span></button>
+        </div>
+        <nav class="cats-wrap" data-i18n-aria="catsLabel" aria-label="Categories">
+          <h2 class="side__h" data-i18n="catsLabel">Categories</h2>
+          <ul class="cats" id="cats">
+      <li><button class="cat" type="button" data-cat="all" aria-pressed="true">
+        <span class="sw sw--all" aria-hidden="true"></span>
+        <span class="cat__name">All</span>
+        <span class="cat__n">52</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="productivity" aria-pressed="false" style="--cat:var(--c-productivity)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">Productivity &amp; Automation</span>
+        <span class="cat__n">9</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="coding" aria-pressed="false" style="--cat:var(--c-coding)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">Engineering &amp; Coding</span>
+        <span class="cat__n">11</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="frontend" aria-pressed="false" style="--cat:var(--c-frontend)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">Front-end &amp; Design</span>
+        <span class="cat__n">5</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="mobile" aria-pressed="false" style="--cat:var(--c-mobile)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">Mobile &amp; Native</span>
+        <span class="cat__n">9</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="data" aria-pressed="false" style="--cat:var(--c-data)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">Data &amp; Analysis</span>
+        <span class="cat__n">3</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="knowledge" aria-pressed="false" style="--cat:var(--c-knowledge)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">Knowledge Work</span>
+        <span class="cat__n">7</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="quality" aria-pressed="false" style="--cat:var(--c-quality)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">Quality &amp; Testing</span>
+        <span class="cat__n">5</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="finance" aria-pressed="false" style="--cat:var(--c-finance)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">Finance</span>
+        <span class="cat__n">3</span>
+      </button></li></ul>
+        </nav>
+        <p class="results" id="results" aria-live="polite">Showing 52 use cases</p>
+      </div>
+    </aside>
 
-  <!-- Card grid -->
-  <main class="grid" id="grid" aria-live="polite">
-<button class="card" data-slug="manage-your-inbox" style="--cat:var(--c-productivity); animation-delay:0ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Productivity &amp; Automation</span>
-          <span class="card__num">#01</span>
+    <main class="list" id="list" aria-live="polite" data-view="prompts">
+      <section class="group" id="cat-productivity" style="--cat:var(--c-productivity)" aria-labelledby="h-productivity">
+        <header class="group__head">
+          <h2 id="h-productivity"><span class="sw sw--lg" aria-hidden="true"></span>Productivity &amp; Automation</h2>
+          <span class="group__n">9 use cases</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#01</span><span class="uc__tags">Automation, Integrations, Productivity</span></p>
+        <h3 class="uc__title"><a href="#manage-your-inbox" data-open="manage-your-inbox">Manage your inbox</a></h3>
+        <p class="uc__sum">Let Codex scan Gmail, flag emails needing replies, and draft responses in your own voice.</p>
+        <a class="uc__prompt" href="#manage-your-inbox" data-open="manage-your-inbox" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Can you check my @gmail, figure out what I need to respond to, and write drafts in my voice. Use my recent sent replies or @google-drive [writing examples] for tone. Use @slack, @google-drive, or other sources where my work happens when the email is missing the latest decision, owner, file, or blocker.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="manage-your-inbox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#manage-your-inbox" data-open="manage-your-inbox">Full details</a>
         </div>
-        <h3>Manage your inbox</h3>
-        <p>Let Codex scan Gmail, flag emails needing replies, and draft responses in your own voice.</p>
-        <div class="card__tags"><span class="tag">Automation</span><span class="tag">Integrations</span><span class="tag">Productivity</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="use-your-computer-with-codex" style="--cat:var(--c-productivity); animation-delay:28ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Productivity &amp; Automation</span>
-          <span class="card__num">#02</span>
-        </div>
-        <h3>Use your computer with Codex</h3>
-        <p>Hand off multi-step tasks across Mac apps, windows, and files using Computer Use.</p>
-        <div class="card__tags"><span class="tag">Automation</span><span class="tag">Computer Use</span><span class="tag">Productivity</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="follow-goals" style="--cat:var(--c-coding); animation-delay:56ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Engineering &amp; Coding</span>
-          <span class="card__num">#03</span>
-        </div>
-        <h3>Follow a goal</h3>
-        <p>Give Codex a durable objective and stopping condition for autonomous long-running work.</p>
-        <div class="card__tags"><span class="tag">Coding</span><span class="tag">Automation</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="proactive-teammate" style="--cat:var(--c-productivity); animation-delay:84ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Productivity &amp; Automation</span>
-          <span class="card__num">#04</span>
-        </div>
-        <h3>Set up a teammate</h3>
-        <p>Configure Codex as a proactive assistant that monitors your tools and surfaces what needs attention.</p>
-        <div class="card__tags"><span class="tag">Automation</span><span class="tag">Integrations</span><span class="tag">Productivity</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="feedback-synthesis" style="--cat:var(--c-knowledge); animation-delay:112ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Knowledge Work</span>
-          <span class="card__num">#05</span>
-        </div>
-        <h3>Turn feedback into actions</h3>
-        <p>Synthesize feedback from many sources into a reviewable sheet, doc, or update.</p>
-        <div class="card__tags"><span class="tag">Data Knowledge Work</span><span class="tag">Integrations</span><span class="tag">Productivity</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="clean-messy-data" style="--cat:var(--c-data); animation-delay:140ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Data &amp; Analysis</span>
-          <span class="card__num">#06</span>
-        </div>
-        <h3>Clean and prepare messy data</h3>
-        <p>Drag in a messy CSV, describe the problems, and get a cleaned copy with the original kept intact.</p>
-        <div class="card__tags"><span class="tag">Data Knowledge Work</span><span class="tag">Productivity</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="analyze-data-export" style="--cat:var(--c-data); animation-delay:168ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Data &amp; Analysis</span>
-          <span class="card__num">#07</span>
-        </div>
-        <h3>Query tabular data</h3>
-        <p>Ask a question about a CSV or export and get calculations, charts, and a browser visualization.</p>
-        <div class="card__tags"><span class="tag">Data Knowledge Work</span><span class="tag">Productivity</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="github-code-reviews" style="--cat:var(--c-quality); animation-delay:196ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Quality &amp; Testing</span>
-          <span class="card__num">#08</span>
-        </div>
-        <h3>Review GitHub pull requests</h3>
-        <p>Have Codex automatically surface regressions, missing tests, and doc issues on every PR.</p>
-        <div class="card__tags"><span class="tag">Coding</span><span class="tag">Integrations</span><span class="tag">Code Review</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="frontend-designs" style="--cat:var(--c-frontend); animation-delay:224ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Front-end &amp; Design</span>
-          <span class="card__num">#09</span>
-        </div>
-        <h3>Build responsive front-end designs</h3>
-        <p>Turn screenshots and visual references into responsive UI code aligned with your design system.</p>
-        <div class="card__tags"><span class="tag">Front-end</span><span class="tag">Design</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="codebase-onboarding" style="--cat:var(--c-coding); animation-delay:252ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Engineering &amp; Coding</span>
-          <span class="card__num">#10</span>
-        </div>
-        <h3>Understand large codebases</h3>
-        <p>Map unfamiliar codebases, explain modules and data flow, and find the next files worth reading.</p>
-        <div class="card__tags"><span class="tag">Onboarding</span><span class="tag">Codebase</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="macos-sidebar-detail-inspector" style="--cat:var(--c-mobile); animation-delay:280ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Mobile &amp; Native</span>
-          <span class="card__num">#11</span>
-        </div>
-        <h3>Build a Mac app shell</h3>
-        <p>Turn an app idea into a desktop-native NavigationSplitView shell with menus, toolbars, and settings.</p>
-        <div class="card__tags"><span class="tag">macOS</span><span class="tag">SwiftUI</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="automation-bug-triage" style="--cat:var(--c-quality); animation-delay:308ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Quality &amp; Testing</span>
-          <span class="card__num">#12</span>
-        </div>
-        <h3>Automate bug triage</h3>
-        <p>Turn daily bug reports into a prioritized list, then schedule automated triage sweeps.</p>
-        <div class="card__tags"><span class="tag">Automation</span><span class="tag">Bug Triage</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="generate-slide-decks" style="--cat:var(--c-knowledge); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Knowledge Work</span>
-          <span class="card__num">#13</span>
-        </div>
-        <h3>Generate slide decks</h3>
-        <p>Manipulate PowerPoint files and use image generation to automate slide deck creation.</p>
-        <div class="card__tags"><span class="tag">Slides</span><span class="tag">Automation</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="slack-coding-tasks" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Engineering &amp; Coding</span>
-          <span class="card__num">#14</span>
-        </div>
-        <h3>Kick off coding tasks from Slack</h3>
-        <p>Turn Slack threads into scoped cloud tasks by mentioning @Codex, then review results in the thread.</p>
-        <div class="card__tags"><span class="tag">Slack</span><span class="tag">Automation</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="make-granular-ui-changes" style="--cat:var(--c-frontend); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Front-end &amp; Design</span>
-          <span class="card__num">#15</span>
-        </div>
-        <h3>Make granular UI changes</h3>
-        <p>Make focused single UI adjustments in an existing app, verify in browser, and iterate fast.</p>
-        <div class="card__tags"><span class="tag">Front-end</span><span class="tag">UI</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="new-hire-onboarding" style="--cat:var(--c-productivity); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Productivity &amp; Automation</span>
-          <span class="card__num">#16</span>
-        </div>
-        <h3>Coordinate new-hire onboarding</h3>
-        <p>Prepare onboarding trackers, team summaries, and welcome-space drafts staged for reviewer approval.</p>
-        <div class="card__tags"><span class="tag">Onboarding</span><span class="tag">Operations</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="learn-a-new-concept" style="--cat:var(--c-knowledge); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Knowledge Work</span>
-          <span class="card__num">#17</span>
-        </div>
-        <h3>Learn a new concept</h3>
-        <p>Use Codex subagents to digest dense research papers or courses into a structured Markdown study report.</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="api-integration-migrations" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Engineering &amp; Coding</span>
-          <span class="card__num">#18</span>
-        </div>
-        <h3>Upgrade your API integration</h3>
-        <p>Update an existing OpenAI API integration to the latest models and features with regression checks before deploy.</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="deploy-app-or-website" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Engineering &amp; Coding</span>
-          <span class="card__num">#19</span>
-        </div>
-        <h3>Deploy an app or website</h3>
-        <p>Turn a repo, screenshot, or rough idea into a working preview deployment with a shareable live URL via Vercel.</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="figma-designs-to-code" style="--cat:var(--c-frontend); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Front-end &amp; Design</span>
-          <span class="card__num">#20</span>
-        </div>
-        <h3>Turn Figma designs into code</h3>
-        <p>Convert a Figma selection into production UI code that matches your design system, verified against the reference with Playwright.</p>
-        <div class="card__tags"><span class="tag">Design</span><span class="tag">Engineering</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="qa-your-app-with-computer-use" style="--cat:var(--c-quality); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Quality &amp; Testing</span>
-          <span class="card__num">#21</span>
-        </div>
-        <h3>QA your app with Computer Use</h3>
-        <p>Use Computer Use to exercise key product flows, find issues, and generate structured, triage-ready bug reports.</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="datasets-and-reports" style="--cat:var(--c-data); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Data &amp; Analysis</span>
-          <span class="card__num">#22</span>
-        </div>
-        <h3>Analyze datasets and ship reports</h3>
-        <p>Take messy data through cleaning, joining, exploration, and modeling to produce reusable, reviewable analysis artifacts.</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="complete-tasks-from-messages" style="--cat:var(--c-productivity); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Productivity &amp; Automation</span>
-          <span class="card__num">#23</span>
-        </div>
-        <h3>Complete tasks from messages</h3>
-        <p>Turn iMessage threads into completed work across the apps involved, with a drafted reply in the same thread.</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="idea-to-proof-of-concept" style="--cat:var(--c-frontend); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Front-end &amp; Design</span>
-          <span class="card__num">#24</span>
-        </div>
-        <h3>Get from idea to proof of concept</h3>
-        <p>Combine Codex with ImageGen to turn rough product ideas into visual directions and working prototypes for validation.</p>
-        <div class="card__tags"><span class="tag">Engineering</span><span class="tag">Design</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="browser-games" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Engineering &amp; Coding</span>
-          <span class="card__num">#25</span>
-        </div>
-        <h3>Create browser-based games</h3>
-        <p>Use Codex to turn a game concept into a playable browser game, generating assets and testing live in the browser.</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="iterate-on-difficult-problems" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Engineering &amp; Coding</span>
-          <span class="card__num">#26</span>
-        </div>
-        <h3>Iterate on difficult problems</h3>
-        <p>Apply Codex to optimization problems using an eval-driven loop where each iteration is scored until quality thresholds are met.</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="reusable-codex-skills" style="--cat:var(--c-productivity); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Productivity &amp; Automation</span>
-          <span class="card__num">#27</span>
-        </div>
-        <h3>Save workflows as skills</h3>
-        <p>Turn a working Codex thread, review rules, or repo scripts into reusable skills Codex can apply in future threads.</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="update-documentation" style="--cat:var(--c-knowledge); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Knowledge Work</span>
-          <span class="card__num">#28</span>
-        </div>
-        <h3>Keep documentation up-to-date</h3>
-        <p>Use Codex to compare code changes against docs and draft focused, verified documentation updates before publishing.</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="native-ios-apps" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Mobile &amp; Native</span>
-          <span class="card__num">#29</span>
-        </div>
-        <h3>Build for iOS</h3>
-        <p>Use Codex to scaffold, build, and debug SwiftUI apps for iPhone and iPad with a CLI-first workflow.</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="refactor-your-codebase" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Engineering &amp; Coding</span>
-          <span class="card__num">#30</span>
-        </div>
-        <h3>Refactor your codebase</h3>
-        <p>Use Codex to remove dead code and modernize legacy patterns in small, reviewable passes without changing behavior.</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="ios-app-intents" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Mobile &amp; Native</span>
-          <span class="card__num">#31</span>
-        </div>
-        <h3>Add iOS app intents</h3>
-        <p>Use Codex with the Build iOS Apps plugin to expose app actions and content via App Intents for Shortcuts, Siri, and Spotlight.</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="native-macos-apps" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Mobile &amp; Native</span>
-          <span class="card__num">#32</span>
-        </div>
-        <h3>Build for macOS</h3>
-        <p>Use Codex to build macOS SwiftUI apps with a shell-first build loop and desktop-native scene, window, and AppKit workflows.</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="ios-liquid-glass" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Mobile &amp; Native</span>
-          <span class="card__num">#33</span>
-        </div>
-        <h3>Adopt liquid glass</h3>
-        <p>Use Codex to audit SwiftUI UI and migrate custom blur stacks to native iOS 26 Liquid Glass.</p>
-        <div class="card__tags"><span class="tag">Front-end</span><span class="tag">iOS</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="macos-telemetry-logs" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Mobile &amp; Native</span>
-          <span class="card__num">#34</span>
-        </div>
-        <h3>Add Mac telemetry</h3>
-        <p>Use Codex to instrument one Mac feature with Logger, run the app, and verify events from unified logs.</p>
-        <div class="card__tags"><span class="tag">macOS</span><span class="tag">Debugging</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="ios-simulator-bug-debugging" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Mobile &amp; Native</span>
-          <span class="card__num">#35</span>
-        </div>
-        <h3>Debug in iOS simulator</h3>
-        <p>Use Codex and XcodeBuildMCP to drive the app in iOS Simulator, capture evidence, and iterate toward a fix.</p>
-        <div class="card__tags"><span class="tag">iOS</span><span class="tag">Debugging</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="dependency-incident-audits" style="--cat:var(--c-quality); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Quality &amp; Testing</span>
-          <span class="card__num">#36</span>
-        </div>
-        <h3>Audit dependency incidents</h3>
-        <p>Use Codex to turn public package advisories into safe, read-only repository exposure audits.</p>
-        <div class="card__tags"><span class="tag">Security</span><span class="tag">DevOps</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="meeting-prep-briefs" style="--cat:var(--c-knowledge); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Knowledge Work</span>
-          <span class="card__num">#37</span>
-        </div>
-        <h3>Prepare meeting briefs</h3>
-        <p>Use Codex with Calendar, Drive, Slack, and Gmail to turn meeting context into an agenda and notes plan.</p>
-        <div class="card__tags"><span class="tag">Productivity</span><span class="tag">Knowledge</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="event-launch-playbooks" style="--cat:var(--c-productivity); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Productivity &amp; Automation</span>
-          <span class="card__num">#38</span>
-        </div>
-        <h3>Run event playbooks</h3>
-        <p>Use Codex with Slack, Drive, and Calendar to draft attendee copy and a private event checklist with owners.</p>
-        <div class="card__tags"><span class="tag">Productivity</span><span class="tag">Operations</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="code-migrations" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Engineering &amp; Coding</span>
-          <span class="card__num">#39</span>
-        </div>
-        <h3>Run code migrations</h3>
-        <p>Use Codex to migrate legacy stacks to modern ones in controlled checkpoints with parity validation.</p>
-        <div class="card__tags"><span class="tag">Back-end</span><span class="tag">DevOps</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="ios-swiftui-view-refactor" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Mobile &amp; Native</span>
-          <span class="card__num">#40</span>
-        </div>
-        <h3>Refactor SwiftUI screens</h3>
-        <p>Use Codex to decompose large SwiftUI views into smaller maintainable subviews while preserving behavior.</p>
-        <div class="card__tags"><span class="tag">iOS</span><span class="tag">Front-end</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="draft-prds-from-sources" style="--cat:var(--c-knowledge); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Knowledge Work</span>
-          <span class="card__num">#41</span>
-        </div>
-        <h3>Draft PRDs from internal context</h3>
-        <p>Use Codex with connected apps to synthesize planning context into a reviewable, source-cited PRD.</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span><span class="tag">Product</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="cash-flow-forecast" style="--cat:var(--c-finance); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Finance</span>
-          <span class="card__num">#42</span>
-        </div>
-        <h3>Forecast cash flow</h3>
-        <p>Build an editable cash-flow forecast workbook with Codex to surface liquidity pressure and flag safety-balance breaches.</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span><span class="tag">Finance</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="dcf-model" style="--cat:var(--c-finance); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Finance</span>
-          <span class="card__num">#43</span>
-        </div>
-        <h3>Model a DCF valuation</h3>
-        <p>Turn historical financials and assumptions into an editable DCF valuation workbook you can inspect and revise in Codex.</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span><span class="tag">Finance</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="budget-vs-actuals-review" style="--cat:var(--c-finance); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Finance</span>
-          <span class="card__num">#44</span>
-        </div>
-        <h3>Review budget vs. actuals</h3>
-        <p>Turn budget plans, actuals exports, and close notes into a variance workbook that maps categories and flags reconciliation gaps.</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span><span class="tag">Finance</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="ai-app-evals" style="--cat:var(--c-quality); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Quality &amp; Testing</span>
-          <span class="card__num">#45</span>
-        </div>
-        <h3>Add evals to your AI application</h3>
-        <p>Use Codex to turn expected app behavior into a runnable Promptfoo eval suite with regression tests before merging.</p>
-        <div class="card__tags"><span class="tag">Coding</span><span class="tag">Evaluation</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="user-stories-to-ui-mocks" style="--cat:var(--c-frontend); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Front-end &amp; Design</span>
-          <span class="card__num">#46</span>
-        </div>
-        <h3>Turn user stories into UI mocks</h3>
-        <p>Normalize scattered feedback into user stories, then generate UI mocks with ImageGen grounded in your design system.</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span><span class="tag">Product</span><span class="tag">Design</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="chatgpt-apps" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Engineering &amp; Coding</span>
-          <span class="card__num">#47</span>
-        </div>
-        <h3>Bring your app to ChatGPT</h3>
-        <p>Build one narrow ChatGPT app end-to-end: define tools, scaffold the MCP server and widget, connect, and iterate.</p>
-        <div class="card__tags"><span class="tag">Coding</span><span class="tag">Apps</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="react-native-expo-apps" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Mobile &amp; Native</span>
-          <span class="card__num">#48</span>
-        </div>
-        <h3>Build React Native apps with Expo</h3>
-        <p>Use Codex with the Expo plugin to scaffold React Native apps, starting with Expo Go for rapid testing.</p>
-        <div class="card__tags"><span class="tag">Coding</span><span class="tag">Mobile</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="agent-friendly-clis" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Engineering &amp; Coding</span>
-          <span class="card__num">#49</span>
-        </div>
-        <h3>Create a CLI Codex can use</h3>
-        <p>Build a composable CLI that Codex can run, combine with repo scripts, and reuse via skills.</p>
-        <div class="card__tags"><span class="tag">Engineering</span><span class="tag">Automation</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="slack-action-triage" style="--cat:var(--c-productivity); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Productivity &amp; Automation</span>
-          <span class="card__num">#50</span>
-        </div>
-        <h3>Prioritize Slack action items</h3>
-        <p>Turn Slack threads and DMs into a ranked queue of actionable next steps before drafting replies.</p>
-        <div class="card__tags"><span class="tag">Productivity</span><span class="tag">Automation</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="verified-operations-workflows" style="--cat:var(--c-productivity); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Productivity &amp; Automation</span>
-          <span class="card__num">#51</span>
-        </div>
-        <h3>Run verified operations</h3>
-        <p>Run repeatable operational workflows and verify each result through logs or artifacts before reporting.</p>
-        <div class="card__tags"><span class="tag">Operations</span><span class="tag">Automation</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="zoom-meeting-follow-ups" style="--cat:var(--c-knowledge); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>Knowledge Work</span>
-          <span class="card__num">#52</span>
-        </div>
-        <h3>Turn meetings into follow-ups</h3>
-        <p>Convert Zoom transcripts and summaries into customer emails, account plans, CRM updates, and team notifications.</p>
-        <div class="card__tags"><span class="tag">Productivity</span><span class="tag">Sales</span></div>
-        <span class="card__cta">View details<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-</main>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#02</span><span class="uc__tags">Automation, Computer Use, Productivity</span></p>
+        <h3 class="uc__title"><a href="#use-your-computer-with-codex" data-open="use-your-computer-with-codex">Use your computer with Codex</a></h3>
+        <p class="uc__sum">Hand off multi-step tasks across Mac apps, windows, and files using Computer Use.</p>
+        <a class="uc__prompt" href="#use-your-computer-with-codex" data-open="use-your-computer-with-codex" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>@Computer [do the task you want completed across your Mac]
 
-  <footer class="site-foot">
-    <p data-i18n-html="footer">Content adapted from <a href="https://developers.openai.com/codex/use-cases" target="_blank" rel="noopener">OpenAI Codex Use Cases</a>. An unofficial bilingual study companion.</p>
-    <div class="profile-links" style="display:flex;gap:12px;justify-content:center;align-items:center;margin-top:10px">
-      <a class="icon-btn" href="https://www.peteraim.com" target="_blank" rel="noopener" title="Home" aria-label="Back to peteraim.com / 返回首頁"><span class="material-symbols-rounded">home</span></a>
-      <a class="icon-btn" href="https://www.linkedin.com/in/ai-med/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn (opens in new tab)"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
+For example:
+- Play some music to help me focus.
+- Help me add my interview notes from Notes to Ashby.
+- Look through my Messages app for the trip ideas Brooke sent me this week, add the best options to a new note called "Yosemite ideas", and draft a reply back to her.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="use-your-computer-with-codex"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#use-your-computer-with-codex" data-open="use-your-computer-with-codex">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#04</span><span class="uc__tags">Automation, Integrations, Productivity</span></p>
+        <h3 class="uc__title"><a href="#proactive-teammate" data-open="proactive-teammate">Set up a teammate</a></h3>
+        <p class="uc__sum">Configure Codex as a proactive assistant that monitors your tools and surfaces what needs attention.</p>
+        <a class="uc__prompt" href="#proactive-teammate" data-open="proactive-teammate" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Can you check @slack, @gmail, @google-calendar, and @notion and tell me what needs my attention? Look for anything important or surprising that I might miss.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="proactive-teammate"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#proactive-teammate" data-open="proactive-teammate">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#16</span><span class="uc__tags">Onboarding, Operations</span></p>
+        <h3 class="uc__title"><a href="#new-hire-onboarding" data-open="new-hire-onboarding">Coordinate new-hire onboarding</a></h3>
+        <p class="uc__sum">Prepare onboarding trackers, team summaries, and welcome-space drafts staged for reviewer approval.</p>
+        <a class="uc__prompt" href="#new-hire-onboarding" data-open="new-hire-onboarding" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Help me prepare a reviewable onboarding packet for upcoming new hires... Start read-only: inventory the sources, fields, row counts, and date range... Then stage drafts: draft a reviewable tracker update... Safety: use only the approved sources I named...</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="new-hire-onboarding"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#new-hire-onboarding" data-open="new-hire-onboarding">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#23</span><span class="uc__tags">Knowledge Work</span></p>
+        <h3 class="uc__title"><a href="#complete-tasks-from-messages" data-open="complete-tasks-from-messages">Complete tasks from messages</a></h3>
+        <p class="uc__sum">Turn iMessage threads into completed work across the apps involved, with a drafted reply in the same thread.</p>
+        <a class="uc__prompt" href="#complete-tasks-from-messages" data-open="complete-tasks-from-messages" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>@Computer Look at my messages from [person]. Then: - understand the request - complete the task across the apps involved - draft a reply in the same thread Pause before anything irreversible, such as placing an order or confirming a booking.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="complete-tasks-from-messages"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#complete-tasks-from-messages" data-open="complete-tasks-from-messages">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#27</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#reusable-codex-skills" data-open="reusable-codex-skills">Save workflows as skills</a></h3>
+        <p class="uc__sum">Turn a working Codex thread, review rules, or repo scripts into reusable skills Codex can apply in future threads.</p>
+        <a class="uc__prompt" href="#reusable-codex-skills" data-open="reusable-codex-skills" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use $skill-creator to create a Codex skill that [fixes failing Buildkite checks on a GitHub PR / turns PR notes into inline review comments / writes our release notes from merged PRs]</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="reusable-codex-skills"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#reusable-codex-skills" data-open="reusable-codex-skills">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#38</span><span class="uc__tags">Productivity, Operations</span></p>
+        <h3 class="uc__title"><a href="#event-launch-playbooks" data-open="event-launch-playbooks">Run event playbooks</a></h3>
+        <p class="uc__sum">Use Codex with Slack, Drive, and Calendar to draft attendee copy and a private event checklist with owners.</p>
+        <a class="uc__prompt" href="#event-launch-playbooks" data-open="event-launch-playbooks" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Create a source-backed playbook for [event]. Sources to use: - planning channels or threads: [links or names] - approved docs, decks, sheets, or templates: [links or names] - calendar events or deadlines: [links or dates] Split the output into: - attendee-facing copy - private operating checklist - owner map - support plan or resources - approvals still needed - open questions - source appendix Do not publish anything or assume missing details. Put unknowns in open questions and keep private operations out of the public copy.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="event-launch-playbooks"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#event-launch-playbooks" data-open="event-launch-playbooks">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#50</span><span class="uc__tags">Productivity, Automation</span></p>
+        <h3 class="uc__title"><a href="#slack-action-triage" data-open="slack-action-triage">Prioritize Slack action items</a></h3>
+        <p class="uc__sum">Turn Slack threads and DMs into a ranked queue of actionable next steps before drafting replies.</p>
+        <a class="uc__prompt" href="#slack-action-triage" data-open="slack-action-triage" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Can you check @slack for messages to me about [workstream] from [time window] and return a ranked action queue? Look across DMs, group DMs, channel mentions, and threads. For each item, include: - source link or thread - what is being asked - whether it needs my reply, a person or lead, a docs or code change, or just a decision - why it matters - the recommended next step Before calling anything unresolved, read the latest thread replies and skip items that were already handled. Do not post messages directly but suggest drafts for my review.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="slack-action-triage"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#slack-action-triage" data-open="slack-action-triage">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#51</span><span class="uc__tags">Operations, Automation</span></p>
+        <h3 class="uc__title"><a href="#verified-operations-workflows" data-open="verified-operations-workflows">Run verified operations</a></h3>
+        <p class="uc__sum">Run repeatable operational workflows and verify each result through logs or artifacts before reporting.</p>
+        <a class="uc__prompt" href="#verified-operations-workflows" data-open="verified-operations-workflows" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>I need to run this workflow: Goal: [what should happen] Inputs: [CSV, Google Sheet, list, ticket, or file path]...Please: - inspect the inputs and ask only for missing required fields - normalize dates, amounts, owners, and IDs before running the workflow - run only the approved scope - record one success or failure row per item</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="verified-operations-workflows"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#verified-operations-workflows" data-open="verified-operations-workflows">Full details</a>
+        </div>
+      </article></div>
+      </section>
+      <section class="group" id="cat-coding" style="--cat:var(--c-coding)" aria-labelledby="h-coding">
+        <header class="group__head">
+          <h2 id="h-coding"><span class="sw sw--lg" aria-hidden="true"></span>Engineering &amp; Coding</h2>
+          <span class="group__n">11 use cases</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#03</span><span class="uc__tags">Coding, Automation</span></p>
+        <h3 class="uc__title"><a href="#follow-goals" data-open="follow-goals">Follow a goal</a></h3>
+        <p class="uc__sum">Give Codex a durable objective and stopping condition for autonomous long-running work.</p>
+        <a class="uc__prompt" href="#follow-goals" data-open="follow-goals" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>/goal Complete [objective] without stopping until [verifiable end state].</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="follow-goals"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#follow-goals" data-open="follow-goals">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#10</span><span class="uc__tags">Onboarding, Codebase</span></p>
+        <h3 class="uc__title"><a href="#codebase-onboarding" data-open="codebase-onboarding">Understand large codebases</a></h3>
+        <p class="uc__sum">Map unfamiliar codebases, explain modules and data flow, and find the next files worth reading.</p>
+        <a class="uc__prompt" href="#codebase-onboarding" data-open="codebase-onboarding" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Explain how the request flows through &lt;name of the system area&gt; in the codebase. Include: - which modules own what - where data is validated - the top gotchas to watch for before making changes End with the files I should read next.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="codebase-onboarding"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#codebase-onboarding" data-open="codebase-onboarding">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#14</span><span class="uc__tags">Slack, Automation</span></p>
+        <h3 class="uc__title"><a href="#slack-coding-tasks" data-open="slack-coding-tasks">Kick off coding tasks from Slack</a></h3>
+        <p class="uc__sum">Turn Slack threads into scoped cloud tasks by mentioning @Codex, then review results in the thread.</p>
+        <a class="uc__prompt" href="#slack-coding-tasks" data-open="slack-coding-tasks" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>@Codex analyze the issue mentioned in this thread and implement a fix in &lt;name of your environment&gt;.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="slack-coding-tasks"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#slack-coding-tasks" data-open="slack-coding-tasks">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#18</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#api-integration-migrations" data-open="api-integration-migrations">Upgrade your API integration</a></h3>
+        <p class="uc__sum">Update an existing OpenAI API integration to the latest models and features with regression checks before deploy.</p>
+        <a class="uc__prompt" href="#api-integration-migrations" data-open="api-integration-migrations" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use $openai-docs to upgrade this OpenAI integration to the latest recommended model and API features. Specifically, look for the latest model and prompt guidance for this specific model.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="api-integration-migrations"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#api-integration-migrations" data-open="api-integration-migrations">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#19</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#deploy-app-or-website" data-open="deploy-app-or-website">Deploy an app or website</a></h3>
+        <p class="uc__sum">Turn a repo, screenshot, or rough idea into a working preview deployment with a shareable live URL via Vercel.</p>
+        <a class="uc__prompt" href="#deploy-app-or-website" data-open="deploy-app-or-website" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use @build-web-apps to turn [repo, screenshot, design, or rough app idea] into a working website. Then use @vercel to deploy a preview and hand me the live URL. Context: - [what the site should do] - [source data, API, docs, or assets to use] - [style or product constraints] - [anything not to change] Before you hand it back, run the local build and verify the deployment is ready.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="deploy-app-or-website"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#deploy-app-or-website" data-open="deploy-app-or-website">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#25</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#browser-games" data-open="browser-games">Create browser-based games</a></h3>
+        <p class="uc__sum">Use Codex to turn a game concept into a playable browser game, generating assets and testing live in the browser.</p>
+        <a class="uc__prompt" href="#browser-games" data-open="browser-games" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use $playwright-interactive, $imagegen, and $openai-docs to plan and build a browser game in this repo. Implement PLAN.md, and log your work under `.logs/`.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="browser-games"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#browser-games" data-open="browser-games">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#26</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#iterate-on-difficult-problems" data-open="iterate-on-difficult-problems">Iterate on difficult problems</a></h3>
+        <p class="uc__sum">Apply Codex to optimization problems using an eval-driven loop where each iteration is scored until quality thresholds are met.</p>
+        <a class="uc__prompt" href="#iterate-on-difficult-problems" data-open="iterate-on-difficult-problems" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>I have a difficult task in this workspace and I want you to run it as an eval-driven improvement loop. Before changing anything: - Read `AGENTS.md`. - Find the script or command that scores the current output. Iteration loop: - Make one focused improvement at a time. - Re-run the eval command after each meaningful change. - Log the scores and what changed. - Inspect generated artifacts directly. If the output is visual, use `view_image`. - Keep going until both the overall score and the LLM average are above 90%. Constraints: - Do not stop at the first acceptable result. - Do not revert to an earlier version unless the new result is clearly worse in scores or artifacts. - If the eval improves but is still below target, explain the bottleneck and continue. Output: - current best scores - log of major iterations - remaining risks or weak spots</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="iterate-on-difficult-problems"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#iterate-on-difficult-problems" data-open="iterate-on-difficult-problems">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#30</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#refactor-your-codebase" data-open="refactor-your-codebase">Refactor your codebase</a></h3>
+        <p class="uc__sum">Use Codex to remove dead code and modernize legacy patterns in small, reviewable passes without changing behavior.</p>
+        <a class="uc__prompt" href="#refactor-your-codebase" data-open="refactor-your-codebase" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Modernize and refactor this codebase. Requirements: Preserve behavior unless explicitly requested. Identify dead code, duplicated paths, oversized modules, stale abstractions, and legacy patterns. For each pass, name current behavior, structural improvement, and validation checks. Break work into small reviewable refactor passes. Keep public APIs stable. Call out framework migrations or dependency upgrades for separate tasks. Propose a plan.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="refactor-your-codebase"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#refactor-your-codebase" data-open="refactor-your-codebase">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#39</span><span class="uc__tags">Back-end, DevOps</span></p>
+        <h3 class="uc__title"><a href="#code-migrations" data-open="code-migrations">Run code migrations</a></h3>
+        <p class="uc__sum">Use Codex to migrate legacy stacks to modern ones in controlled checkpoints with parity validation.</p>
+        <a class="uc__prompt" href="#code-migrations" data-open="code-migrations" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Migrate this codebase from [legacy stack or system] to [target stack or system]. Requirements: - Start by inventorying the legacy assumptions: routing, data models, auth, configuration, build tooling, tests, deployment, and external contracts. - Map the old stack to the new one and call out anything that has no direct equivalent. - Propose an incremental migration plan with compatibility layers or checkpoints instead of one big rewrite...</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="code-migrations"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#code-migrations" data-open="code-migrations">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#47</span><span class="uc__tags">Coding, Apps</span></p>
+        <h3 class="uc__title"><a href="#chatgpt-apps" data-open="chatgpt-apps">Bring your app to ChatGPT</a></h3>
+        <p class="uc__sum">Build one narrow ChatGPT app end-to-end: define tools, scaffold the MCP server and widget, connect, and iterate.</p>
+        <a class="uc__prompt" href="#chatgpt-apps" data-open="chatgpt-apps" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use $chatgpt-apps with $openai-docs to plan a ChatGPT app for [use case] in this repo. Requirements: - Start with one core user outcome. - Propose 3-5 tools with clear names, descriptions, inputs, and outputs. - Recommend whether v1 needs a widget or can start data-only. - Prefer TypeScript for the MCP server and React for the widget. - Call out auth, deployment, and test requirements. Output: - Tool plan - Proposed file tree - Golden prompt set - Risks and open questions</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="chatgpt-apps"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#chatgpt-apps" data-open="chatgpt-apps">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#49</span><span class="uc__tags">Engineering, Automation</span></p>
+        <h3 class="uc__title"><a href="#agent-friendly-clis" data-open="agent-friendly-clis">Create a CLI Codex can use</a></h3>
+        <p class="uc__sum">Build a composable CLI that Codex can run, combine with repo scripts, and reuse via skills.</p>
+        <a class="uc__prompt" href="#agent-friendly-clis" data-open="agent-friendly-clis" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use $cli-creator to create a CLI you can use, and use $skill-creator to create the companion skill in this same thread. Source to learn from: [docs URL, OpenAPI spec, redacted curl command, existing script path, log folder, CSV or JSON export, SQLite database path, or pasted --help output]. First job the CLI should support: [download failed CI logs from a build URL, search support tickets and read one by ID, query an admin API, read a local database, or run one step from an existing script]. Optional write job: [create a draft comment, upload media, retry a failed job, or read-only for now]. Command name: [cli-name, or recommend one]. Before coding, show me the proposed command surface and ask only for missing details that would block the build.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="agent-friendly-clis"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#agent-friendly-clis" data-open="agent-friendly-clis">Full details</a>
+        </div>
+      </article></div>
+      </section>
+      <section class="group" id="cat-frontend" style="--cat:var(--c-frontend)" aria-labelledby="h-frontend">
+        <header class="group__head">
+          <h2 id="h-frontend"><span class="sw sw--lg" aria-hidden="true"></span>Front-end &amp; Design</h2>
+          <span class="group__n">5 use cases</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#09</span><span class="uc__tags">Front-end, Design</span></p>
+        <h3 class="uc__title"><a href="#frontend-designs" data-open="frontend-designs">Build responsive front-end designs</a></h3>
+        <p class="uc__sum">Turn screenshots and visual references into responsive UI code aligned with your design system.</p>
+        <a class="uc__prompt" href="#frontend-designs" data-open="frontend-designs" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Implement this UI in the current project using the screenshots and notes I provide as the source of truth. Requirements: - Reuse the existing design system components and tokens. - Translate the screenshots into this repo's utilities and component patterns instead of inventing a parallel system. - Match spacing, layout, hierarchy, and responsive behavior closely. - Respect the repo's routing, state, and data-fetch patterns. - Make the page responsive on desktop and mobile. - If any screenshot detail is ambiguous, choose the simplest implementation that still matches the overall direction and note the assumption briefly. Validation: - Compare the finished UI against the provided screenshots for both look and behavior. - Use $playwright-interactive to check that the UI matches the references and iterate as needed until it does.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="frontend-designs"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#frontend-designs" data-open="frontend-designs">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#15</span><span class="uc__tags">Front-end, UI</span></p>
+        <h3 class="uc__title"><a href="#make-granular-ui-changes" data-open="make-granular-ui-changes">Make granular UI changes</a></h3>
+        <p class="uc__sum">Make focused single UI adjustments in an existing app, verify in browser, and iterate fast.</p>
+        <a class="uc__prompt" href="#make-granular-ui-changes" data-open="make-granular-ui-changes" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Make this UI change in the existing app: [describe the exact spacing, alignment, color, copy, responsive, or component-state adjustment] Constraints: - Change only the files needed for this UI adjustment. - Reuse existing components, tokens, icons, and layout patterns. - Keep behavior, data flow, and routing unchanged unless I explicitly ask for it. - Start or reuse the dev server, inspect the current UI in the browser, make the smallest patch, and verify the result visually. Stop after this one change and summarize the files changed plus the browser check you ran.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="make-granular-ui-changes"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#make-granular-ui-changes" data-open="make-granular-ui-changes">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#20</span><span class="uc__tags">Design, Engineering</span></p>
+        <h3 class="uc__title"><a href="#figma-designs-to-code" data-open="figma-designs-to-code">Turn Figma designs into code</a></h3>
+        <p class="uc__sum">Convert a Figma selection into production UI code that matches your design system, verified against the reference with Playwright.</p>
+        <a class="uc__prompt" href="#figma-designs-to-code" data-open="figma-designs-to-code" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Implement this Figma design in the current project using the Figma skill. Requirements: - Start with `get_design_context` for the exact node or frame. - If the response is truncated, use `get_metadata` to map the file and then re-fetch only the needed nodes with `get_design_context`. - Run `get_screenshot` for the exact variant before you start coding. - Reuse the existing design system components and tokens. - Translate the Figma output into this repo's utilities and component patterns instead of inventing a parallel system. - Match spacing, layout, hierarchy, and responsive behavior closely. - Respect the repo's routing, state, and data-fetch patterns. - Make the page responsive on desktop and mobile. - If Figma returns localhost image or SVG sources, use them directly and do not create placeholders or add new icon packages. Validation: - Compare the finished UI against the Figma reference for both look and behavior. - Use Playwright to check that the UI matches the reference and iterate as needed until it does.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="figma-designs-to-code"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#figma-designs-to-code" data-open="figma-designs-to-code">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#24</span><span class="uc__tags">Engineering, Design</span></p>
+        <h3 class="uc__title"><a href="#idea-to-proof-of-concept" data-open="idea-to-proof-of-concept">Get from idea to proof of concept</a></h3>
+        <p class="uc__sum">Combine Codex with ImageGen to turn rough product ideas into visual directions and working prototypes for validation.</p>
+        <a class="uc__prompt" href="#idea-to-proof-of-concept" data-open="idea-to-proof-of-concept" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use ImageGen to generate a high quality UI mockup for the following idea, then use the [Build Web Apps plugin/Game studio plugin] to implement it: [describe the idea, target user, and the main workflow]</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="idea-to-proof-of-concept"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#idea-to-proof-of-concept" data-open="idea-to-proof-of-concept">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#46</span><span class="uc__tags">Knowledge Work, Product, Design</span></p>
+        <h3 class="uc__title"><a href="#user-stories-to-ui-mocks" data-open="user-stories-to-ui-mocks">Turn user stories into UI mocks</a></h3>
+        <p class="uc__sum">Normalize scattered feedback into user stories, then generate UI mocks with ImageGen grounded in your design system.</p>
+        <a class="uc__prompt" href="#user-stories-to-ui-mocks" data-open="user-stories-to-ui-mocks" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Turn this [user story/set of user feedbacks] into a UI mock for a feature that would solve the problem, using these sources as context: - @slack [channels or thread links] - @linear [issue links, project, team, or view] - @google-drive [research notes, survey export, doc, sheet, or slide deck] Do that while respecting the current design system and existing UI [provide Figma file or screenshot as reference].</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="user-stories-to-ui-mocks"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#user-stories-to-ui-mocks" data-open="user-stories-to-ui-mocks">Full details</a>
+        </div>
+      </article></div>
+      </section>
+      <section class="group" id="cat-mobile" style="--cat:var(--c-mobile)" aria-labelledby="h-mobile">
+        <header class="group__head">
+          <h2 id="h-mobile"><span class="sw sw--lg" aria-hidden="true"></span>Mobile &amp; Native</h2>
+          <span class="group__n">9 use cases</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#11</span><span class="uc__tags">macOS, SwiftUI</span></p>
+        <h3 class="uc__title"><a href="#macos-sidebar-detail-inspector" data-open="macos-sidebar-detail-inspector">Build a Mac app shell</a></h3>
+        <p class="uc__sum">Turn an app idea into a desktop-native NavigationSplitView shell with menus, toolbars, and settings.</p>
+        <a class="uc__prompt" href="#macos-sidebar-detail-inspector" data-open="macos-sidebar-detail-inspector" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use the Build macOS Apps plugin to turn [describe your app idea] into a Mac-native SwiftUI app shell with a sidebar, detail pane, inspector, commands, and Settings.
+
+Constraints:
+- Choose the scene model first. Prefer `WindowGroup` for the main window and add a dedicated `Settings` scene for preferences.
+- Build the main UI around `NavigationSplitView` with explicit selection state, a native `.sidebar` list, a detail surface, and an `inspector(isPresented:)` panel for secondary metadata or controls.
+- Keep sidebar rows lightweight and native: one icon, one title line, and at most one short secondary line. Do not wrap every row in large custom cards unless there is a strong product reason.
+- Expose important actions through scene-level `commands`, `CommandMenu`, toolbar buttons, and keyboard shortcuts. Do not hide the only path to a critical action behind gestures.
+- Use `@SceneStorage` for window-scoped UI state, `@AppStorage` for preferences, and explicit parent-owned selection bindings for sidebar/detail coordination.
+- Prefer system materials, semantic colors, and standard sidebar backgrounds. Add custom styling only to detail or inspector content cards when needed.
+- Use a narrow AppKit bridge only if SwiftUI cannot express one specific desktop behavior cleanly.
+- Create or update `script/build_and_run.sh`, run the smallest useful build/run check, and tell me the exact commands you used.
+
+Deliver:
+- the scene structure and main sidebar/detail/inspector views
+- the menu, toolbar, and keyboard shortcut wiring
+- the Settings scene and preference state model
+- any AppKit bridge you added and why it was necessary
+- the build/run validation steps and any desktop UX follow-up you recommend</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="macos-sidebar-detail-inspector"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#macos-sidebar-detail-inspector" data-open="macos-sidebar-detail-inspector">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#29</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#native-ios-apps" data-open="native-ios-apps">Build for iOS</a></h3>
+        <p class="uc__sum">Use Codex to scaffold, build, and debug SwiftUI apps for iPhone and iPad with a CLI-first workflow.</p>
+        <a class="uc__prompt" href="#native-ios-apps" data-open="native-ios-apps" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Scaffold a starter SwiftUI app and add a build-and-launch script I can wire to a `Build` action in my local environment. Constraints: - Stay CLI-first. Prefer Apple's `xcodebuild`; if a cleaner setup helps, it's okay to use Tuist. - If this repo already contains a full Xcode project, use XcodeBuildMCP to list targets, pick the right scheme, build, launch, and capture screenshots while you iterate...</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="native-ios-apps"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#native-ios-apps" data-open="native-ios-apps">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#31</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#ios-app-intents" data-open="ios-app-intents">Add iOS app intents</a></h3>
+        <p class="uc__sum">Use Codex with the Build iOS Apps plugin to expose app actions and content via App Intents for Shortcuts, Siri, and Spotlight.</p>
+        <a class="uc__prompt" href="#ios-app-intents" data-open="ios-app-intents" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use the Build iOS Apps plugin to audit this iOS app and add App Intents for the actions and entities that should be exposed to the system. Constraints: Start by identifying the app's highest-value user actions and core objects that should be available outside the app in Shortcuts, Siri, Spotlight, widgets, controls, or newer assistant-driven system surfaces...</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="ios-app-intents"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#ios-app-intents" data-open="ios-app-intents">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#32</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#native-macos-apps" data-open="native-macos-apps">Build for macOS</a></h3>
+        <p class="uc__sum">Use Codex to build macOS SwiftUI apps with a shell-first build loop and desktop-native scene, window, and AppKit workflows.</p>
+        <a class="uc__prompt" href="#native-macos-apps" data-open="native-macos-apps" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use the Build macOS Apps plugin to build a native macOS SwiftUI version of this app feature. Constraints: - Use a desktop-native scene structure with a main window, settings, and toolbar/command actions where they make sense. - Prefer a sidebar/detail layout over iOS-style push navigation if the feature benefits from always-visible structure. - Add a tiny AppKit bridge only if SwiftUI cannot express one specific desktop behavior cleanly. - Create or update `script/build_and_run.sh` so the build/run loop stays shell-first. - Tell me which build, launch, test, and log commands you used. Ship the feature slice, verify it with the smallest relevant build or test loop, and summarize any signing or packaging follow-up needed before distribution.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="native-macos-apps"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#native-macos-apps" data-open="native-macos-apps">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#33</span><span class="uc__tags">Front-end, iOS</span></p>
+        <h3 class="uc__title"><a href="#ios-liquid-glass" data-open="ios-liquid-glass">Adopt liquid glass</a></h3>
+        <p class="uc__sum">Use Codex to audit SwiftUI UI and migrate custom blur stacks to native iOS 26 Liquid Glass.</p>
+        <a class="uc__prompt" href="#ios-liquid-glass" data-open="ios-liquid-glass" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use the Build iOS Apps plugin and its SwiftUI Liquid Glass skill to migrate one high-traffic flow in this app to Liquid Glass. Constraints: Treat this as an iOS 26 + Xcode 26 migration, but preserve a non-glass fallback for earlier deployment targets with `#available(iOS 26, *)`. Audit the flow first. Call out custom backgrounds, blur stacks, chips, buttons, sheets, and toolbars that should become native Liquid Glass and call out surfaces that should stay plain content. Prefer system controls and native APIs like `glassEffect`, `GlassEffectContainer`, `glassEffectID`, `.buttonStyle(.glass)`, and `.buttonStyle(.glassProminent)` over custom blurs. Use `glassEffectID` with `@Namespace` only when a real morphing transition improves the flow. Apply `glassEffect` after layout and visual modifiers, keep shapes consistent, and use `.interactive()` only on controls that actually respond to touch. Use XcodeBuildMCP to build and run on an iOS 26 simulator, capture screenshots for the migrated flow, and mention exactly which scheme, simulator, and checks you used. Deliver: a concise migration plan for the flow, the implemented Liquid Glass slice, the fallback behavior for pre-iOS 26 devices, the simulator validation steps and screenshots you used.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="ios-liquid-glass"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#ios-liquid-glass" data-open="ios-liquid-glass">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#34</span><span class="uc__tags">macOS, Debugging</span></p>
+        <h3 class="uc__title"><a href="#macos-telemetry-logs" data-open="macos-telemetry-logs">Add Mac telemetry</a></h3>
+        <p class="uc__sum">Use Codex to instrument one Mac feature with Logger, run the app, and verify events from unified logs.</p>
+        <a class="uc__prompt" href="#macos-telemetry-logs" data-open="macos-telemetry-logs" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use the Build macOS Apps plugin to add lightweight unified logging around [name one Mac feature or action flow], then run the app and verify from logs that those events fire in the expected order.
+
+Constraints:
+- Prefer `Logger` from `OSLog`, not `print`, and create a clear subsystem/category pair for this feature so the logs are easy to filter.
+- Log one concise line for each important action boundary or state transition: for example window opened, sidebar selection changed, menu command invoked, sync started, sync finished, or fallback path taken.
+- Keep permanent `info` logs stable and high signal. Use `debug` only for noisy local details, and remove or demote temporary instrumentation before finishing.
+- Do not log secrets, auth tokens, personal data, or raw document contents. If an identifier must be logged, choose the safest privacy annotation and explain why.
+- Build and run the app, exercise the feature path yourself, and verify the events with Console or a focused `log stream` predicate.
+- If the flow is long, intermittent, or easier to reproduce by hand, save the filtered log stream to a small local session trace file, let me manually exercise the app if needed, then read that file back and summarize the event timeline.
+- If an expected event does not appear, move the log closer to the suspected control path, rerun the flow, and continue until the logs explain what happened.
+
+Deliver:
+- the new logger setup and the exact events you added
+- the Console filter or `log stream` predicate you used
+- a short before/after summary of what the logs now make observable
+- the saved trace file and timeline summary if this became a longer capture session
+- one or two representative log lines that prove the flow is instrumented correctly</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="macos-telemetry-logs"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#macos-telemetry-logs" data-open="macos-telemetry-logs">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#35</span><span class="uc__tags">iOS, Debugging</span></p>
+        <h3 class="uc__title"><a href="#ios-simulator-bug-debugging" data-open="ios-simulator-bug-debugging">Debug in iOS simulator</a></h3>
+        <p class="uc__sum">Use Codex and XcodeBuildMCP to drive the app in iOS Simulator, capture evidence, and iterate toward a fix.</p>
+        <a class="uc__prompt" href="#ios-simulator-bug-debugging" data-open="ios-simulator-bug-debugging" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use the Build iOS Apps plugin and XcodeBuildMCP to reproduce this bug directly in Simulator, diagnose the root cause, and implement a small fix... Make the smallest code change that addresses the bug, then rerun the simulator flow and tell me exactly how you verified the fix.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="ios-simulator-bug-debugging"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#ios-simulator-bug-debugging" data-open="ios-simulator-bug-debugging">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#40</span><span class="uc__tags">iOS, Front-end</span></p>
+        <h3 class="uc__title"><a href="#ios-swiftui-view-refactor" data-open="ios-swiftui-view-refactor">Refactor SwiftUI screens</a></h3>
+        <p class="uc__sum">Use Codex to decompose large SwiftUI views into smaller maintainable subviews while preserving behavior.</p>
+        <a class="uc__prompt" href="#ios-swiftui-view-refactor" data-open="ios-swiftui-view-refactor" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use the Build iOS Apps plugin and its SwiftUI view refactor skill to clean up [NameOfScreen.swift] without changing what the screen does or how it looks. Constraints: - Preserve behavior, layout, navigation, and business logic unless you find a bug that must be called out separately. - Default to MV, not MVVM. Prefer `@State`, `@Environment`, `@Query`, `.task`, `.task(id:)`, and `onChange` before introducing a new view model, and only keep a view model if this feature clearly needs one. - Reorder the view so stored properties, computed state, `init`, `body`, view helpers, and helper methods are easy to scan top to bottom. - Extract meaningful sections into dedicated `View` types with small explicit inputs, `@Binding`s, and callbacks. Do not replace one giant `body` with a pile of large computed `some View` properties. - Move non-trivial button actions and side effects out of `body` into small methods, and move real business logic into services or models. - Keep the root view tree stable. Avoid top-level `if/else` branches that swap entirely different screens when localized conditional sections or modifiers are enough. - Fix Observation ownership while refactoring: use `@State` for root `@Observable` models on iOS 17+, and avoid optional or delayed-initialized view models unless the UI genuinely needs that state shape. - After each extraction, run the smallest useful build or test check that proves the screen still behaves the same. Deliver: - the refactored screen and any extracted subviews - a short explanation of the new subview boundaries and data flow - any places where you intentionally kept a view model and why - the validation checks you ran to prove behavior stayed intact</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="ios-swiftui-view-refactor"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#ios-swiftui-view-refactor" data-open="ios-swiftui-view-refactor">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#48</span><span class="uc__tags">Coding, Mobile</span></p>
+        <h3 class="uc__title"><a href="#react-native-expo-apps" data-open="react-native-expo-apps">Build React Native apps with Expo</a></h3>
+        <p class="uc__sum">Use Codex with the Expo plugin to scaffold React Native apps, starting with Expo Go for rapid testing.</p>
+        <a class="uc__prompt" href="#react-native-expo-apps" data-open="react-native-expo-apps" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use the Expo plugin to build a React Native app with Expo for this idea: [describe the app idea, target users, and the main workflow] Requirements: - Start with Expo Router and Expo-native project conventions. - Try `npx expo start` and Expo Go first before creating a custom build. - Use `npx expo install` for Expo packages so dependencies stay compatible. - Use native-feeling UI patterns for navigation, forms, lists, empty states, and loading states. Deliver: - the working app slice - the run command - the verification path you used, including Expo Go, device, simulator, dev client, or EAS</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="react-native-expo-apps"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#react-native-expo-apps" data-open="react-native-expo-apps">Full details</a>
+        </div>
+      </article></div>
+      </section>
+      <section class="group" id="cat-data" style="--cat:var(--c-data)" aria-labelledby="h-data">
+        <header class="group__head">
+          <h2 id="h-data"><span class="sw sw--lg" aria-hidden="true"></span>Data &amp; Analysis</h2>
+          <span class="group__n">3 use cases</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#06</span><span class="uc__tags">Data Knowledge Work, Productivity</span></p>
+        <h3 class="uc__title"><a href="#clean-messy-data" data-open="clean-messy-data">Clean and prepare messy data</a></h3>
+        <p class="uc__sum">Drag in a messy CSV, describe the problems, and get a cleaned copy with the original kept intact.</p>
+        <a class="uc__prompt" href="#clean-messy-data" data-open="clean-messy-data" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Clean @marketplace-risk-rollout-export.csv. What's wrong: - dates are mixed between MM/DD/YYYY and YYYY-MM-DD - currency values include $, commas, and blank cells - a few duplicate customer rows came from repeated exports - region and category names use several aliases - there are pasted summary rows mixed into the data What I want: - write a cleaned CSV - keep the original file unchanged - use one date format - keep blank currency cells blank - preserve source row IDs when possible - add a short data-quality note with rows you changed, removed, or could not clean confidently</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="clean-messy-data"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#clean-messy-data" data-open="clean-messy-data">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#07</span><span class="uc__tags">Data Knowledge Work, Productivity</span></p>
+        <h3 class="uc__title"><a href="#analyze-data-export" data-open="analyze-data-export">Query tabular data</a></h3>
+        <p class="uc__sum">Ask a question about a CSV or export and get calculations, charts, and a browser visualization.</p>
+        <a class="uc__prompt" href="#analyze-data-export" data-open="analyze-data-export" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Analyze @sales-export.csv
+
+Question: Which customer segment changed the most last quarter?
+
+Please:
+- inspect the columns before analyzing
+- answer the question from the data
+- create a simple browser visualization as an HTML file
+- start a local preview so I can open it in the Codex browser</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="analyze-data-export"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#analyze-data-export" data-open="analyze-data-export">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#22</span><span class="uc__tags">Knowledge Work</span></p>
+        <h3 class="uc__title"><a href="#datasets-and-reports" data-open="datasets-and-reports">Analyze datasets and ship reports</a></h3>
+        <p class="uc__sum">Take messy data through cleaning, joining, exploration, and modeling to produce reusable, reviewable analysis artifacts.</p>
+        <a class="uc__prompt" href="#datasets-and-reports" data-open="datasets-and-reports" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>I'm doing a data analysis project in this workspace. Goal: Figure out whether houses near the highway have lower property valuations. Start by: reading `AGENTS.md` and explaining the recommended Python environment; loading the dataset(s) at [dataset path]; describing what each file contains, likely join keys, and obvious data quality issues; proposing a reproducible workflow from import and tidy through visualization, modeling, and report output. Constraints: prefer scripts and saved artifacts over one-off notebook state; do not invent missing values or merge keys; suggest any skills or worktree splits that would make the workflow more reproducible. Output: setup plan, data inventory, analysis plan, first commands or files to create.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="datasets-and-reports"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#datasets-and-reports" data-open="datasets-and-reports">Full details</a>
+        </div>
+      </article></div>
+      </section>
+      <section class="group" id="cat-knowledge" style="--cat:var(--c-knowledge)" aria-labelledby="h-knowledge">
+        <header class="group__head">
+          <h2 id="h-knowledge"><span class="sw sw--lg" aria-hidden="true"></span>Knowledge Work</h2>
+          <span class="group__n">7 use cases</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#05</span><span class="uc__tags">Data Knowledge Work, Integrations, Productivity</span></p>
+        <h3 class="uc__title"><a href="#feedback-synthesis" data-open="feedback-synthesis">Turn feedback into actions</a></h3>
+        <p class="uc__sum">Synthesize feedback from many sources into a reviewable sheet, doc, or update.</p>
+        <a class="uc__prompt" href="#feedback-synthesis" data-open="feedback-synthesis" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Can you synthesize the beta feedback on [feature or product area] into a @google-sheets review sheet? Use these sources: - @slack [feedback channel or thread links] - @github [issue search or issue links] - @google-drive [survey export, notes doc, or Drive folder] In the sheet, group repeated feedback, include source links or IDs, mark confidence, and call out which items need product or engineering follow-up. Keep names and private quotes out of the visible summary unless I approve them. Do not post, send, create issues, or assign owners.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="feedback-synthesis"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#feedback-synthesis" data-open="feedback-synthesis">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#13</span><span class="uc__tags">Slides, Automation</span></p>
+        <h3 class="uc__title"><a href="#generate-slide-decks" data-open="generate-slide-decks">Generate slide decks</a></h3>
+        <p class="uc__sum">Manipulate PowerPoint files and use image generation to automate slide deck creation.</p>
+        <a class="uc__prompt" href="#generate-slide-decks" data-open="generate-slide-decks" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use the $slides and $imagegen skills to edit this slide deck in the following way: - If present, add logo.png in the bottom right corner on every slide - On slides X, Y and Z, move the text to the left and use image generation to generate an illustration (style: abstract, digital art) on the right - Preserve text as text and simple charts as native PowerPoint charts where practical. - Add these slides: [describe new slides here] - Use the existing branding on new slides and new text (colors, fonts, layout, etc.) - Render the updated deck to slide images, review the output, and fix layout issues before delivery. - Run overflow and font-substitution checks before delivery, especially if the deck is dense. - Save reusable prompts or generation notes when you create a batch of related images. Output: - A copy of the slide deck with the changes applied - notes on which slides were generated, rewritten, or left unchanged</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="generate-slide-decks"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#generate-slide-decks" data-open="generate-slide-decks">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#17</span><span class="uc__tags">Knowledge Work</span></p>
+        <h3 class="uc__title"><a href="#learn-a-new-concept" data-open="learn-a-new-concept">Learn a new concept</a></h3>
+        <p class="uc__sum">Use Codex subagents to digest dense research papers or courses into a structured Markdown study report.</p>
+        <a class="uc__prompt" href="#learn-a-new-concept" data-open="learn-a-new-concept" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>I want to learn a new concept from this research paper: [paper path or URL]. Please run this as a subagent workflow: - Spawn one subagent to map the paper's problem statement, contribution, method, experiments, and limitations. - Spawn one subagent to gather prerequisite context and explain the background terms I need. - Spawn one subagent to inspect the figures, tables, notation, and any claims that need careful verification. - Wait for all subagents, reconcile disagreements, and avoid overclaiming beyond the source material. Final output: - create `notes/[concept-name]-report.md` - include an executive summary, glossary, paper walkthrough, concept map, method diagram, evidence table, caveats, and open questions - use Markdown-native Mermaid diagrams where diagrams help - use imagegen to generate illustrative, non-exact visual assets when a Markdown-native diagram is not enough - cite paper sections, pages, figures, or tables whenever possible Constraints: - do not treat the paper as ground truth if the evidence is weak - separate what the paper claims from your interpretation - call out missing background, assumptions, and follow-up reading</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="learn-a-new-concept"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#learn-a-new-concept" data-open="learn-a-new-concept">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#28</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#update-documentation" data-open="update-documentation">Keep documentation up-to-date</a></h3>
+        <p class="uc__sum">Use Codex to compare code changes against docs and draft focused, verified documentation updates before publishing.</p>
+        <a class="uc__prompt" href="#update-documentation" data-open="update-documentation" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Update the [product/feature] documentation based on the following sources: the changed source files in [this repo/source linked repo], existing docs pages mentioning new behavior, any linked issue, PR, release note, or public reference. Then: identify user-facing changes, update only necessary docs, keep unpublished roadmap and private details out, preserve existing structure and cross-links, run applicable docs checks. Before finalizing, summarize what changed, what you verified, and any unproven claims.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="update-documentation"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#update-documentation" data-open="update-documentation">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#37</span><span class="uc__tags">Productivity, Knowledge</span></p>
+        <h3 class="uc__title"><a href="#meeting-prep-briefs" data-open="meeting-prep-briefs">Prepare meeting briefs</a></h3>
+        <p class="uc__sum">Use Codex with Calendar, Drive, Slack, and Gmail to turn meeting context into an agenda and notes plan.</p>
+        <a class="uc__prompt" href="#meeting-prep-briefs" data-open="meeting-prep-briefs" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Help me prepare for [meeting] on [date]. Use only these sources: - calendar event: [event name or date range] - docs or notes: [links or names] - Slack channels or threads: [optional] - Gmail thread or sender: [optional] First, inventory the sources you can access and name any source gaps. Return: - meeting objective - attendee context - key source-backed facts - likely agenda - open questions - decisions or follow-ups I may owe - suggested notes template for the meeting Keep unsupported claims in a separate source gaps section.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="meeting-prep-briefs"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#meeting-prep-briefs" data-open="meeting-prep-briefs">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#41</span><span class="uc__tags">Knowledge Work, Product</span></p>
+        <h3 class="uc__title"><a href="#draft-prds-from-sources" data-open="draft-prds-from-sources">Draft PRDs from internal context</a></h3>
+        <p class="uc__sum">Use Codex with connected apps to synthesize planning context into a reviewable, source-cited PRD.</p>
+        <a class="uc__prompt" href="#draft-prds-from-sources" data-open="draft-prds-from-sources" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use $documents to create a PRD for [feature or product area] from @linear [project or milestone], @slack [channel or thread], and @google-drive or @notion [planning docs, research notes, meeting notes, or source folder]. Include the problem, users, goals/non-goals, requirements, UX, technical considerations, metrics, launch plan, risks, open questions, decisions, timeline, and source appendix. Cite the sources behind requirement-level claims. If sources disagree, call out the conflict instead of choosing silently. Draft only. Do not post, update Linear, or share the document until I approve it.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="draft-prds-from-sources"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#draft-prds-from-sources" data-open="draft-prds-from-sources">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#52</span><span class="uc__tags">Productivity, Sales</span></p>
+        <h3 class="uc__title"><a href="#zoom-meeting-follow-ups" data-open="zoom-meeting-follow-ups">Turn meetings into follow-ups</a></h3>
+        <p class="uc__sum">Convert Zoom transcripts and summaries into customer emails, account plans, CRM updates, and team notifications.</p>
+        <a class="uc__prompt" href="#zoom-meeting-follow-ups" data-open="zoom-meeting-follow-ups" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use my most recent Zoom meeting with [customer or account]. Retrieve the Zoom transcript and AI Companion summary. Name anything you cannot access before drafting. Summarize the key takeaways, decisions, risks, opportunities, and action items. Then draft: - a customer follow-up email - a Google Docs account plan - a CRM update with notes, risks, next steps, and owners - a Slack message to [team/channel/person] with the most important details Use evidence from the transcript where possible. Mark anything uncertain and keep internal-only details out of the customer draft. Do not send emails, post Slack messages, create docs, update CRM records, assign owners, or expose private data until I review and approve each action.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="zoom-meeting-follow-ups"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#zoom-meeting-follow-ups" data-open="zoom-meeting-follow-ups">Full details</a>
+        </div>
+      </article></div>
+      </section>
+      <section class="group" id="cat-quality" style="--cat:var(--c-quality)" aria-labelledby="h-quality">
+        <header class="group__head">
+          <h2 id="h-quality"><span class="sw sw--lg" aria-hidden="true"></span>Quality &amp; Testing</h2>
+          <span class="group__n">5 use cases</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#08</span><span class="uc__tags">Coding, Integrations, Code Review</span></p>
+        <h3 class="uc__title"><a href="#github-code-reviews" data-open="github-code-reviews">Review GitHub pull requests</a></h3>
+        <p class="uc__sum">Have Codex automatically surface regressions, missing tests, and doc issues on every PR.</p>
+        <a class="uc__prompt" href="#github-code-reviews" data-open="github-code-reviews" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>@codex review for security regressions, missing tests, and risky behavior changes.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="github-code-reviews"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#github-code-reviews" data-open="github-code-reviews">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#12</span><span class="uc__tags">Automation, Bug Triage</span></p>
+        <h3 class="uc__title"><a href="#automation-bug-triage" data-open="automation-bug-triage">Automate bug triage</a></h3>
+        <p class="uc__sum">Turn daily bug reports into a prioritized list, then schedule automated triage sweeps.</p>
+        <a class="uc__prompt" href="#automation-bug-triage" data-open="automation-bug-triage" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Run a bug triage sweep for [repo/service/team] covering the last [time window]. Use these plugins: [@Sentry / @Slack / @Linear / @GitHub / none] Input sources: - Sentry: [project / alert link / none] - Slack: [channel / thread links / none] - Linear: [team / project / view / issue query / none] - GitHub: [repo / issue query / PR checks / none] - Other: [logs / support tickets / deploy link / dashboard / attached file / none] Output format: First, name any input source you could not access. Then return a prioritized list of bugs, sorted from P0 to P3. If you find no bugs, say: No qualifying bugs found. For each bug, include: - Priority: P0, P1, P2, or P3 - Title - Evidence (links or short citations) - Recommended next action Rules: - Do not post, create, assign, label, close, rerun, or edit anything. - Group duplicate reports under one bug. - Keep observed evidence separate from guesses.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="automation-bug-triage"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#automation-bug-triage" data-open="automation-bug-triage">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#21</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#qa-your-app-with-computer-use" data-open="qa-your-app-with-computer-use">QA your app with Computer Use</a></h3>
+        <p class="uc__sum">Use Computer Use to exercise key product flows, find issues, and generate structured, triage-ready bug reports.</p>
+        <a class="uc__prompt" href="#qa-your-app-with-computer-use" data-open="qa-your-app-with-computer-use" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>@Computer Test my app in [environment]. Test these flows: - [hero use case 1] - [hero use case 2] - [hero use case 3] For every bug you find, include: - repro steps - expected result - actual result - severity Keep going past non-blocking issues and end with a short triage summary.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="qa-your-app-with-computer-use"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#qa-your-app-with-computer-use" data-open="qa-your-app-with-computer-use">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#36</span><span class="uc__tags">Security, DevOps</span></p>
+        <h3 class="uc__title"><a href="#dependency-incident-audits" data-open="dependency-incident-audits">Audit dependency incidents</a></h3>
+        <p class="uc__sum">Use Codex to turn public package advisories into safe, read-only repository exposure audits.</p>
+        <a class="uc__prompt" href="#dependency-incident-audits" data-open="dependency-incident-audits" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Help me audit this repository for exposure to this public package advisory: [advisory URL]. Stay read-only unless I explicitly approve a remediation step. First, summarize: affected packages and version ranges; authoritative sources versus broader reports; what evidence would prove exposure; what evidence would rule it out. Then inspect: package manifests and lock files; CI workflows and permissions; install, build, and postinstall scripts; vendored artifacts, containers, or generated bundles if relevant; cache or token exposure paths. Return: evidence status (confirmed exposure, needs verification, or ruled out); severity and blast-radius notes; file references for every repo-specific claim; caveats and recommended next steps. Do not install packages, run lifecycle scripts, build the project, execute untrusted code, rotate credentials, or clean up files unless explicitly approved.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="dependency-incident-audits"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#dependency-incident-audits" data-open="dependency-incident-audits">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#45</span><span class="uc__tags">Coding, Evaluation</span></p>
+        <h3 class="uc__title"><a href="#ai-app-evals" data-open="ai-app-evals">Add evals to your AI application</a></h3>
+        <p class="uc__sum">Use Codex to turn expected app behavior into a runnable Promptfoo eval suite with regression tests before merging.</p>
+        <a class="uc__prompt" href="#ai-app-evals" data-open="ai-app-evals" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use $promptfoo-evals to add a Promptfoo eval suite for this AI application. If there is not already a working Promptfoo provider or target adapter, use $promptfoo-provider-setup first.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="ai-app-evals"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#ai-app-evals" data-open="ai-app-evals">Full details</a>
+        </div>
+      </article></div>
+      </section>
+      <section class="group" id="cat-finance" style="--cat:var(--c-finance)" aria-labelledby="h-finance">
+        <header class="group__head">
+          <h2 id="h-finance"><span class="sw sw--lg" aria-hidden="true"></span>Finance</h2>
+          <span class="group__n">3 use cases</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#42</span><span class="uc__tags">Knowledge Work, Finance</span></p>
+        <h3 class="uc__title"><a href="#cash-flow-forecast" data-open="cash-flow-forecast">Forecast cash flow</a></h3>
+        <p class="uc__sum">Build an editable cash-flow forecast workbook with Codex to surface liquidity pressure and flag safety-balance breaches.</p>
+        <a class="uc__prompt" href="#cash-flow-forecast" data-open="cash-flow-forecast" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use $spreadsheets to build an editable cash-flow forecast workbook from the attached source files. Use beginning cash, expected receipts, payroll, vendor payments, debt, tax, capex, working-capital items, and timing assumptions where available. Preserve the source cadence, whether weekly or monthly. Include a summary view that flags the liquidity low point, the minimum ending cash balance, and any breach of the safety cash threshold. Use formulas so I can change assumptions later, and call out missing timing assumptions before using placeholders.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="cash-flow-forecast"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#cash-flow-forecast" data-open="cash-flow-forecast">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#43</span><span class="uc__tags">Knowledge Work, Finance</span></p>
+        <h3 class="uc__title"><a href="#dcf-model" data-open="dcf-model">Model a DCF valuation</a></h3>
+        <p class="uc__sum">Turn historical financials and assumptions into an editable DCF valuation workbook you can inspect and revise in Codex.</p>
+        <a class="uc__prompt" href="#dcf-model" data-open="dcf-model" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use $spreadsheets to build a DCF workbook for the company in the attached source files. Include explicit operating drivers for revenue growth, margins, capex, and working capital. Calculate unlevered free cash flow, WACC, terminal value, and enterprise value. If capital structure and diluted share count are provided, bridge to implied equity value and implied equity value per share. Use any assumptions included in the source files. If an assumption is missing, add a clearly labeled placeholder in the assumptions tab instead of hiding it in a formula. If full balance sheet or cash-flow statement inputs are missing, create the operating forecast needed for unlevered free cash flow and flag the missing statement inputs. Generate the result as an editable .xlsx workbook.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="dcf-model"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#dcf-model" data-open="dcf-model">Full details</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#44</span><span class="uc__tags">Knowledge Work, Finance</span></p>
+        <h3 class="uc__title"><a href="#budget-vs-actuals-review" data-open="budget-vs-actuals-review">Review budget vs. actuals</a></h3>
+        <p class="uc__sum">Turn budget plans, actuals exports, and close notes into a variance workbook that maps categories and flags reconciliation gaps.</p>
+        <a class="uc__prompt" href="#budget-vs-actuals-review" data-open="budget-vs-actuals-review" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>Use $spreadsheets to update the budget vs. actuals review from the attached files. Compare actuals to plan, map actuals to the right budget categories, summarize the major variances, and prepare a clean review view as an editable .xlsx workbook. Preserve the raw inputs, use formulas for dollar and percentage variance calculations, and flag categories that do not map cleanly instead of forcing a match.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="budget-vs-actuals-review"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>Copy prompt</span></button>
+          <a class="btn btn--text" href="#budget-vs-actuals-review" data-open="budget-vs-actuals-review">Full details</a>
+        </div>
+      </article></div>
+      </section></main>
+  </div>
+
+  <footer class="foot">
+    <div class="foot__in wrap">
+      <p class="foot__credit" data-i18n-html="footer">Content adapted from <a href="https://developers.openai.com/codex/use-cases" target="_blank" rel="noopener">OpenAI Codex Use Cases</a>. An unofficial bilingual study companion.</p>
+      <nav class="foot__links">
+        <a href="/" hreflang="zh-Hant" lang="zh-Hant" rel="alternate" data-i18n="altLang">中文版</a>
+        <a href="https://www.peteraim.com" target="_blank" rel="noopener" data-i18n="home">Back to peteraim.com</a>
+        <a href="https://www.linkedin.com/in/ai-med/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/tingwei161803/codex-use-cases" target="_blank" rel="noopener">GitHub</a>
+      </nav>
     </div>
   </footer>
 
-  <!-- Detail dialog -->
-  <div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-labelledby="dlg-title" hidden>
-    <div class="dialog" id="dialog"></div>
+  <div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-labelledby="dlg-title" hidden="">
+    <div class="dlg" id="dialog"></div>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="../data/use-cases.js"></script>
   <script src="../assets/app.js"></script>
-<p class="lang-alt-link" style="text-align:center;padding:12px;"><a href="/" hreflang="zh-Hant" rel="alternate" lang="zh-Hant">中文版</a></p>
 </body>
 </html>

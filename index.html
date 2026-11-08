@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-Hant" data-theme="light">
+<html lang="zh-Hant" class="no-js">
 <head>
   <!-- ==== Google Analytics 4 (Measurement ID: G-SX6T85P96R) ==== -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SX6T85P96R"></script>
@@ -12,6 +12,16 @@
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <script>
+    /* Theme before first paint: saved choice, else the OS setting. */
+    (function () {
+      var d = document.documentElement, t = null;
+      d.className = d.className.replace('no-js', 'js');
+      try { t = localStorage.getItem('codex.theme'); } catch (e) {}
+      if (t !== 'dark' && t !== 'light') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      d.setAttribute('data-theme', t);
+    })();
+  </script>
   <link rel="canonical" href="https://codex-use-cases.peteraim.com/" />
   <link rel="alternate" hreflang="zh-Hant" href="https://codex-use-cases.peteraim.com/" />
   <link rel="alternate" hreflang="en" href="https://codex-use-cases.peteraim.com/en/" />
@@ -25,14 +35,13 @@
   <meta property="og:description" content="OpenAI Codex 全部使用情境的中英對照互動圖鑑。" />
   <meta property="og:type" content="website" />
 
-  <!-- Fonts: Material Design 3 (Roboto / Roboto Flex / Material Symbols) + 繁中 Noto Sans TC -->
+  <!-- Fonts: Schibsted Grotesk (Latin) + Noto Sans TC (繁中) + JetBrains Mono (prompts) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Flex:opsz,wght@8..144,400..700&family=Roboto+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="assets/styles.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230b57d0'/><text x='50' y='68' font-size='56' text-anchor='middle' fill='white' font-family='monospace'>&gt;_</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23111111'/><text x='50' y='68' font-size='56' text-anchor='middle' fill='%2333d17a' font-family='monospace'>&gt;_</text></svg>" />
   <meta property="og:image" content="https://codex-use-cases.peteraim.com/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -40,597 +49,800 @@
   <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
-  <!-- Top app bar -->
-  <header class="appbar">
-    <div class="appbar__brand">
-      <span class="brand-mark"><span class="material-symbols-rounded">terminal</span></span>
-      <span>
-        <span data-i18n="brand">Codex 使用情境圖鑑</span><br />
-        <span class="brand-sub" data-i18n="brandSub">52 個情境 · 中英對照</span>
-      </span>
-    </div>
+  <a class="skip" href="#browse" data-i18n="skip">跳到情境列表</a>
 
-    <a class="ghstar ripple-host" href="https://github.com/tingwei161803/codex-use-cases" target="_blank" rel="noopener" aria-label="Star on GitHub">
-      <svg class="ghstar__logo" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-      <span class="ghstar__star" aria-hidden="true">★</span>
-      <span class="ghstar__text">Star</span>
-      <span class="ghstar__count" id="gh-count" hidden></span>
-    </a>
-
-    <div class="seg" role="group" aria-label="Language">
-      <a id="lang-zh" href="/" hreflang="zh-Hant" lang="zh-Hant" rel="alternate"><span class="lbl">中文</span></a>
-      <a id="lang-en" href="/en/" hreflang="en" lang="en" rel="alternate"><span class="lbl">EN</span></a>
+  <header class="top">
+    <div class="top__in">
+      <a class="brand" href="/" aria-label="Codex 使用情境圖鑑">
+        <span class="brand__mark" aria-hidden="true">&gt;_</span>
+        <span class="brand__name" data-i18n="brand">Codex 使用情境圖鑑</span>
+      </a>
+      <nav class="top__tools">
+        <a class="ghstar" href="https://github.com/tingwei161803/codex-use-cases" target="_blank" rel="noopener" aria-label="Star on GitHub">
+          <svg class="ico" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+          <span class="ghstar__text">Star</span>
+          <span class="ghstar__count" id="gh-count" hidden=""></span>
+        </a>
+        <div class="lang" role="group" aria-label="Language">
+          <a id="lang-zh" href="/" hreflang="zh-Hant" lang="zh-Hant" rel="alternate" aria-current="page">中文</a>
+          <a id="lang-en" href="/en/" hreflang="en" lang="en" rel="alternate" aria-current="false">EN</a>
+        </div>
+        <button class="icon-btn needs-js" id="theme-toggle" type="button" aria-label="切換深色" title="切換深色"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.1A8.5 8.5 0 1 1 9.9 3.5a6.6 6.6 0 0 0 10.6 10.6Z"></path></svg></button>
+      </nav>
     </div>
-    <button class="icon-btn ripple-host" id="theme-toggle" aria-label="Toggle theme" title="切換深淺色">
-      <span class="material-symbols-rounded" id="theme-icon">dark_mode</span>
-    </button>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <span class="hero__eyebrow"><span class="dot"></span><span data-i18n="eyebrow">取材自 OpenAI 官方文件</span></span>
-    <h1 data-i18n-html="heroTitle">用 <span class="grad">Codex</span> 能做的每一件事</h1>
-    <p data-i18n="heroDesc">把 OpenAI 官方的全部 Codex 使用情境整理成一份可互動、可搜尋的中英對照圖鑑。點開任一張卡片，看它怎麼用、適合什麼時候用，以及可以照抄的範例 prompt。</p>
-    <div class="hero__stats">
-      <div class="hero__stat"><b id="stat-total">52</b><span data-i18n="statCases">使用情境</span></div>
-      <div class="hero__stat"><b id="stat-cats">8</b><span data-i18n="statCats">分類領域</span></div>
-      <div class="hero__stat"><b>2</b><span data-i18n="statLang">語言對照</span></div>
+  <section class="hero wrap">
+    <div class="hero__text">
+      <h1 data-i18n-html="heroTitle">52 件事，<br>交給 Codex</h1>
+      <p class="hero__desc" data-i18n="heroDesc">OpenAI 官方整理的全部 Codex 使用情境，中英對照。每個情境都附一段範例 prompt，複製後直接貼進 Codex 就能開始。</p>
+      <p class="hero__src" data-i18n-html="heroSource">內容整理自 <a href="https://developers.openai.com/codex/use-cases" target="_blank" rel="noopener">OpenAI Codex Use Cases</a>，非官方中文翻譯。</p>
+    </div>
+    <div class="term term--hero" id="term">
+      <div class="term__bar">
+        <span class="term__label">範例 prompt</span>
+        <span class="term__pos" aria-live="polite">1 / 6</span>
+        <button class="term__step" type="button" data-feat="-1" aria-label="上一個範例"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg></button>
+        <button class="term__step" type="button" data-feat="1" aria-label="下一個範例"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></button>
+      </div>
+      <a class="term__title" href="#manage-your-inbox" data-open="manage-your-inbox" style="--cat:var(--c-productivity)">
+        <span class="sw" aria-hidden="true"></span><span class="term__num">#01</span>管理你的收件匣
+      </a>
+      <pre class="term__body"><span class="term__caret" aria-hidden="true">›</span>可以幫我檢查 @gmail，找出我需要回覆哪些郵件，並用我的語氣寫成草稿嗎。請參考我最近寄出的回信或 @google-drive [writing examples] 來抓語氣。當郵件缺少最新的決策、負責人、檔案或阻礙事項時，請從 @slack、@google-drive 或其他我工作所在的來源取得資訊。<span class="term__cursor" aria-hidden="true"></span></pre>
+      <div class="term__foot">
+        <button class="btn btn--go needs-js" type="button" data-copy="manage-your-inbox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+        <a class="btn btn--ghost" href="#manage-your-inbox" data-open="manage-your-inbox">完整說明</a>
+      </div></div>
+    <div class="dist">
+      <p class="dist__label" id="dist-label">8 個分類，點一下只看該分類</p>
+      <div class="dist__bar" id="dist">
+      <button class="dist__seg" type="button" data-cat="productivity" aria-pressed="false" style="--cat:var(--c-productivity); flex-grow:9">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">生產力與自動化</span> <span class="dist__n">9</span></span>
+      </button>
+      <button class="dist__seg" type="button" data-cat="coding" aria-pressed="false" style="--cat:var(--c-coding); flex-grow:11">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">工程開發</span> <span class="dist__n">11</span></span>
+      </button>
+      <button class="dist__seg" type="button" data-cat="frontend" aria-pressed="false" style="--cat:var(--c-frontend); flex-grow:5">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">前端與設計</span> <span class="dist__n">5</span></span>
+      </button>
+      <button class="dist__seg" type="button" data-cat="mobile" aria-pressed="false" style="--cat:var(--c-mobile); flex-grow:9">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">行動與原生 App</span> <span class="dist__n">9</span></span>
+      </button>
+      <button class="dist__seg" type="button" data-cat="data" aria-pressed="false" style="--cat:var(--c-data); flex-grow:3">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">資料與分析</span> <span class="dist__n">3</span></span>
+      </button>
+      <button class="dist__seg" type="button" data-cat="knowledge" aria-pressed="false" style="--cat:var(--c-knowledge); flex-grow:7">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">知識工作</span> <span class="dist__n">7</span></span>
+      </button>
+      <button class="dist__seg" type="button" data-cat="quality" aria-pressed="false" style="--cat:var(--c-quality); flex-grow:5">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">品質與測試</span> <span class="dist__n">5</span></span>
+      </button>
+      <button class="dist__seg" type="button" data-cat="finance" aria-pressed="false" style="--cat:var(--c-finance); flex-grow:3">
+        <span class="dist__fill" aria-hidden="true"></span>
+        <span class="dist__txt"><span class="dist__name">財務</span> <span class="dist__n">3</span></span>
+      </button></div>
     </div>
   </section>
 
-  <!-- Controls -->
-  <section class="controls">
-    <div class="search ripple-host">
-      <span class="material-symbols-rounded">search</span>
-      <input id="search" type="search" autocomplete="off" />
-      <button class="icon-btn search__clear" id="search-clear" aria-label="Clear">
-        <span class="material-symbols-rounded">close</span>
-      </button>
-    </div>
-    <div class="chips" id="chips" role="group" aria-label="Categories"></div>
-  </section>
+  <div class="browse wrap" id="browse">
+    <aside class="side">
+      <div class="side__in">
+        <label class="search needs-js">
+          <span class="sr-only" data-i18n="searchLabel">搜尋情境</span>
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="m20 20-4.4-4.4"></path></svg>
+          <input id="search" type="search" autocomplete="off" placeholder="搜尋情境或工具">
+          <button class="search__clear" id="search-clear" type="button" data-i18n-aria="searchClear" aria-label="清除搜尋" hidden="">
+            <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+          </button>
+        </label>
+        <div class="viewtoggle needs-js" id="viewtoggle" role="group" data-i18n-aria="viewLabel" aria-label="檢視方式">
+          <button type="button" data-view="prompts" aria-pressed="true"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="4" width="7" height="7" rx="1"></rect><rect x="13.5" y="4" width="7" height="7" rx="1"></rect><rect x="3.5" y="14" width="7" height="6" rx="1"></rect><rect x="13.5" y="14" width="7" height="6" rx="1"></rect></svg><span data-i18n="viewPrompts">食譜</span></button>
+          <button type="button" data-view="index" aria-pressed="false"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"></path></svg><span data-i18n="viewIndex">索引</span></button>
+        </div>
+        <nav class="cats-wrap" data-i18n-aria="catsLabel" aria-label="分類">
+          <h2 class="side__h" data-i18n="catsLabel">分類</h2>
+          <ul class="cats" id="cats">
+      <li><button class="cat" type="button" data-cat="all" aria-pressed="true">
+        <span class="sw sw--all" aria-hidden="true"></span>
+        <span class="cat__name">全部</span>
+        <span class="cat__n">52</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="productivity" aria-pressed="false" style="--cat:var(--c-productivity)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">生產力與自動化</span>
+        <span class="cat__n">9</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="coding" aria-pressed="false" style="--cat:var(--c-coding)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">工程開發</span>
+        <span class="cat__n">11</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="frontend" aria-pressed="false" style="--cat:var(--c-frontend)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">前端與設計</span>
+        <span class="cat__n">5</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="mobile" aria-pressed="false" style="--cat:var(--c-mobile)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">行動與原生 App</span>
+        <span class="cat__n">9</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="data" aria-pressed="false" style="--cat:var(--c-data)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">資料與分析</span>
+        <span class="cat__n">3</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="knowledge" aria-pressed="false" style="--cat:var(--c-knowledge)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">知識工作</span>
+        <span class="cat__n">7</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="quality" aria-pressed="false" style="--cat:var(--c-quality)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">品質與測試</span>
+        <span class="cat__n">5</span>
+      </button></li>
+      <li><button class="cat" type="button" data-cat="finance" aria-pressed="false" style="--cat:var(--c-finance)">
+        <span class="sw" aria-hidden="true"></span>
+        <span class="cat__name">財務</span>
+        <span class="cat__n">3</span>
+      </button></li></ul>
+        </nav>
+        <p class="results" id="results" aria-live="polite">顯示 52 個情境</p>
+      </div>
+    </aside>
 
-  <!-- Card grid -->
-  <main class="grid" id="grid" aria-live="polite">
-<button class="card" data-slug="manage-your-inbox" style="--cat:var(--c-productivity); animation-delay:0ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>生產力與自動化</span>
-          <span class="card__num">#01</span>
+    <main class="list" id="list" aria-live="polite" data-view="prompts">
+      <section class="group" id="cat-productivity" style="--cat:var(--c-productivity)" aria-labelledby="h-productivity">
+        <header class="group__head">
+          <h2 id="h-productivity"><span class="sw sw--lg" aria-hidden="true"></span>生產力與自動化</h2>
+          <span class="group__n">9 個情境</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#01</span><span class="uc__tags">Automation, Integrations, Productivity</span></p>
+        <h3 class="uc__title"><a href="#manage-your-inbox" data-open="manage-your-inbox">管理你的收件匣</a></h3>
+        <p class="uc__sum">讓 Codex 掃描 Gmail、標記需要回覆的郵件，並用你的語氣草擬回信。</p>
+        <a class="uc__prompt" href="#manage-your-inbox" data-open="manage-your-inbox" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>可以幫我檢查 @gmail，找出我需要回覆哪些郵件，並用我的語氣寫成草稿嗎。請參考我最近寄出的回信或 @google-drive [writing examples] 來抓語氣。當郵件缺少最新的決策、負責人、檔案或阻礙事項時，請從 @slack、@google-drive 或其他我工作所在的來源取得資訊。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="manage-your-inbox"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#manage-your-inbox" data-open="manage-your-inbox">完整說明</a>
         </div>
-        <h3>管理你的收件匣</h3>
-        <p>讓 Codex 掃描 Gmail、標記需要回覆的郵件，並用你的語氣草擬回信。</p>
-        <div class="card__tags"><span class="tag">Automation</span><span class="tag">Integrations</span><span class="tag">Productivity</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="use-your-computer-with-codex" style="--cat:var(--c-productivity); animation-delay:28ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>生產力與自動化</span>
-          <span class="card__num">#02</span>
-        </div>
-        <h3>用 Codex 操作你的電腦</h3>
-        <p>透過 Computer Use 把跨 Mac app、視窗與檔案的多步驟任務交給 Codex。</p>
-        <div class="card__tags"><span class="tag">Automation</span><span class="tag">Computer Use</span><span class="tag">Productivity</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="follow-goals" style="--cat:var(--c-coding); animation-delay:56ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>工程開發</span>
-          <span class="card__num">#03</span>
-        </div>
-        <h3>追蹤一個目標</h3>
-        <p>給 Codex 一個持久的目標與停止條件，讓它自主執行長時間運作的工作。</p>
-        <div class="card__tags"><span class="tag">Coding</span><span class="tag">Automation</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="proactive-teammate" style="--cat:var(--c-productivity); animation-delay:84ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>生產力與自動化</span>
-          <span class="card__num">#04</span>
-        </div>
-        <h3>設定一位隊友</h3>
-        <p>把 Codex 設定成主動的助理，監控你的工具並主動指出需要關注的事項。</p>
-        <div class="card__tags"><span class="tag">Automation</span><span class="tag">Integrations</span><span class="tag">Productivity</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="feedback-synthesis" style="--cat:var(--c-knowledge); animation-delay:112ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>知識工作</span>
-          <span class="card__num">#05</span>
-        </div>
-        <h3>把回饋轉化為行動</h3>
-        <p>把來自多個來源的回饋彙整成一份可審閱的試算表、文件或更新報告。</p>
-        <div class="card__tags"><span class="tag">Data Knowledge Work</span><span class="tag">Integrations</span><span class="tag">Productivity</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="clean-messy-data" style="--cat:var(--c-data); animation-delay:140ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>資料與分析</span>
-          <span class="card__num">#06</span>
-        </div>
-        <h3>清理並整理凌亂的資料</h3>
-        <p>拖入凌亂的 CSV、描述問題，就能取得清理後的副本，同時保留原始檔案不變。</p>
-        <div class="card__tags"><span class="tag">Data Knowledge Work</span><span class="tag">Productivity</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="analyze-data-export" style="--cat:var(--c-data); animation-delay:168ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>資料與分析</span>
-          <span class="card__num">#07</span>
-        </div>
-        <h3>查詢表格資料</h3>
-        <p>針對 CSV 或匯出檔提問，取得計算結果、圖表與瀏覽器視覺化呈現。</p>
-        <div class="card__tags"><span class="tag">Data Knowledge Work</span><span class="tag">Productivity</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="github-code-reviews" style="--cat:var(--c-quality); animation-delay:196ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>品質與測試</span>
-          <span class="card__num">#08</span>
-        </div>
-        <h3>審查 GitHub pull request</h3>
-        <p>讓 Codex 在每個 PR 上自動找出回歸、缺漏的測試與文件問題。</p>
-        <div class="card__tags"><span class="tag">Coding</span><span class="tag">Integrations</span><span class="tag">Code Review</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="frontend-designs" style="--cat:var(--c-frontend); animation-delay:224ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>前端與設計</span>
-          <span class="card__num">#09</span>
-        </div>
-        <h3>打造響應式前端設計</h3>
-        <p>將截圖與視覺參考轉換成符合既有設計系統的響應式 UI 程式碼。</p>
-        <div class="card__tags"><span class="tag">Front-end</span><span class="tag">Design</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="codebase-onboarding" style="--cat:var(--c-coding); animation-delay:252ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>工程開發</span>
-          <span class="card__num">#10</span>
-        </div>
-        <h3>理解大型程式碼庫</h3>
-        <p>梳理陌生的程式碼庫、解說各模組與資料流，並指出接下來值得閱讀的檔案。</p>
-        <div class="card__tags"><span class="tag">Onboarding</span><span class="tag">Codebase</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="macos-sidebar-detail-inspector" style="--cat:var(--c-mobile); animation-delay:280ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>行動與原生 App</span>
-          <span class="card__num">#11</span>
-        </div>
-        <h3>打造 Mac App 外殼</h3>
-        <p>把 App 構想轉化為桌面原生的 NavigationSplitView 外殼，含選單、工具列與設定。</p>
-        <div class="card__tags"><span class="tag">macOS</span><span class="tag">SwiftUI</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="automation-bug-triage" style="--cat:var(--c-quality); animation-delay:308ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>品質與測試</span>
-          <span class="card__num">#12</span>
-        </div>
-        <h3>自動化錯誤分類</h3>
-        <p>把每日的錯誤回報整理成優先順序清單，再排程自動化的分類掃描。</p>
-        <div class="card__tags"><span class="tag">Automation</span><span class="tag">Bug Triage</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="generate-slide-decks" style="--cat:var(--c-knowledge); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>知識工作</span>
-          <span class="card__num">#13</span>
-        </div>
-        <h3>產生簡報投影片</h3>
-        <p>操作 PowerPoint 檔案並運用圖片生成，自動化建立簡報投影片。</p>
-        <div class="card__tags"><span class="tag">Slides</span><span class="tag">Automation</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="slack-coding-tasks" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>工程開發</span>
-          <span class="card__num">#14</span>
-        </div>
-        <h3>從 Slack 啟動程式任務</h3>
-        <p>在 Slack 中標記 @Codex，把討論串變成範圍明確的雲端任務，再回討論串檢視結果。</p>
-        <div class="card__tags"><span class="tag">Slack</span><span class="tag">Automation</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="make-granular-ui-changes" style="--cat:var(--c-frontend); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>前端與設計</span>
-          <span class="card__num">#15</span>
-        </div>
-        <h3>進行細部 UI 調整</h3>
-        <p>在既有 App 中進行專注的單一 UI 調整、在瀏覽器驗證並快速迭代。</p>
-        <div class="card__tags"><span class="tag">Front-end</span><span class="tag">UI</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="new-hire-onboarding" style="--cat:var(--c-productivity); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>生產力與自動化</span>
-          <span class="card__num">#16</span>
-        </div>
-        <h3>協調新進人員報到流程</h3>
-        <p>準備報到追蹤表、團隊摘要與歡迎空間草稿，並等待審閱者核准。</p>
-        <div class="card__tags"><span class="tag">Onboarding</span><span class="tag">Operations</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="learn-a-new-concept" style="--cat:var(--c-knowledge); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>知識工作</span>
-          <span class="card__num">#17</span>
-        </div>
-        <h3>學習新概念</h3>
-        <p>運用 Codex 子代理消化艱澀的研究論文或課程，產出結構化的 Markdown 學習報告。</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="api-integration-migrations" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>工程開發</span>
-          <span class="card__num">#18</span>
-        </div>
-        <h3>升級你的 API 整合</h3>
-        <p>將現有的 OpenAI API 整合升級到最新模型與功能，並在部署前進行回歸檢查。</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="deploy-app-or-website" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>工程開發</span>
-          <span class="card__num">#19</span>
-        </div>
-        <h3>部署應用程式或網站</h3>
-        <p>透過 Vercel 將程式碼庫、截圖或粗略構想變成可運作的預覽部署，並取得可分享的線上網址。</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="figma-designs-to-code" style="--cat:var(--c-frontend); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>前端與設計</span>
-          <span class="card__num">#20</span>
-        </div>
-        <h3>把 Figma 設計轉成程式碼</h3>
-        <p>將 Figma 選取的內容轉為符合你設計系統的正式 UI 程式碼，並用 Playwright 對照參考稿驗證。</p>
-        <div class="card__tags"><span class="tag">Design</span><span class="tag">Engineering</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="qa-your-app-with-computer-use" style="--cat:var(--c-quality); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>品質與測試</span>
-          <span class="card__num">#21</span>
-        </div>
-        <h3>用 Computer Use 為你的應用程式做 QA</h3>
-        <p>運用 Computer Use 操作關鍵產品流程、找出問題，並產出結構化、可直接分流的錯誤報告。</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="datasets-and-reports" style="--cat:var(--c-data); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>資料與分析</span>
-          <span class="card__num">#22</span>
-        </div>
-        <h3>分析資料集並交付報告</h3>
-        <p>把雜亂的資料經過清理、合併、探索與建模，產出可重複使用、可審查的分析成果。</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="complete-tasks-from-messages" style="--cat:var(--c-productivity); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>生產力與自動化</span>
-          <span class="card__num">#23</span>
-        </div>
-        <h3>從訊息完成任務</h3>
-        <p>將 iMessage 對話串轉成跨相關應用程式完成的工作，並在同一對話串中草擬回覆。</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="idea-to-proof-of-concept" style="--cat:var(--c-frontend); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>前端與設計</span>
-          <span class="card__num">#24</span>
-        </div>
-        <h3>從構想到概念驗證</h3>
-        <p>結合 Codex 與 ImageGen，將粗略的產品構想轉為視覺方向與可運作的原型以供驗證。</p>
-        <div class="card__tags"><span class="tag">Engineering</span><span class="tag">Design</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="browser-games" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>工程開發</span>
-          <span class="card__num">#25</span>
-        </div>
-        <h3>打造瀏覽器遊戲</h3>
-        <p>運用 Codex 將遊戲概念轉化為可遊玩的瀏覽器遊戲，產生素材並在瀏覽器中即時測試。</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="iterate-on-difficult-problems" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>工程開發</span>
-          <span class="card__num">#26</span>
-        </div>
-        <h3>反覆攻克困難問題</h3>
-        <p>以 eval 驅動的迴圈將 Codex 應用於最佳化問題，每次迭代皆評分，直到達成品質門檻。</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="reusable-codex-skills" style="--cat:var(--c-productivity); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>生產力與自動化</span>
-          <span class="card__num">#27</span>
-        </div>
-        <h3>將工作流程存為 skills</h3>
-        <p>將可運作的 Codex thread、審查規則或 repo 腳本轉為可重複使用的 skills，供 Codex 在未來的 threads 中套用。</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="update-documentation" style="--cat:var(--c-knowledge); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>知識工作</span>
-          <span class="card__num">#28</span>
-        </div>
-        <h3>讓文件保持最新</h3>
-        <p>運用 Codex 比對程式碼變更與文件，於發布前草擬聚焦且經驗證的文件更新。</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="native-ios-apps" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>行動與原生 App</span>
-          <span class="card__num">#29</span>
-        </div>
-        <h3>為 iOS 開發</h3>
-        <p>運用 Codex 以 CLI 優先的工作流程，為 iPhone 與 iPad 建立、開發並除錯 SwiftUI 應用程式。</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="refactor-your-codebase" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>工程開發</span>
-          <span class="card__num">#30</span>
-        </div>
-        <h3>重構你的程式碼庫</h3>
-        <p>運用 Codex 以小幅、可審查的多次推進，移除無用程式碼並現代化舊有模式，且不改變行為。</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="ios-app-intents" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>行動與原生 App</span>
-          <span class="card__num">#31</span>
-        </div>
-        <h3>新增 iOS App Intents</h3>
-        <p>搭配 Build iOS Apps plugin 使用 Codex，透過 App Intents 將 app 動作與內容開放給 Shortcuts、Siri 與 Spotlight。</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="native-macos-apps" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>行動與原生 App</span>
-          <span class="card__num">#32</span>
-        </div>
-        <h3>為 macOS 開發</h3>
-        <p>運用 Codex 以 shell 優先的建置迴圈打造 macOS SwiftUI app，並加入桌面原生的 scene、window 與 AppKit 工作流程。</p>
-        <div class="card__tags"><span class="tag">Engineering</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="ios-liquid-glass" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>行動與原生 App</span>
-          <span class="card__num">#33</span>
-        </div>
-        <h3>採用 Liquid Glass</h3>
-        <p>用 Codex 稽核 SwiftUI 介面，將自訂模糊堆疊遷移為原生 iOS 26 Liquid Glass。</p>
-        <div class="card__tags"><span class="tag">Front-end</span><span class="tag">iOS</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="macos-telemetry-logs" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>行動與原生 App</span>
-          <span class="card__num">#34</span>
-        </div>
-        <h3>為 Mac 加上 telemetry</h3>
-        <p>用 Codex 以 Logger 為單一 Mac 功能加上儀表，執行 app，並從 unified logs 驗證事件。</p>
-        <div class="card__tags"><span class="tag">macOS</span><span class="tag">Debugging</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="ios-simulator-bug-debugging" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>行動與原生 App</span>
-          <span class="card__num">#35</span>
-        </div>
-        <h3>在 iOS simulator 中除錯</h3>
-        <p>用 Codex 與 XcodeBuildMCP 在 iOS Simulator 中操作 app、擷取證據並反覆迭代直到修好。</p>
-        <div class="card__tags"><span class="tag">iOS</span><span class="tag">Debugging</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="dependency-incident-audits" style="--cat:var(--c-quality); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>品質與測試</span>
-          <span class="card__num">#36</span>
-        </div>
-        <h3>稽核相依套件事件</h3>
-        <p>用 Codex 把公開的套件安全公告轉化為安全、唯讀的儲存庫暴露稽核。</p>
-        <div class="card__tags"><span class="tag">Security</span><span class="tag">DevOps</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="meeting-prep-briefs" style="--cat:var(--c-knowledge); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>知識工作</span>
-          <span class="card__num">#37</span>
-        </div>
-        <h3>準備會議簡報</h3>
-        <p>用 Codex 搭配 Calendar、Drive、Slack 與 Gmail，把會議脈絡轉化為議程與筆記計畫。</p>
-        <div class="card__tags"><span class="tag">Productivity</span><span class="tag">Knowledge</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="event-launch-playbooks" style="--cat:var(--c-productivity); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>生產力與自動化</span>
-          <span class="card__num">#38</span>
-        </div>
-        <h3>執行活動 playbook</h3>
-        <p>用 Codex 搭配 Slack、Drive 與 Calendar 草擬對外文案與含負責人的私有活動檢核表。</p>
-        <div class="card__tags"><span class="tag">Productivity</span><span class="tag">Operations</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="code-migrations" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>工程開發</span>
-          <span class="card__num">#39</span>
-        </div>
-        <h3>執行程式碼遷移</h3>
-        <p>用 Codex 在受控的檢查點下，將舊有技術棧遷移到現代技術棧並驗證一致性。</p>
-        <div class="card__tags"><span class="tag">Back-end</span><span class="tag">DevOps</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="ios-swiftui-view-refactor" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>行動與原生 App</span>
-          <span class="card__num">#40</span>
-        </div>
-        <h3>重構 SwiftUI 畫面</h3>
-        <p>用 Codex 將龐大的 SwiftUI view 拆解為更小、易維護的 subview，同時保留原本行為。</p>
-        <div class="card__tags"><span class="tag">iOS</span><span class="tag">Front-end</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="draft-prds-from-sources" style="--cat:var(--c-knowledge); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>知識工作</span>
-          <span class="card__num">#41</span>
-        </div>
-        <h3>從內部脈絡草擬 PRD</h3>
-        <p>運用 Codex 與已連接的應用程式，將規劃脈絡整合成可審閱、附來源引用的 PRD。</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span><span class="tag">Product</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="cash-flow-forecast" style="--cat:var(--c-finance); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>財務</span>
-          <span class="card__num">#42</span>
-        </div>
-        <h3>預測現金流</h3>
-        <p>用 Codex 建立可編輯的現金流預測活頁簿，找出流動性壓力點並標示安全餘額被突破的情況。</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span><span class="tag">Finance</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="dcf-model" style="--cat:var(--c-finance); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>財務</span>
-          <span class="card__num">#43</span>
-        </div>
-        <h3>建立 DCF 估值模型</h3>
-        <p>將歷史財務數據與假設轉換成可在 Codex 中檢視與修改的可編輯 DCF 估值活頁簿。</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span><span class="tag">Finance</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="budget-vs-actuals-review" style="--cat:var(--c-finance); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>財務</span>
-          <span class="card__num">#44</span>
-        </div>
-        <h3>檢視預算與實際對比</h3>
-        <p>將預算計畫、實際數匯出與結帳筆記轉換成差異分析活頁簿，對應分類並標示對帳缺口。</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span><span class="tag">Finance</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="ai-app-evals" style="--cat:var(--c-quality); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>品質與測試</span>
-          <span class="card__num">#45</span>
-        </div>
-        <h3>為你的 AI 應用程式加入 eval</h3>
-        <p>用 Codex 將預期的應用程式行為轉換成可執行的 Promptfoo eval 套件，在合併前建立回歸測試。</p>
-        <div class="card__tags"><span class="tag">Coding</span><span class="tag">Evaluation</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="user-stories-to-ui-mocks" style="--cat:var(--c-frontend); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>前端與設計</span>
-          <span class="card__num">#46</span>
-        </div>
-        <h3>把使用者故事轉成 UI mock</h3>
-        <p>將零散的回饋整理成使用者故事，再用 ImageGen 依據你的設計系統產生 UI mock。</p>
-        <div class="card__tags"><span class="tag">Knowledge Work</span><span class="tag">Product</span><span class="tag">Design</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="chatgpt-apps" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>工程開發</span>
-          <span class="card__num">#47</span>
-        </div>
-        <h3>把你的應用程式帶進 ChatGPT</h3>
-        <p>從頭到尾打造一個聚焦的 ChatGPT app：定義工具、建立 MCP server 與 widget、連接並反覆迭代。</p>
-        <div class="card__tags"><span class="tag">Coding</span><span class="tag">Apps</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="react-native-expo-apps" style="--cat:var(--c-mobile); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>行動與原生 App</span>
-          <span class="card__num">#48</span>
-        </div>
-        <h3>用 Expo 打造 React Native app</h3>
-        <p>用 Codex 搭配 Expo plugin 來建立 React Native app，先從 Expo Go 開始進行快速測試。</p>
-        <div class="card__tags"><span class="tag">Coding</span><span class="tag">Mobile</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="agent-friendly-clis" style="--cat:var(--c-coding); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>工程開發</span>
-          <span class="card__num">#49</span>
-        </div>
-        <h3>打造 Codex 可以使用的 CLI</h3>
-        <p>打造可組合的 CLI，讓 Codex 能執行、與 repo 腳本結合，並透過 skill 重複使用。</p>
-        <div class="card__tags"><span class="tag">Engineering</span><span class="tag">Automation</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="slack-action-triage" style="--cat:var(--c-productivity); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>生產力與自動化</span>
-          <span class="card__num">#50</span>
-        </div>
-        <h3>排序 Slack 待辦事項的優先順序</h3>
-        <p>在草擬回覆前，將 Slack thread 與 DM 轉成一份排序過的可行動下一步佇列。</p>
-        <div class="card__tags"><span class="tag">Productivity</span><span class="tag">Automation</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="verified-operations-workflows" style="--cat:var(--c-productivity); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>生產力與自動化</span>
-          <span class="card__num">#51</span>
-        </div>
-        <h3>執行已驗證的營運作業</h3>
-        <p>執行可重複的營運 workflow，並在回報前透過 logs 或產出物驗證每個結果。</p>
-        <div class="card__tags"><span class="tag">Operations</span><span class="tag">Automation</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-      <button class="card" data-slug="zoom-meeting-follow-ups" style="--cat:var(--c-knowledge); animation-delay:336ms">
-        <div class="card__top">
-          <span class="cat-pill"><span class="ic"></span>知識工作</span>
-          <span class="card__num">#52</span>
-        </div>
-        <h3>把會議轉化為後續行動</h3>
-        <p>將 Zoom 逐字稿與摘要轉成客戶郵件、account plan、CRM 更新與團隊通知。</p>
-        <div class="card__tags"><span class="tag">Productivity</span><span class="tag">Sales</span></div>
-        <span class="card__cta">查看細節<span class="material-symbols-rounded">arrow_forward</span></span>
-      </button>
-</main>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#02</span><span class="uc__tags">Automation, Computer Use, Productivity</span></p>
+        <h3 class="uc__title"><a href="#use-your-computer-with-codex" data-open="use-your-computer-with-codex">用 Codex 操作你的電腦</a></h3>
+        <p class="uc__sum">透過 Computer Use 把跨 Mac app、視窗與檔案的多步驟任務交給 Codex。</p>
+        <a class="uc__prompt" href="#use-your-computer-with-codex" data-open="use-your-computer-with-codex" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>@Computer [描述你想在 Mac 上跨 app 完成的任務]
 
-  <footer class="site-foot">
-    <p data-i18n-html="footer">內容整理自 <a href="https://developers.openai.com/codex/use-cases" target="_blank" rel="noopener">OpenAI Codex Use Cases</a>。本頁為非官方的中英對照學習用整理。</p>
-    <div class="profile-links" style="display:flex;gap:12px;justify-content:center;align-items:center;margin-top:10px">
-      <a class="icon-btn" href="https://www.peteraim.com" target="_blank" rel="noopener" title="Home" aria-label="Back to peteraim.com / 返回首頁"><span class="material-symbols-rounded">home</span></a>
-      <a class="icon-btn" href="https://www.linkedin.com/in/ai-med/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn (opens in new tab)"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg></a>
+例如：
+- 播放一些音樂幫我集中精神。
+- 幫我把 Notes 裡的面試筆記加到 Ashby。
+- 在我的 Messages app 裡找出 Brooke 這週傳給我的旅遊點子，把最好的幾個選項加進一則名為「Yosemite ideas」的新筆記，並草擬一則回覆給她。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="use-your-computer-with-codex"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#use-your-computer-with-codex" data-open="use-your-computer-with-codex">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#04</span><span class="uc__tags">Automation, Integrations, Productivity</span></p>
+        <h3 class="uc__title"><a href="#proactive-teammate" data-open="proactive-teammate">設定一位隊友</a></h3>
+        <p class="uc__sum">把 Codex 設定成主動的助理，監控你的工具並主動指出需要關注的事項。</p>
+        <a class="uc__prompt" href="#proactive-teammate" data-open="proactive-teammate" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>可以幫我檢查 @slack、@gmail、@google-calendar 和 @notion，然後告訴我有哪些事需要我關注嗎？請找出任何我可能會錯過的重要或意外的事項。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="proactive-teammate"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#proactive-teammate" data-open="proactive-teammate">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#16</span><span class="uc__tags">Onboarding, Operations</span></p>
+        <h3 class="uc__title"><a href="#new-hire-onboarding" data-open="new-hire-onboarding">協調新進人員報到流程</a></h3>
+        <p class="uc__sum">準備報到追蹤表、團隊摘要與歡迎空間草稿，並等待審閱者核准。</p>
+        <a class="uc__prompt" href="#new-hire-onboarding" data-open="new-hire-onboarding" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>協助我為即將報到的新進人員準備一份可供審閱的報到資料包……先以唯讀方式開始：盤點來源、欄位、列數與日期區間……接著備妥草稿：草擬一份可供審閱的追蹤表更新……安全規範：只使用我指定的已核准來源……</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="new-hire-onboarding"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#new-hire-onboarding" data-open="new-hire-onboarding">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#23</span><span class="uc__tags">Knowledge Work</span></p>
+        <h3 class="uc__title"><a href="#complete-tasks-from-messages" data-open="complete-tasks-from-messages">從訊息完成任務</a></h3>
+        <p class="uc__sum">將 iMessage 對話串轉成跨相關應用程式完成的工作，並在同一對話串中草擬回覆。</p>
+        <a class="uc__prompt" href="#complete-tasks-from-messages" data-open="complete-tasks-from-messages" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>@Computer 查看我來自 [某人] 的訊息。然後： - 理解該請求 - 跨相關應用程式完成任務 - 在同一對話串中草擬回覆 在任何不可逆的動作前暫停，例如下單或確認訂位。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="complete-tasks-from-messages"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#complete-tasks-from-messages" data-open="complete-tasks-from-messages">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#27</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#reusable-codex-skills" data-open="reusable-codex-skills">將工作流程存為 skills</a></h3>
+        <p class="uc__sum">將可運作的 Codex thread、審查規則或 repo 腳本轉為可重複使用的 skills，供 Codex 在未來的 threads 中套用。</p>
+        <a class="uc__prompt" href="#reusable-codex-skills" data-open="reusable-codex-skills" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 $skill-creator 建立一個 Codex skill，用來〔修正 GitHub PR 上失敗的 Buildkite 檢查／將 PR 註記轉為行內審查留言／從已合併的 PR 撰寫我們的發布說明〕</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="reusable-codex-skills"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#reusable-codex-skills" data-open="reusable-codex-skills">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#38</span><span class="uc__tags">Productivity, Operations</span></p>
+        <h3 class="uc__title"><a href="#event-launch-playbooks" data-open="event-launch-playbooks">執行活動 playbook</a></h3>
+        <p class="uc__sum">用 Codex 搭配 Slack、Drive 與 Calendar 草擬對外文案與含負責人的私有活動檢核表。</p>
+        <a class="uc__prompt" href="#event-launch-playbooks" data-open="event-launch-playbooks" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>為 [event] 建立一份有來源佐證的 playbook。要使用的來源：- 規劃頻道或討論串：[連結或名稱] - 已核可的文件、簡報、試算表或範本：[連結或名稱] - 行事曆事件或截止日期：[連結或日期] 將輸出分為：- 對外（面向參加者）文案 - 私有營運檢核表 - 負責人對應表 - 支援計畫或資源 - 仍需核可的項目 - 待解問題 - 來源附錄 不要發佈任何內容，也不要臆測缺漏的細節。把未知事項放進待解問題，並讓私有營運不出現在公開文案中。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="event-launch-playbooks"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#event-launch-playbooks" data-open="event-launch-playbooks">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#50</span><span class="uc__tags">Productivity, Automation</span></p>
+        <h3 class="uc__title"><a href="#slack-action-triage" data-open="slack-action-triage">排序 Slack 待辦事項的優先順序</a></h3>
+        <p class="uc__sum">在草擬回覆前，將 Slack thread 與 DM 轉成一份排序過的可行動下一步佇列。</p>
+        <a class="uc__prompt" href="#slack-action-triage" data-open="slack-action-triage" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>可以幫我查 @slack 中關於 [workstream]、來自 [time window] 寄給我的訊息，並回傳一份排序過的行動佇列嗎？請跨 DM、群組 DM、頻道提及與 thread 一起查找。每個項目請包含：- 來源連結或 thread - 對方在請求什麼 - 這需要我回覆、需要某個人或主管處理、需要文件或程式碼變更，還是只需要一個決定 - 為何它重要 - 建議的下一步 在把任何項目列為未解決之前，先讀取最新的 thread 回覆，並略過已經處理完的項目。請不要直接發送訊息，而是提供草稿供我審查。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="slack-action-triage"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#slack-action-triage" data-open="slack-action-triage">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#51</span><span class="uc__tags">Operations, Automation</span></p>
+        <h3 class="uc__title"><a href="#verified-operations-workflows" data-open="verified-operations-workflows">執行已驗證的營運作業</a></h3>
+        <p class="uc__sum">執行可重複的營運 workflow，並在回報前透過 logs 或產出物驗證每個結果。</p>
+        <a class="uc__prompt" href="#verified-operations-workflows" data-open="verified-operations-workflows" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>我需要執行這個 workflow：目標：[應該發生什麼] 輸入：[CSV、Google Sheet、清單、ticket 或檔案路徑]……請：- 檢查輸入並只詢問缺漏的必填欄位 - 在執行 workflow 前正規化日期、金額、負責人與 ID - 只執行已核准的範圍 - 為每個項目記錄一筆成功或失敗的列</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="verified-operations-workflows"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#verified-operations-workflows" data-open="verified-operations-workflows">完整說明</a>
+        </div>
+      </article></div>
+      </section>
+      <section class="group" id="cat-coding" style="--cat:var(--c-coding)" aria-labelledby="h-coding">
+        <header class="group__head">
+          <h2 id="h-coding"><span class="sw sw--lg" aria-hidden="true"></span>工程開發</h2>
+          <span class="group__n">11 個情境</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#03</span><span class="uc__tags">Coding, Automation</span></p>
+        <h3 class="uc__title"><a href="#follow-goals" data-open="follow-goals">追蹤一個目標</a></h3>
+        <p class="uc__sum">給 Codex 一個持久的目標與停止條件，讓它自主執行長時間運作的工作。</p>
+        <a class="uc__prompt" href="#follow-goals" data-open="follow-goals" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>/goal 完成 [目標]，在達到 [可驗證的結束狀態] 之前不要停止。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="follow-goals"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#follow-goals" data-open="follow-goals">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#10</span><span class="uc__tags">Onboarding, Codebase</span></p>
+        <h3 class="uc__title"><a href="#codebase-onboarding" data-open="codebase-onboarding">理解大型程式碼庫</a></h3>
+        <p class="uc__sum">梳理陌生的程式碼庫、解說各模組與資料流，並指出接下來值得閱讀的檔案。</p>
+        <a class="uc__prompt" href="#codebase-onboarding" data-open="codebase-onboarding" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>請說明請求在程式碼庫中如何流經 &lt;name of the system area&gt;。內容包含：- 哪些模組負責哪些職責 - 資料在何處被驗證 - 變更前最需要留意的幾個陷阱 最後列出我接下來應該閱讀的檔案。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="codebase-onboarding"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#codebase-onboarding" data-open="codebase-onboarding">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#14</span><span class="uc__tags">Slack, Automation</span></p>
+        <h3 class="uc__title"><a href="#slack-coding-tasks" data-open="slack-coding-tasks">從 Slack 啟動程式任務</a></h3>
+        <p class="uc__sum">在 Slack 中標記 @Codex，把討論串變成範圍明確的雲端任務，再回討論串檢視結果。</p>
+        <a class="uc__prompt" href="#slack-coding-tasks" data-open="slack-coding-tasks" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>@Codex 分析這個討論串中提到的 issue，並在 &lt;name of your environment&gt; 中實作修正。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="slack-coding-tasks"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#slack-coding-tasks" data-open="slack-coding-tasks">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#18</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#api-integration-migrations" data-open="api-integration-migrations">升級你的 API 整合</a></h3>
+        <p class="uc__sum">將現有的 OpenAI API 整合升級到最新模型與功能，並在部署前進行回歸檢查。</p>
+        <a class="uc__prompt" href="#api-integration-migrations" data-open="api-integration-migrations" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 $openai-docs 將這個 OpenAI 整合升級到最新推薦的模型與 API 功能。具體來說，請查找這個特定模型的最新模型與提示詞指引。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="api-integration-migrations"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#api-integration-migrations" data-open="api-integration-migrations">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#19</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#deploy-app-or-website" data-open="deploy-app-or-website">部署應用程式或網站</a></h3>
+        <p class="uc__sum">透過 Vercel 將程式碼庫、截圖或粗略構想變成可運作的預覽部署，並取得可分享的線上網址。</p>
+        <a class="uc__prompt" href="#deploy-app-or-website" data-open="deploy-app-or-website" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 @build-web-apps 把 [程式碼庫、截圖、設計稿或粗略的應用程式構想] 變成可運作的網站。接著使用 @vercel 部署一個預覽並把線上網址交給我。脈絡： - [網站應該做什麼] - [要使用的來源資料、API、文件或素材] - [風格或產品限制] - [任何不應變動的部分] 交付前，請執行本機建置並驗證部署已就緒。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="deploy-app-or-website"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#deploy-app-or-website" data-open="deploy-app-or-website">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#25</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#browser-games" data-open="browser-games">打造瀏覽器遊戲</a></h3>
+        <p class="uc__sum">運用 Codex 將遊戲概念轉化為可遊玩的瀏覽器遊戲，產生素材並在瀏覽器中即時測試。</p>
+        <a class="uc__prompt" href="#browser-games" data-open="browser-games" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 $playwright-interactive、$imagegen 與 $openai-docs，在此 repo 中規劃並打造一款瀏覽器遊戲。實作 PLAN.md，並將你的工作記錄在 `.logs/` 之下。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="browser-games"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#browser-games" data-open="browser-games">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#26</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#iterate-on-difficult-problems" data-open="iterate-on-difficult-problems">反覆攻克困難問題</a></h3>
+        <p class="uc__sum">以 eval 驅動的迴圈將 Codex 應用於最佳化問題，每次迭代皆評分，直到達成品質門檻。</p>
+        <a class="uc__prompt" href="#iterate-on-difficult-problems" data-open="iterate-on-difficult-problems" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>我在這個 workspace 裡有一項困難的任務，希望你以 eval 驅動的改進迴圈來執行。在做任何變更之前：- 閱讀 `AGENTS.md`。- 找出為目前輸出評分的腳本或指令。迭代迴圈：- 一次只做一項聚焦的改進。- 在每次有意義的變更後重跑 eval 指令。- 記錄分數與變更內容。- 直接檢視產生的產物。若輸出為視覺類，使用 `view_image`。- 持續進行，直到整體分數與 LLM 平均分數皆超過 90%。約束：- 不要在第一個可接受的結果就停下。- 除非新結果在分數或產物上明顯更差，否則不要回退到先前版本。- 若 eval 有改善但仍低於目標，請說明瓶頸並繼續。輸出：- 目前最佳分數 - 主要迭代的記錄 - 仍存在的風險或弱點</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="iterate-on-difficult-problems"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#iterate-on-difficult-problems" data-open="iterate-on-difficult-problems">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#30</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#refactor-your-codebase" data-open="refactor-your-codebase">重構你的程式碼庫</a></h3>
+        <p class="uc__sum">運用 Codex 以小幅、可審查的多次推進，移除無用程式碼並現代化舊有模式，且不改變行為。</p>
+        <a class="uc__prompt" href="#refactor-your-codebase" data-open="refactor-your-codebase" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>請現代化並重構這個程式碼庫。需求：除非明確要求，否則保留行為。辨識無用程式碼、重複路徑、過大模組、過時抽象與舊有模式。每一次推進，請說明目前行為、結構性改進與驗證檢查。將工作拆成小幅、可審查的重構推進。維持公開 API 穩定。將框架遷移或相依套件升級標示為獨立任務。請提出一份計畫。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="refactor-your-codebase"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#refactor-your-codebase" data-open="refactor-your-codebase">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#39</span><span class="uc__tags">Back-end, DevOps</span></p>
+        <h3 class="uc__title"><a href="#code-migrations" data-open="code-migrations">執行程式碼遷移</a></h3>
+        <p class="uc__sum">用 Codex 在受控的檢查點下，將舊有技術棧遷移到現代技術棧並驗證一致性。</p>
+        <a class="uc__prompt" href="#code-migrations" data-open="code-migrations" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>將這個程式庫從 [legacy stack or system] 遷移到 [target stack or system]。需求：- 先盤點舊有的假設：路由、資料模型、auth、設定、建置工具、測試、部署與外部合約。- 將舊技術棧對應到新的，並標示出任何沒有直接對應的部分。- 提出一個帶有相容層或檢查點的漸進式遷移計畫，而非一次性的大型重寫……</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="code-migrations"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#code-migrations" data-open="code-migrations">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#47</span><span class="uc__tags">Coding, Apps</span></p>
+        <h3 class="uc__title"><a href="#chatgpt-apps" data-open="chatgpt-apps">把你的應用程式帶進 ChatGPT</a></h3>
+        <p class="uc__sum">從頭到尾打造一個聚焦的 ChatGPT app：定義工具、建立 MCP server 與 widget、連接並反覆迭代。</p>
+        <a class="uc__prompt" href="#chatgpt-apps" data-open="chatgpt-apps" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>在這個 repo 中使用 $chatgpt-apps 搭配 $openai-docs，為 [使用情境] 規劃一個 ChatGPT app。需求：- 從一個核心的使用者成果開始。- 提出 3 至 5 個工具，並附上清楚的名稱、描述、輸入與輸出。- 建議 v1 是否需要 widget，或者可以從純資料開始。- MCP server 偏好使用 TypeScript，widget 偏好使用 React。- 點出 auth、部署與測試需求。產出：- 工具計畫 - 建議的檔案樹 - 黃金 prompt 集（golden prompt set）- 風險與待解問題</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="chatgpt-apps"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#chatgpt-apps" data-open="chatgpt-apps">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#49</span><span class="uc__tags">Engineering, Automation</span></p>
+        <h3 class="uc__title"><a href="#agent-friendly-clis" data-open="agent-friendly-clis">打造 Codex 可以使用的 CLI</a></h3>
+        <p class="uc__sum">打造可組合的 CLI，讓 Codex 能執行、與 repo 腳本結合，並透過 skill 重複使用。</p>
+        <a class="uc__prompt" href="#agent-friendly-clis" data-open="agent-friendly-clis" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 $cli-creator 建立一個你可以使用的 CLI，並在同一個 thread 中使用 $skill-creator 建立搭配的 skill。學習來源：[文件 URL、OpenAPI spec、去敏的 curl 指令、現有腳本路徑、log 資料夾、CSV 或 JSON 匯出檔、SQLite 資料庫路徑，或貼上的 --help 輸出]。CLI 首先要支援的工作：[從 build URL 下載失敗的 CI logs、搜尋 support tickets 並依 ID 讀取其中一筆、查詢 admin API、讀取本機資料庫，或執行現有腳本中的某一步]。選用的寫入工作：[建立草稿留言、上傳媒體、重試失敗的 job，或目前僅唯讀]。指令名稱：[cli-name，或請你建議一個]。在開始寫程式前，先向我展示提議的指令介面，並只詢問會阻擋建置的缺漏細節。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="agent-friendly-clis"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#agent-friendly-clis" data-open="agent-friendly-clis">完整說明</a>
+        </div>
+      </article></div>
+      </section>
+      <section class="group" id="cat-frontend" style="--cat:var(--c-frontend)" aria-labelledby="h-frontend">
+        <header class="group__head">
+          <h2 id="h-frontend"><span class="sw sw--lg" aria-hidden="true"></span>前端與設計</h2>
+          <span class="group__n">5 個情境</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#09</span><span class="uc__tags">Front-end, Design</span></p>
+        <h3 class="uc__title"><a href="#frontend-designs" data-open="frontend-designs">打造響應式前端設計</a></h3>
+        <p class="uc__sum">將截圖與視覺參考轉換成符合既有設計系統的響應式 UI 程式碼。</p>
+        <a class="uc__prompt" href="#frontend-designs" data-open="frontend-designs" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>請在目前的專案中實作這個 UI，並以我提供的截圖與筆記為唯一依據。需求：- 重用既有的設計系統元件與 token。- 將截圖轉換為本專案的 utilities 與元件模式，不要另建一套平行系統。- 緊密符合間距、版面、層級與響應式行為。- 遵循本專案的 routing、state 與資料抓取模式。- 讓頁面在桌面與行動版皆為響應式。- 若截圖中有任何細節含糊不清，選擇仍符合整體方向的最簡單實作，並簡短註明你的假設。驗證：- 將完成的 UI 與所提供的截圖在外觀與行為上比對。- 使用 $playwright-interactive 檢查 UI 是否符合參考稿，並依需要反覆調整直到吻合。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="frontend-designs"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#frontend-designs" data-open="frontend-designs">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#15</span><span class="uc__tags">Front-end, UI</span></p>
+        <h3 class="uc__title"><a href="#make-granular-ui-changes" data-open="make-granular-ui-changes">進行細部 UI 調整</a></h3>
+        <p class="uc__sum">在既有 App 中進行專注的單一 UI 調整、在瀏覽器驗證並快速迭代。</p>
+        <a class="uc__prompt" href="#make-granular-ui-changes" data-open="make-granular-ui-changes" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>在既有 App 中進行這項 UI 變更：[describe the exact spacing, alignment, color, copy, responsive, or component-state adjustment] 限制條件：- 只更動這項 UI 調整所需的檔案。- 重用既有的元件、token、圖示與版面模式。- 除非我明確要求，否則維持行為、資料流與 routing 不變。- 啟動或重用 dev server，在瀏覽器中檢視目前的 UI，做最小幅度的修補，並以視覺方式驗證結果。完成這一項變更後即停止，並總結變更的檔案以及你執行的瀏覽器檢查。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="make-granular-ui-changes"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#make-granular-ui-changes" data-open="make-granular-ui-changes">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#20</span><span class="uc__tags">Design, Engineering</span></p>
+        <h3 class="uc__title"><a href="#figma-designs-to-code" data-open="figma-designs-to-code">把 Figma 設計轉成程式碼</a></h3>
+        <p class="uc__sum">將 Figma 選取的內容轉為符合你設計系統的正式 UI 程式碼，並用 Playwright 對照參考稿驗證。</p>
+        <a class="uc__prompt" href="#figma-designs-to-code" data-open="figma-designs-to-code" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 Figma 技能在目前的專案中實作這份 Figma 設計。需求： - 先對該確切節點或框架執行 `get_design_context`。 - 若回應被截斷，使用 `get_metadata` 梳理檔案，再用 `get_design_context` 只重新抓取所需的節點。 - 在開始寫程式前對該確切變體執行 `get_screenshot`。 - 重複使用既有的設計系統元件與 token。 - 將 Figma 的產出轉譯為這個程式碼庫的工具函式與元件模式，而非另立一套平行系統。 - 緊密貼合間距、版面、層次與響應式行為。 - 遵循程式碼庫的路由、狀態與資料抓取模式。 - 讓頁面在桌機與行動裝置上都能響應式呈現。 - 若 Figma 回傳 localhost 的圖片或 SVG 來源，直接使用它們，不要建立佔位圖或新增圖示套件。驗證： - 將完成的 UI 與 Figma 參考稿在外觀與行為上比對。 - 使用 Playwright 檢查 UI 是否與參考稿相符，並視需要反覆迭代直到一致。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="figma-designs-to-code"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#figma-designs-to-code" data-open="figma-designs-to-code">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#24</span><span class="uc__tags">Engineering, Design</span></p>
+        <h3 class="uc__title"><a href="#idea-to-proof-of-concept" data-open="idea-to-proof-of-concept">從構想到概念驗證</a></h3>
+        <p class="uc__sum">結合 Codex 與 ImageGen，將粗略的產品構想轉為視覺方向與可運作的原型以供驗證。</p>
+        <a class="uc__prompt" href="#idea-to-proof-of-concept" data-open="idea-to-proof-of-concept" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 ImageGen 為以下構想產出一份高品質的 UI 樣稿，接著使用 [Build Web Apps 外掛程式／Game studio 外掛程式] 將其實作出來：[描述構想、目標使用者，以及主要的工作流程]</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="idea-to-proof-of-concept"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#idea-to-proof-of-concept" data-open="idea-to-proof-of-concept">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#46</span><span class="uc__tags">Knowledge Work, Product, Design</span></p>
+        <h3 class="uc__title"><a href="#user-stories-to-ui-mocks" data-open="user-stories-to-ui-mocks">把使用者故事轉成 UI mock</a></h3>
+        <p class="uc__sum">將零散的回饋整理成使用者故事，再用 ImageGen 依據你的設計系統產生 UI mock。</p>
+        <a class="uc__prompt" href="#user-stories-to-ui-mocks" data-open="user-stories-to-ui-mocks" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>把這個 [使用者故事／一組使用者回饋] 轉成一個能解決問題之功能的 UI mock，並用以下來源作為脈絡：- @slack [頻道或討論串連結] - @linear [issue 連結、專案、團隊或檢視] - @google-drive [研究筆記、問卷匯出、文件、試算表或簡報]。在進行的同時，請尊重目前的設計系統與既有的 UI [提供 Figma 檔案或截圖作為參考]。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="user-stories-to-ui-mocks"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#user-stories-to-ui-mocks" data-open="user-stories-to-ui-mocks">完整說明</a>
+        </div>
+      </article></div>
+      </section>
+      <section class="group" id="cat-mobile" style="--cat:var(--c-mobile)" aria-labelledby="h-mobile">
+        <header class="group__head">
+          <h2 id="h-mobile"><span class="sw sw--lg" aria-hidden="true"></span>行動與原生 App</h2>
+          <span class="group__n">9 個情境</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#11</span><span class="uc__tags">macOS, SwiftUI</span></p>
+        <h3 class="uc__title"><a href="#macos-sidebar-detail-inspector" data-open="macos-sidebar-detail-inspector">打造 Mac App 外殼</a></h3>
+        <p class="uc__sum">把 App 構想轉化為桌面原生的 NavigationSplitView 外殼，含選單、工具列與設定。</p>
+        <a class="uc__prompt" href="#macos-sidebar-detail-inspector" data-open="macos-sidebar-detail-inspector" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 Build macOS Apps plugin，把 [describe your app idea] 轉化為一個 Mac 原生的 SwiftUI App 外殼，含側邊欄、詳情面板、inspector、commands 與 Settings。
+
+限制條件：
+- 先選定 scene model。主視窗偏好使用 `WindowGroup`，並為偏好設定加入專屬的 `Settings` scene。
+- 主 UI 圍繞 `NavigationSplitView` 建構，具備明確的選取狀態、原生的 `.sidebar` 清單、詳情區域，以及承載次要中繼資料或控制項的 `inspector(isPresented:)` 面板。
+- 側邊欄列保持輕量且原生：一個圖示、一行標題，最多再加一行簡短的次要文字。除非有強烈的產品理由，否則不要把每一列都包進大型自訂卡片中。
+- 透過 scene 層級的 `commands`、`CommandMenu`、工具列按鈕與鍵盤快捷鍵來呈現重要操作。不要把通往關鍵操作的唯一路徑藏在手勢之後。
+- 視窗範圍的 UI 狀態使用 `@SceneStorage`，偏好設定使用 `@AppStorage`，側邊欄/詳情的協調則使用由父層擁有的明確選取 binding。
+- 偏好使用系統材質、語意化色彩與標準側邊欄背景。僅在需要時對詳情或 inspector 的內容卡片加上自訂樣式。
+- 僅在 SwiftUI 無法乾淨地表達某個特定桌面行為時，才使用範圍狹窄的 AppKit bridge。
+- 建立或更新 `script/build_and_run.sh`，執行最小但有用的 build/run 檢查，並告訴我你實際使用的指令。
+
+交付內容：
+- scene 結構與主要的側邊欄/詳情/inspector 視圖
+- 選單、工具列與鍵盤快捷鍵的串接
+- Settings scene 與偏好設定的狀態模型
+- 你新增的任何 AppKit bridge，以及為何有其必要
+- build/run 的驗證步驟，以及你建議的任何桌面 UX 後續事項</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="macos-sidebar-detail-inspector"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#macos-sidebar-detail-inspector" data-open="macos-sidebar-detail-inspector">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#29</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#native-ios-apps" data-open="native-ios-apps">為 iOS 開發</a></h3>
+        <p class="uc__sum">運用 Codex 以 CLI 優先的工作流程，為 iPhone 與 iPad 建立、開發並除錯 SwiftUI 應用程式。</p>
+        <a class="uc__prompt" href="#native-ios-apps" data-open="native-ios-apps" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>建立一個 SwiftUI 起始 app，並加入一個 build-and-launch 腳本，讓我能串接到本地環境中的 `Build` 動作。約束：- 維持 CLI 優先。優先使用 Apple 的 `xcodebuild`；若更乾淨的設定有幫助，可以使用 Tuist。- 若此 repo 已包含完整的 Xcode 專案，請使用 XcodeBuildMCP 列出 targets、挑選正確的 scheme、建置、啟動，並在你迭代時擷取截圖……</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="native-ios-apps"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#native-ios-apps" data-open="native-ios-apps">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#31</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#ios-app-intents" data-open="ios-app-intents">新增 iOS App Intents</a></h3>
+        <p class="uc__sum">搭配 Build iOS Apps plugin 使用 Codex，透過 App Intents 將 app 動作與內容開放給 Shortcuts、Siri 與 Spotlight。</p>
+        <a class="uc__prompt" href="#ios-app-intents" data-open="ios-app-intents" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 Build iOS Apps plugin 稽核這個 iOS app，並為應開放給系統的動作與 entities 新增 App Intents。約束：先辨識 app 中最高價值的使用者動作與核心物件，這些應能在 app 之外經由 Shortcuts、Siri、Spotlight、widgets、controls 或更新的助理驅動系統介面取用……</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="ios-app-intents"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#ios-app-intents" data-open="ios-app-intents">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#32</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#native-macos-apps" data-open="native-macos-apps">為 macOS 開發</a></h3>
+        <p class="uc__sum">運用 Codex 以 shell 優先的建置迴圈打造 macOS SwiftUI app，並加入桌面原生的 scene、window 與 AppKit 工作流程。</p>
+        <a class="uc__prompt" href="#native-macos-apps" data-open="native-macos-apps" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 Build macOS Apps plugin，為這個 app 功能打造原生 macOS SwiftUI 版本。約束：- 使用桌面原生的 scene 結構，在合理之處加入主視窗、設定與 toolbar/command 動作。- 若該功能受益於始終可見的結構，相較 iOS 式的 push 導覽，更偏好 sidebar/detail 版面。- 僅在 SwiftUI 無法乾淨表達某項特定桌面行為時，才加入極小的 AppKit 橋接。- 建立或更新 `script/build_and_run.sh`，讓 build/run 迴圈維持 shell 優先。- 告訴我你使用了哪些 build、launch、test 與 log 指令。交付此功能切片，以最小的相關 build 或 test 迴圈驗證，並總結在發佈前所需的任何簽署或打包後續事項。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="native-macos-apps"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#native-macos-apps" data-open="native-macos-apps">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#33</span><span class="uc__tags">Front-end, iOS</span></p>
+        <h3 class="uc__title"><a href="#ios-liquid-glass" data-open="ios-liquid-glass">採用 Liquid Glass</a></h3>
+        <p class="uc__sum">用 Codex 稽核 SwiftUI 介面，將自訂模糊堆疊遷移為原生 iOS 26 Liquid Glass。</p>
+        <a class="uc__prompt" href="#ios-liquid-glass" data-open="ios-liquid-glass" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 Build iOS Apps 外掛及其 SwiftUI Liquid Glass skill，將這個 app 中一個高流量流程遷移到 Liquid Glass。限制條件：將此視為 iOS 26 + Xcode 26 的遷移，但要用 `#available(iOS 26, *)` 為較早的部署目標保留非玻璃的後備方案。先稽核該流程。標示出應該變成原生 Liquid Glass 的自訂背景、模糊堆疊、chip、按鈕、sheet 與 toolbar，並標示出應該維持為純內容的介面。優先採用系統控制項與原生 API，例如 `glassEffect`、`GlassEffectContainer`、`glassEffectID`、`.buttonStyle(.glass)` 與 `.buttonStyle(.glassProminent)`，而非自訂模糊。只有在真正的變形轉場能改善流程時，才搭配 `@Namespace` 使用 `glassEffectID`。在版面與視覺修飾子之後才套用 `glassEffect`，保持形狀一致，並只在真正會回應觸控的控制項上使用 `.interactive()`。使用 XcodeBuildMCP 在 iOS 26 simulator 上建置與執行，為遷移後的流程擷取截圖，並明確說明你用了哪個 scheme、simulator 與檢查。交付：該流程簡潔的遷移計畫、實作出來的 Liquid Glass 切片、iOS 26 以前裝置的後備行為，以及你使用的 simulator 驗證步驟與截圖。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="ios-liquid-glass"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#ios-liquid-glass" data-open="ios-liquid-glass">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#34</span><span class="uc__tags">macOS, Debugging</span></p>
+        <h3 class="uc__title"><a href="#macos-telemetry-logs" data-open="macos-telemetry-logs">為 Mac 加上 telemetry</a></h3>
+        <p class="uc__sum">用 Codex 以 Logger 為單一 Mac 功能加上儀表，執行 app，並從 unified logs 驗證事件。</p>
+        <a class="uc__prompt" href="#macos-telemetry-logs" data-open="macos-telemetry-logs" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 Build macOS Apps 外掛，圍繞 [指定一個 Mac 功能或動作流程] 加上輕量的 unified logging，然後執行 app 並從 logs 驗證這些事件是否以預期順序觸發。
+
+限制條件：
+- 優先使用 `OSLog` 的 `Logger` 而非 `print`，並為此功能建立清楚的 subsystem/category 配對，讓 logs 易於篩選。
+- 為每個重要的動作邊界或狀態轉換記錄一行精簡訊息：例如視窗已開啟、側邊欄選取已變更、選單命令已呼叫、同步已開始、同步已完成或已採用後備路徑。
+- 讓永久的 `info` log 保持穩定且高訊號。只在吵雜的本地細節使用 `debug`，並在完成前移除或降級臨時的儀表。
+- 不要記錄機密、auth token、個資或原始文件內容。若必須記錄某個識別碼，請選擇最安全的隱私註記並說明原因。
+- 建置並執行 app，自行操作該功能路徑，並用 Console 或聚焦的 `log stream` predicate 驗證事件。
+- 若該流程冗長、間歇出現或較容易手動重現，請將篩選後的 log 串流保存到一個小型本地工作階段 trace 檔，必要時讓我手動操作 app，再讀回該檔案並摘要事件時間軸。
+- 若預期事件未出現，請將 log 移近可疑的控制路徑，重新執行該流程，並持續到 logs 能解釋發生了什麼為止。
+
+交付：
+- 新的 logger 設定與你加入的確切事件
+- 你使用的 Console 篩選條件或 `log stream` predicate
+- logs 現在讓哪些東西變得可觀察的簡短前後對照摘要
+- 若這變成較長的擷取工作階段，附上保存的 trace 檔與時間軸摘要
+- 一到兩行能證明流程已正確加上儀表的代表性 log 行</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="macos-telemetry-logs"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#macos-telemetry-logs" data-open="macos-telemetry-logs">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#35</span><span class="uc__tags">iOS, Debugging</span></p>
+        <h3 class="uc__title"><a href="#ios-simulator-bug-debugging" data-open="ios-simulator-bug-debugging">在 iOS simulator 中除錯</a></h3>
+        <p class="uc__sum">用 Codex 與 XcodeBuildMCP 在 iOS Simulator 中操作 app、擷取證據並反覆迭代直到修好。</p>
+        <a class="uc__prompt" href="#ios-simulator-bug-debugging" data-open="ios-simulator-bug-debugging" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 Build iOS Apps 外掛與 XcodeBuildMCP，直接在 Simulator 中重現這個 bug、診斷根本原因，並實作一個小幅修正……以能解決該 bug 的最小程式碼變更，然後重新執行 simulator 流程，並明確告訴我你是如何驗證該修正的。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="ios-simulator-bug-debugging"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#ios-simulator-bug-debugging" data-open="ios-simulator-bug-debugging">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#40</span><span class="uc__tags">iOS, Front-end</span></p>
+        <h3 class="uc__title"><a href="#ios-swiftui-view-refactor" data-open="ios-swiftui-view-refactor">重構 SwiftUI 畫面</a></h3>
+        <p class="uc__sum">用 Codex 將龐大的 SwiftUI view 拆解為更小、易維護的 subview，同時保留原本行為。</p>
+        <a class="uc__prompt" href="#ios-swiftui-view-refactor" data-open="ios-swiftui-view-refactor" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 Build iOS Apps 外掛及其 SwiftUI view refactor skill 來整理 [NameOfScreen.swift]，但不改變這個畫面的功能或外觀。限制條件：- 保留行為、版面、導覽與商業邏輯，除非你發現必須另外標示出來的 bug。- 預設採用 MV，而非 MVVM。在引入新的 view model 前，優先使用 `@State`、`@Environment`、`@Query`、`.task`、`.task(id:)` 與 `onChange`，只有在這個功能明確需要時才保留 view model。- 重新排序這個 view，讓儲存屬性、計算狀態、`init`、`body`、view 輔助項與輔助方法能由上到下輕鬆瀏覽。- 將有意義的區段抽取成專屬的 `View` 型別，並帶有小而明確的輸入、`@Binding` 與 callback。不要把一個龐大的 `body` 換成一堆龐大的計算式 `some View` 屬性。- 把不簡單的按鈕動作與副作用移出 `body` 放進小方法中，並把真正的商業邏輯移進 service 或 model。- 保持 root view 樹的穩定。當局部條件式區段或修飾子就足夠時，避免使用會抽換整個不同畫面的頂層 `if/else` 分支。- 在重構時修正 Observation 的擁有權：在 iOS 17+ 對 root `@Observable` model 使用 `@State`，並避免使用 optional 或延遲初始化的 view model，除非 UI 真的需要那種狀態形式。- 每次抽取後，執行能證明畫面行為維持不變的最精簡有用的建置或測試檢查。交付：- 重構後的畫面與任何抽取出的 subview - 對新 subview 邊界與資料流的簡短說明 - 你刻意保留 view model 的任何位置與原因 - 你執行過、用來證明行為維持完整的驗證檢查</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="ios-swiftui-view-refactor"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#ios-swiftui-view-refactor" data-open="ios-swiftui-view-refactor">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#48</span><span class="uc__tags">Coding, Mobile</span></p>
+        <h3 class="uc__title"><a href="#react-native-expo-apps" data-open="react-native-expo-apps">用 Expo 打造 React Native app</a></h3>
+        <p class="uc__sum">用 Codex 搭配 Expo plugin 來建立 React Native app，先從 Expo Go 開始進行快速測試。</p>
+        <a class="uc__prompt" href="#react-native-expo-apps" data-open="react-native-expo-apps" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 Expo plugin 為這個構想用 Expo 打造一個 React Native app：[描述 app 構想、目標使用者與主要工作流程]。需求：- 從 Expo Router 與 Expo 原生的專案慣例開始。- 在建立自訂 build 之前，先嘗試 `npx expo start` 與 Expo Go。- 安裝 Expo 套件時使用 `npx expo install`，讓相依套件維持相容。- 在導覽、表單、清單、空狀態與載入狀態上使用類原生的 UI 模式。交付：- 可運作的 app 片段 - 執行指令 - 你所使用的驗證路徑，包含 Expo Go、裝置、模擬器、dev client 或 EAS</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="react-native-expo-apps"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#react-native-expo-apps" data-open="react-native-expo-apps">完整說明</a>
+        </div>
+      </article></div>
+      </section>
+      <section class="group" id="cat-data" style="--cat:var(--c-data)" aria-labelledby="h-data">
+        <header class="group__head">
+          <h2 id="h-data"><span class="sw sw--lg" aria-hidden="true"></span>資料與分析</h2>
+          <span class="group__n">3 個情境</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#06</span><span class="uc__tags">Data Knowledge Work, Productivity</span></p>
+        <h3 class="uc__title"><a href="#clean-messy-data" data-open="clean-messy-data">清理並整理凌亂的資料</a></h3>
+        <p class="uc__sum">拖入凌亂的 CSV、描述問題，就能取得清理後的副本，同時保留原始檔案不變。</p>
+        <a class="uc__prompt" href="#clean-messy-data" data-open="clean-messy-data" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>清理 @marketplace-risk-rollout-export.csv。問題在於：- 日期混用了 MM/DD/YYYY 與 YYYY-MM-DD - 幣值欄位含有 $、逗號與空白儲存格 - 因重複匯出而出現幾筆重複的客戶資料列 - region 與 category 名稱使用了多種別名 - 資料中夾雜了貼上的摘要列。我想要的是：- 寫出一份清理過的 CSV - 保持原始檔案不變 - 統一使用一種日期格式 - 空白的幣值儲存格維持空白 - 盡可能保留 source row ID - 附上一段簡短的資料品質說明，列出你更動、移除，或無法有把握清理的資料列</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="clean-messy-data"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#clean-messy-data" data-open="clean-messy-data">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#07</span><span class="uc__tags">Data Knowledge Work, Productivity</span></p>
+        <h3 class="uc__title"><a href="#analyze-data-export" data-open="analyze-data-export">查詢表格資料</a></h3>
+        <p class="uc__sum">針對 CSV 或匯出檔提問，取得計算結果、圖表與瀏覽器視覺化呈現。</p>
+        <a class="uc__prompt" href="#analyze-data-export" data-open="analyze-data-export" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>分析 @sales-export.csv
+
+問題：上一季哪個 customer segment 的變化最大？
+
+請：
+- 在分析前先檢視欄位
+- 根據資料回答問題
+- 製作一個簡單的瀏覽器視覺化 HTML 檔案
+- 啟動本地預覽，讓我可以在 Codex 瀏覽器中開啟</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="analyze-data-export"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#analyze-data-export" data-open="analyze-data-export">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#22</span><span class="uc__tags">Knowledge Work</span></p>
+        <h3 class="uc__title"><a href="#datasets-and-reports" data-open="datasets-and-reports">分析資料集並交付報告</a></h3>
+        <p class="uc__sum">把雜亂的資料經過清理、合併、探索與建模，產出可重複使用、可審查的分析成果。</p>
+        <a class="uc__prompt" href="#datasets-and-reports" data-open="datasets-and-reports" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>我正在這個工作區進行一個資料分析專案。目標：釐清靠近高速公路的房屋是否房地產估值較低。請從以下開始：閱讀 `AGENTS.md` 並說明建議的 Python 環境；載入位於 [資料集路徑] 的資料集；描述每個檔案的內容、可能的 join 鍵，以及明顯的資料品質問題；提出一套可重現的工作流程，從匯入與整理，到視覺化、建模與報告輸出。限制：偏好腳本與已儲存的成果，而非一次性的 notebook 狀態；不要捏造缺漏值或合併鍵；建議任何能讓工作流程更可重現的技能或 worktree 拆分。產出：設定計畫、資料清單、分析計畫，以及要建立的第一批指令或檔案。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="datasets-and-reports"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#datasets-and-reports" data-open="datasets-and-reports">完整說明</a>
+        </div>
+      </article></div>
+      </section>
+      <section class="group" id="cat-knowledge" style="--cat:var(--c-knowledge)" aria-labelledby="h-knowledge">
+        <header class="group__head">
+          <h2 id="h-knowledge"><span class="sw sw--lg" aria-hidden="true"></span>知識工作</h2>
+          <span class="group__n">7 個情境</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#05</span><span class="uc__tags">Data Knowledge Work, Integrations, Productivity</span></p>
+        <h3 class="uc__title"><a href="#feedback-synthesis" data-open="feedback-synthesis">把回饋轉化為行動</a></h3>
+        <p class="uc__sum">把來自多個來源的回饋彙整成一份可審閱的試算表、文件或更新報告。</p>
+        <a class="uc__prompt" href="#feedback-synthesis" data-open="feedback-synthesis" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>可以把 [功能或產品領域] 的 beta 回饋彙整成一份 @google-sheets 審閱試算表嗎？請使用這些來源：- @slack [回饋頻道或討論串連結] - @github [issue 搜尋或 issue 連結] - @google-drive [問卷匯出檔、筆記文件或 Drive 資料夾]。在試算表中，把重複的回饋分組、附上來源連結或 ID、標註信心程度，並指出哪些項目需要 product 或 engineering 跟進。除非經我核准，否則不要把姓名與私人引述放進可見的摘要中。不要張貼、寄送、建立 issue 或指派負責人。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="feedback-synthesis"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#feedback-synthesis" data-open="feedback-synthesis">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#13</span><span class="uc__tags">Slides, Automation</span></p>
+        <h3 class="uc__title"><a href="#generate-slide-decks" data-open="generate-slide-decks">產生簡報投影片</a></h3>
+        <p class="uc__sum">操作 PowerPoint 檔案並運用圖片生成，自動化建立簡報投影片。</p>
+        <a class="uc__prompt" href="#generate-slide-decks" data-open="generate-slide-decks" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 $slides 與 $imagegen skills，依下列方式編輯這份簡報：- 若存在 logo.png，將其加到每張投影片的右下角 - 在第 X、Y、Z 張投影片，把文字移到左側，並用圖片生成在右側產生一張插圖（風格：abstract, digital art）- 在可行的情況下，把文字保留為文字、把簡單圖表保留為原生的 PowerPoint 圖表。- 新增這些投影片：[describe new slides here] - 在新投影片與新文字上沿用既有品牌風格（顏色、字體、版面等）- 把更新後的簡報渲染成投影片圖片、檢視輸出，並在交付前修正版面問題。- 交付前執行內容溢出與字體替換檢查，尤其當簡報內容密集時。- 當你建立一批相關圖片時，儲存可重複使用的 prompt 或生成筆記。輸出：- 一份套用變更後的簡報副本 - 說明哪些投影片是生成、改寫或維持不變的筆記</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="generate-slide-decks"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#generate-slide-decks" data-open="generate-slide-decks">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#17</span><span class="uc__tags">Knowledge Work</span></p>
+        <h3 class="uc__title"><a href="#learn-a-new-concept" data-open="learn-a-new-concept">學習新概念</a></h3>
+        <p class="uc__sum">運用 Codex 子代理消化艱澀的研究論文或課程，產出結構化的 Markdown 學習報告。</p>
+        <a class="uc__prompt" href="#learn-a-new-concept" data-open="learn-a-new-concept" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>我想從這篇研究論文學習一個新概念：[論文路徑或網址]。請以子代理工作流程執行： - 派出一個子代理梳理論文的問題陳述、貢獻、方法、實驗與限制。 - 派出一個子代理蒐集先備脈絡，並解釋我需要的背景術語。 - 派出一個子代理檢視圖、表、符號，以及任何需要審慎驗證的論點。 - 等待所有子代理完成，調和歧異，並避免超出原始素材的過度宣稱。最終產出： - 建立 `notes/[concept-name]-report.md` - 包含摘要、詞彙表、論文逐節解析、概念圖、方法圖、證據表、注意事項與待解問題 - 在圖表有助於理解處使用 Markdown 原生的 Mermaid 圖 - 當 Markdown 原生圖表不足時，使用 imagegen 產出示意而非精確的視覺素材 - 盡可能引用論文的章節、頁碼、圖或表 限制： - 若證據薄弱，不要將論文視為絕對事實 - 區分論文宣稱的內容與你的詮釋 - 點出缺漏的背景、假設與後續延伸閱讀</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="learn-a-new-concept"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#learn-a-new-concept" data-open="learn-a-new-concept">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#28</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#update-documentation" data-open="update-documentation">讓文件保持最新</a></h3>
+        <p class="uc__sum">運用 Codex 比對程式碼變更與文件，於發布前草擬聚焦且經驗證的文件更新。</p>
+        <a class="uc__prompt" href="#update-documentation" data-open="update-documentation" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>請根據以下來源更新〔產品／功能〕文件：〔本 repo／所連結的原始碼 repo〕中變更的原始檔、提及新行為的既有文件頁面，以及任何連結的 issue、PR、發布說明或公開參考資料。接著：辨識面向使用者的變更、只更新必要的文件、排除尚未發布的 roadmap 與私有細節、保留既有結構與交叉連結、執行適用的文件檢查。在定稿前，總結變更了什麼、你驗證了什麼，以及任何尚未獲證實的說法。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="update-documentation"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#update-documentation" data-open="update-documentation">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#37</span><span class="uc__tags">Productivity, Knowledge</span></p>
+        <h3 class="uc__title"><a href="#meeting-prep-briefs" data-open="meeting-prep-briefs">準備會議簡報</a></h3>
+        <p class="uc__sum">用 Codex 搭配 Calendar、Drive、Slack 與 Gmail，把會議脈絡轉化為議程與筆記計畫。</p>
+        <a class="uc__prompt" href="#meeting-prep-briefs" data-open="meeting-prep-briefs" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>請協助我準備 [date] 的 [meeting]。只使用以下來源：- 行事曆事件：[事件名稱或日期範圍] - 文件或筆記：[連結或名稱] - Slack 頻道或討論串：[選填] - Gmail 討論串或寄件者：[選填] 首先，盤點你能存取的來源，並指出任何來源缺口。回傳：- 會議目標 - 與會者脈絡 - 有來源佐證的關鍵事實 - 可能的議程 - 待解問題 - 我可能該負責的決議或後續事項 - 建議用於此會議的筆記範本 將沒有來源佐證的論斷放在獨立的來源缺口區段中。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="meeting-prep-briefs"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#meeting-prep-briefs" data-open="meeting-prep-briefs">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#41</span><span class="uc__tags">Knowledge Work, Product</span></p>
+        <h3 class="uc__title"><a href="#draft-prds-from-sources" data-open="draft-prds-from-sources">從內部脈絡草擬 PRD</a></h3>
+        <p class="uc__sum">運用 Codex 與已連接的應用程式，將規劃脈絡整合成可審閱、附來源引用的 PRD。</p>
+        <a class="uc__prompt" href="#draft-prds-from-sources" data-open="draft-prds-from-sources" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 $documents 從 @linear [專案或里程碑]、@slack [頻道或討論串]，以及 @google-drive 或 @notion [規劃文件、研究筆記、會議記錄或來源資料夾] 為 [功能或產品領域] 建立一份 PRD。內容應包含問題、使用者、目標／非目標、需求、UX、技術考量、指標、上市計畫、風險、待解問題、決策、時程與來源附錄。為需求層級的主張標註來源出處。若來源之間有衝突，請明確指出衝突而非自行靜默取捨。僅做草稿。在我核准之前，不要發布、更新 Linear 或分享這份文件。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="draft-prds-from-sources"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#draft-prds-from-sources" data-open="draft-prds-from-sources">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#52</span><span class="uc__tags">Productivity, Sales</span></p>
+        <h3 class="uc__title"><a href="#zoom-meeting-follow-ups" data-open="zoom-meeting-follow-ups">把會議轉化為後續行動</a></h3>
+        <p class="uc__sum">將 Zoom 逐字稿與摘要轉成客戶郵件、account plan、CRM 更新與團隊通知。</p>
+        <a class="uc__prompt" href="#zoom-meeting-follow-ups" data-open="zoom-meeting-follow-ups" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用我最近一次與 [customer or account] 的 Zoom 會議。取回 Zoom 逐字稿與 AI Companion 摘要。在草擬前，先列出任何你無法存取的內容。彙整關鍵重點、決定、風險、機會與行動項目。接著草擬：- 一封客戶後續郵件 - 一份 Google Docs account plan - 一則 CRM 更新，包含筆記、風險、下一步與負責人 - 一則發給 [team/channel/person] 的 Slack 訊息，含最重要的細節 盡可能引用逐字稿中的證據。標記任何不確定之處，並將僅供內部的細節排除在客戶草稿之外。在我逐一審查並核准每個動作之前，不要發送郵件、張貼 Slack 訊息、建立文件、更新 CRM 紀錄、指派負責人或揭露私密資料。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="zoom-meeting-follow-ups"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#zoom-meeting-follow-ups" data-open="zoom-meeting-follow-ups">完整說明</a>
+        </div>
+      </article></div>
+      </section>
+      <section class="group" id="cat-quality" style="--cat:var(--c-quality)" aria-labelledby="h-quality">
+        <header class="group__head">
+          <h2 id="h-quality"><span class="sw sw--lg" aria-hidden="true"></span>品質與測試</h2>
+          <span class="group__n">5 個情境</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#08</span><span class="uc__tags">Coding, Integrations, Code Review</span></p>
+        <h3 class="uc__title"><a href="#github-code-reviews" data-open="github-code-reviews">審查 GitHub pull request</a></h3>
+        <p class="uc__sum">讓 Codex 在每個 PR 上自動找出回歸、缺漏的測試與文件問題。</p>
+        <a class="uc__prompt" href="#github-code-reviews" data-open="github-code-reviews" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>@codex review for security regressions, missing tests, and risky behavior changes.</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="github-code-reviews"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#github-code-reviews" data-open="github-code-reviews">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#12</span><span class="uc__tags">Automation, Bug Triage</span></p>
+        <h3 class="uc__title"><a href="#automation-bug-triage" data-open="automation-bug-triage">自動化錯誤分類</a></h3>
+        <p class="uc__sum">把每日的錯誤回報整理成優先順序清單，再排程自動化的分類掃描。</p>
+        <a class="uc__prompt" href="#automation-bug-triage" data-open="automation-bug-triage" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>為 [repo/service/team] 執行一次錯誤分類掃描，涵蓋最近的 [time window]。使用這些 plugin：[@Sentry / @Slack / @Linear / @GitHub / none] 輸入來源：- Sentry：[project / alert link / none] - Slack：[channel / thread links / none] - Linear：[team / project / view / issue query / none] - GitHub：[repo / issue query / PR checks / none] - Other：[logs / support tickets / deploy link / dashboard / attached file / none] 輸出格式：首先，列出任何你無法存取的輸入來源。接著回傳一份依 P0 到 P3 排序的優先順序錯誤清單。若未找到錯誤，請說：No qualifying bugs found。每個錯誤請包含：- Priority：P0、P1、P2 或 P3 - Title - Evidence（連結或簡短引用）- Recommended next action 規則：- 不要張貼、建立、指派、加標籤、關閉、重跑或編輯任何東西。- 將重複回報合併為同一個錯誤。- 將觀察到的證據與臆測分開。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="automation-bug-triage"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#automation-bug-triage" data-open="automation-bug-triage">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#21</span><span class="uc__tags">Engineering</span></p>
+        <h3 class="uc__title"><a href="#qa-your-app-with-computer-use" data-open="qa-your-app-with-computer-use">用 Computer Use 為你的應用程式做 QA</a></h3>
+        <p class="uc__sum">運用 Computer Use 操作關鍵產品流程、找出問題，並產出結構化、可直接分流的錯誤報告。</p>
+        <a class="uc__prompt" href="#qa-your-app-with-computer-use" data-open="qa-your-app-with-computer-use" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>@Computer 在 [環境] 中測試我的應用程式。測試這些流程： - [核心使用情境 1] - [核心使用情境 2] - [核心使用情境 3] 對於你找到的每個錯誤，請包含： - 重現步驟 - 預期結果 - 實際結果 - 嚴重度 遇到非阻斷性問題請繼續進行，最後以一段簡短的分流摘要作結。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="qa-your-app-with-computer-use"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#qa-your-app-with-computer-use" data-open="qa-your-app-with-computer-use">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#36</span><span class="uc__tags">Security, DevOps</span></p>
+        <h3 class="uc__title"><a href="#dependency-incident-audits" data-open="dependency-incident-audits">稽核相依套件事件</a></h3>
+        <p class="uc__sum">用 Codex 把公開的套件安全公告轉化為安全、唯讀的儲存庫暴露稽核。</p>
+        <a class="uc__prompt" href="#dependency-incident-audits" data-open="dependency-incident-audits" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>請協助我稽核這個儲存庫是否暴露於這則公開套件安全公告：[advisory URL]。除非我明確核准修補步驟，否則維持唯讀。首先，摘要：受影響的套件與版本範圍；權威來源相對於較廣泛的報導；什麼證據能證明暴露；什麼證據能排除暴露。接著檢查：套件 manifest 與 lock 檔；CI workflow 與權限；install、build 與 postinstall 指令稿；相關的 vendored 產物、容器或產生的 bundle；快取或 token 暴露路徑。回傳：證據狀態（已確認暴露、需要驗證或已排除）；嚴重程度與影響範圍註記；每個與該儲存庫相關論斷的檔案參照；注意事項與建議的後續步驟。除非明確核准，否則不要安裝套件、執行生命週期指令稿、建置專案、執行不受信任的程式碼、輪替憑證或清理檔案。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="dependency-incident-audits"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#dependency-incident-audits" data-open="dependency-incident-audits">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#45</span><span class="uc__tags">Coding, Evaluation</span></p>
+        <h3 class="uc__title"><a href="#ai-app-evals" data-open="ai-app-evals">為你的 AI 應用程式加入 eval</a></h3>
+        <p class="uc__sum">用 Codex 將預期的應用程式行為轉換成可執行的 Promptfoo eval 套件，在合併前建立回歸測試。</p>
+        <a class="uc__prompt" href="#ai-app-evals" data-open="ai-app-evals" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 $promptfoo-evals 為這個 AI 應用程式加入一套 Promptfoo eval 套件。若尚未有可運作的 Promptfoo provider 或目標 adapter，請先使用 $promptfoo-provider-setup。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="ai-app-evals"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#ai-app-evals" data-open="ai-app-evals">完整說明</a>
+        </div>
+      </article></div>
+      </section>
+      <section class="group" id="cat-finance" style="--cat:var(--c-finance)" aria-labelledby="h-finance">
+        <header class="group__head">
+          <h2 id="h-finance"><span class="sw sw--lg" aria-hidden="true"></span>財務</h2>
+          <span class="group__n">3 個情境</span>
+        </header>
+        <div class="ucs">
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#42</span><span class="uc__tags">Knowledge Work, Finance</span></p>
+        <h3 class="uc__title"><a href="#cash-flow-forecast" data-open="cash-flow-forecast">預測現金流</a></h3>
+        <p class="uc__sum">用 Codex 建立可編輯的現金流預測活頁簿，找出流動性壓力點並標示安全餘額被突破的情況。</p>
+        <a class="uc__prompt" href="#cash-flow-forecast" data-open="cash-flow-forecast" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 $spreadsheets 從附上的來源檔案建立一份可編輯的現金流預測活頁簿。在有資料的情況下，使用期初現金、預期收款、薪資、廠商付款、債務、稅金、資本支出、營運資金項目與時間點假設。保留來源的節奏，無論是每週或每月。納入一個摘要檢視，標示流動性低點、最低期末現金餘額，以及任何突破安全現金門檻的情況。使用公式以便我之後能更改假設，並在使用佔位數值前先指出缺漏的時間點假設。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="cash-flow-forecast"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#cash-flow-forecast" data-open="cash-flow-forecast">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#43</span><span class="uc__tags">Knowledge Work, Finance</span></p>
+        <h3 class="uc__title"><a href="#dcf-model" data-open="dcf-model">建立 DCF 估值模型</a></h3>
+        <p class="uc__sum">將歷史財務數據與假設轉換成可在 Codex 中檢視與修改的可編輯 DCF 估值活頁簿。</p>
+        <a class="uc__prompt" href="#dcf-model" data-open="dcf-model" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 $spreadsheets 為附上的來源檔案中的公司建立一份 DCF 活頁簿。納入營收成長、利潤率、資本支出與營運資金的明確營運驅動因子。計算無槓桿自由現金流（UFCF）、WACC、終值與企業價值。若有提供資本結構與稀釋後股數，請推導出隱含股權價值與每股隱含股權價值。使用來源檔案中所含的任何假設。若某項假設缺漏，請在假設分頁中加入清楚標示的佔位項，而不要把它藏在公式裡。若完整的資產負債表或現金流量表輸入項缺漏，請建立計算 UFCF 所需的營運預測，並標示缺漏的報表輸入項。將結果產出為可編輯的 .xlsx 活頁簿。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="dcf-model"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#dcf-model" data-open="dcf-model">完整說明</a>
+        </div>
+      </article>
+      <article class="uc">
+        <p class="uc__meta"><span class="uc__num">#44</span><span class="uc__tags">Knowledge Work, Finance</span></p>
+        <h3 class="uc__title"><a href="#budget-vs-actuals-review" data-open="budget-vs-actuals-review">檢視預算與實際對比</a></h3>
+        <p class="uc__sum">將預算計畫、實際數匯出與結帳筆記轉換成差異分析活頁簿，對應分類並標示對帳缺口。</p>
+        <a class="uc__prompt" href="#budget-vs-actuals-review" data-open="budget-vs-actuals-review" tabindex="-1" aria-hidden="true"><span class="uc__ptext"><span class="uc__caret">›</span>使用 $spreadsheets 從附上的檔案更新預算與實際對比的檢視。將實際數與計畫做比較，把實際數對應到正確的預算分類，摘要主要差異，並準備一份乾淨的檢視畫面，產出為可編輯的 .xlsx 活頁簿。保留原始輸入資料，使用公式計算金額與百分比差異，並標示無法乾淨對應的分類，而不要硬湊配對。</span></a>
+        <div class="uc__act">
+          <button class="btn btn--line needs-js" type="button" data-copy="budget-vs-actuals-review"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"></path></svg><span>複製 prompt</span></button>
+          <a class="btn btn--text" href="#budget-vs-actuals-review" data-open="budget-vs-actuals-review">完整說明</a>
+        </div>
+      </article></div>
+      </section></main>
+  </div>
+
+  <footer class="foot">
+    <div class="foot__in wrap">
+      <p class="foot__credit" data-i18n-html="footer">內容整理自 <a href="https://developers.openai.com/codex/use-cases" target="_blank" rel="noopener">OpenAI Codex Use Cases</a>。本頁為非官方的中英對照學習用整理。</p>
+      <nav class="foot__links">
+        <a href="/en/" hreflang="en" lang="en" rel="alternate" data-i18n="altLang">English version</a>
+        <a href="https://www.peteraim.com" target="_blank" rel="noopener" data-i18n="home">回到 peteraim.com</a>
+        <a href="https://www.linkedin.com/in/ai-med/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/tingwei161803/codex-use-cases" target="_blank" rel="noopener">GitHub</a>
+      </nav>
     </div>
   </footer>
 
-  <!-- Detail dialog -->
-  <div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-labelledby="dlg-title" hidden>
-    <div class="dialog" id="dialog"></div>
+  <div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-labelledby="dlg-title" hidden="">
+    <div class="dlg" id="dialog"></div>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="data/use-cases.js"></script>
   <script src="assets/app.js"></script>
-<p class="lang-alt-link" style="text-align:center;padding:12px;"><a href="/en/" hreflang="en" rel="alternate" lang="en">English version</a></p>
 </body>
 </html>
